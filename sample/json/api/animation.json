@@ -1,0 +1,1 @@
+[{"type":"class","inherit":null,"constructor":null,"fields":[],"functions":[{"type":"function","params":[{"type":"param","datatype":"Element","name":"ele","description":" true 元素"}],"return":null,"name":"setElement","description":"为一个元素设置动画"}],"name":"Animation","description":"动画基础类"}]

@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+
+    <link href="css/web.css" rel="stylesheet" />
+    <script src="js/jquery-3.2.0.min.js"></script>
+    <script src="../script/lion.js"></script>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <script>
+        $(document).ready(function () {
+            change("intro");
+        })
+
+        function change(tag) {
+            let url = "doc/" + tag+".html";
+            $.ajax({
+                url: url,
+                type: "get",
+
+                success: function (data) {
+                    $('#doc').html(data);
+                }
+            });
+
+        }
+    </script>
+    <div id="container">
+
+        <div class="left">
+            <ul id="menu" class="menu">
+                <li onclick="change('intro')">什么是LionJs</li>
+                <li onclick="change('helloworld')">HelloWorld</li>
+                <li onclick="change('notice')">注意事项</li>
+                <li onclick="change('contact')">联系我</li>
+            </ul>
+        </div>
+        <div class="right" id="doc">
+        </div>
+    </div>
+
+</body>
+</html>

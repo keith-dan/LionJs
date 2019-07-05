@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+       
+
+        .left {
+            position: absolute;
+            left: 0;
+            width: 200px;
+            top: 0;
+            bottom: 0;
+        }
+        .left ul{list-style:none;padding:10px;}
+        .left ul li {float:left;padding:5px;cursor:grab}
+        .left ul li:hover {background:#d3d3d3}
+
+        .right {
+            position: absolute;
+            left: 200px;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+        .cm{position: absolute;z-index:1000;list-style:none;}
+        .cm li{padding:3px 15px;}
+        .cm li:hover{background:#d3d3d3}
+
+        
+    </style>
+    <script src="js/jquery-3.2.0.min.js"></script>
+
+</head>
+<body>
+    <script>
+        var toolbox = [{
+            category: "图片",
+            items: [
+            {
+                name: "101",
+                type: "pic",
+                image: "res/topo/101.png"
+            },
+            {
+                name: "102",
+                type: "pic",
+                image: "res/topo/102.png"
+            },
+            {
+                name: "103",
+                type: "pic",
+                image: "res/topo/103.png"
+            },
+            {
+                name: "104",
+                type: "pic",
+                image: "res/topo/104.png"
+            },
+            {
+                name: "105",
+                type: "pic",
+                image: "res/topo/105.png"
+            },
+            {
+                name: "106",
+                type: "pic",
+                image: "res/topo/106.png"
+            },
+            {
+                name: "107",
+                type: "pic",
+                image: "res/topo/107.png"
+            },
+            {
+                name: "108",
+                type: "pic",
+                image: "res/topo/108.png"
+            },
+            {
+                name: "109",
+                type: "pic",
+                image: "res/topo/109.png"
+            }
+            ]
+        }];
+        var topomenus = {
+           pic: [
+                {
+                    name: "编辑",
+                    id:"edit"
+                },
+                {
+                    name: "添加连线",
+                    id: "link"
+                },
+                {
+                    name: "添加折线",
+                    id: "rlink"
+                }
+
+            ]
+        };
+        function findItem(name) {
+            for (let i = 0; i < toolbox.length; i++) {
+                for (let j = 0; j < toolbox[i].items.length; j++) {
+                    if (toolbox[i].items[j].name == name) return toolbox[i].items[j];
+                }
+            }
+        }
+
+        $(document).ready(function () {
+            for (let i = 0; i < toolbox.length; i++) {
+                $("#toolbox").append("<h3>" + toolbox[i].category + "</h3>");
+                let ul = $("<ul>");//$("#toolbox").append("<ul>");
+                for (let j = 0; j < toolbox[i].items.length; j++) {
+                    ul.append("<li><img class='icon_item' name='" + toolbox[i].items[j].name + "' src='" + toolbox[i].items[j].image + "' width='50' height='50'></li>");
+                }
+
+                $("#toolbox").append(ul);
+            }
+
+
+
+
+
+            var dragimg;
+            var dragStartPos = {};
+            $('.icon_item').on("mousedown", function (e) {
+                if (e.preventDefault) {
+                    e.preventDefault();
+                }
+                else {
+                    window.event.returnValue = false;
+                }
+                dragimg = findItem(this.name);
+                dragStartPos.x = e.clientX;
+                dragStartPos.y = e.clientY;
+            });
+
+            $(document).on("mousemove", function (e) {
+                if (Math.abs(dragStartPos.x - e.clientX) > 0 && Math.abs(dragStartPos.y - e.clientY) > 0) {
+                    if (dragimg) {
+                        $('#editor_box').css('display', '');
+                        $('#editor_box').offset({ top: e.clientY + 5, left: e.clientX + 5 });
+
+                    }
+                }
+
+            });
+
+            $(document).on("mouseup", function (e) {
+
+                if (dragimg) {
+                    $('#editor_box').css('display', 'none');
+                    var x = e.clientX - $('#topo').offset().left;
+                    var y = e.clientY - $('#topo').offset().top;
+                    if (x > 0 && y > 0) {
+                        mytopo.addNode(dragimg,x,y);
+                        console.log(dragimg);
+                    }
+                    dragimg = null;
+                }
+
+            });
+
+            var mytopo = new Topo("topo");
+
+        });
+
+
+        
+
+    </script>
+    <div id="editor_box" style="width:48px;height:48px;border:1px solid #333333;position: absolute;display:none;z-index:1000;"></div>
+    <ul id="contextmenu" class="cm" style="display:none;" ></ul>
+    <div id="container">
+        <div class="left" id="toolbox">
+            
+        </div>
+        <div class="right" id="topo">
+        </div>
+    </div>
+
+    <script src="../script/lion.js"></script>
+    <script src="../script/lion.topo.js"></script>
+</body>
+</html>

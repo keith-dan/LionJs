@@ -1,0 +1,1 @@
+[{"type":"class","inherit":"RectElement","constructor":null,"fields":[{"type":"field","datatype":"bool","name":"autoSize","description":"是否根据文本自动控制大小"}],"functions":[],"name":"TextElement","description":"文本标签元素"}]

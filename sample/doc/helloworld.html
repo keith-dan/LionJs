@@ -1,0 +1,43 @@
+﻿
+<div>
+    <div class="h3">Hello World</div>
+    <div>
+        <p>第一次使用，我们来看看最简单的操作步骤吧。</p>
+        <p>第一步，实例化场景</p>
+        <p>第二步，实例化需要展示的元素</p>
+        <p>第三步，设置元素的相关属性</p>
+        <p>第四步，添加到当前场景中</p>
+        <p>哈哈，就是这么简单，更多功能等待您的发现...</p>
+    </div>
+    <div>
+        <pre style="width:100%;height:240px;">
+        var stage = new lion.Stage('mycanvas'); //实例化舞台
+        var ele = new lion.RectElement(); //实例化矩形元素
+        ele.backgroundColor = "blue";  //设置背景色
+        ele.text = "hello world!";  //设置文本
+        ele.shadow = 'gray'; //设置阴影
+        ele.x = 100;  //设置x坐标
+        ele.y = 100;  //设置y坐标
+        ele.width = 100; //设置宽度
+        ele.height = 100;  //设置高度
+        ele.align = lion.Align.TopRight;  //设置文本对齐方式
+        stage.currentScene.addElement(ele);  //添加到当前场景中
+        </pre>
+    </div>
+
+    <div id="mycanvas" style="width:300px;height:300px"></div>
+    <script>
+        var stage = new lion.Stage('mycanvas'); //实例化舞台
+        var ele = new lion.RectElement(); //实例化矩形元素
+        ele.backgroundColor = "blue";  //设置背景色
+        ele.text = "hello world!";  //设置文本
+        ele.shadow = 'gray'; //设置阴影
+        ele.x = 100;  //设置x坐标
+        ele.y = 100;  //设置y坐标
+        ele.width = 100; //设置宽度
+        ele.height = 100;  //设置高度
+        ele.align = lion.Align.TopRight;  //设置文本对齐方式
+        stage.currentScene.addElement(ele);  //添加到当前场景中
+
+    </script>
+</div>

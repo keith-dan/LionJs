@@ -1,0 +1,218 @@
+﻿[
+  {
+    "name": "全局",
+    "state": "api.class",
+    "params": { "tag": "global" }
+  },
+  {
+    "name": "枚举",
+    "state": "api.enum",
+    "params": { "tag": "enum" }
+  },
+  {
+    "name": "帮助类",
+    "state": "api.class",
+    "params": { "tag": "util" }
+  },
+  {
+    "name": "基本元素",
+    "state": "api.class",
+    "children": [
+      {
+        "name": "舞台",
+        "state": "api.class",
+        "params": { "tag": "stage" }
+      },
+      {
+        "name": "场景",
+        "state": "api.class",
+        "params": { "tag": "scene" }
+      },
+      {
+        "name": "层",
+        "state": "api.class",
+        "params": { "tag": "layer" }
+      },
+      {
+        "name": "矩形元素RectElement",
+        "state": "api.class",
+        "params": { "tag": "rectelement" }
+      },
+      {
+        "name": "圆形元素CircleElement",
+        "state": "api.class",
+        "params": { "tag": "circleelement" }
+      }
+
+    ]
+  },
+  {
+    "name": "线性元素",
+    "state": "api.class",
+    "children": [
+      {
+        "name": "直线元素LineElement",
+        "state": "api.class",
+        "params": { "tag": "lineelement" }
+      },
+      {
+        "name": "连线元素LinkElement",
+        "state": "api.class",
+        "params": { "tag": "linkelement" }
+      },
+      {
+        "name": "直角连线元素RAngleLinkElement",
+        "state": "api.class",
+        "params": { "tag": "ranglelinkelement" }
+      },
+      {
+        "name": "曲线连线元素CurveLinkElement",
+        "state": "api.class",
+        "params": { "tag": "curvelinkelement" }
+      }
+
+    ]
+  },
+  {
+    "name": "动画",
+    "state": "api.class",
+    "children": [
+      {
+        "name": "单步动画StepAnimation",
+        "state": "api.class",
+        "params": { "tag": "stepanimation" }
+      },
+      {
+        "name": "路径动画PathAnimation",
+        "state": "api.class",
+        "params": { "tag": "pathanimation" }
+      },
+      {
+        "name": "帧动画FrameAnimation",
+        "state": "api.class",
+        "params": { "tag": "frameanimation" }
+      }
+
+    ]
+  },
+  {
+    "name": "布局",
+    "state": "api.class",
+    "params": { "tag": "layout" }
+  },
+
+  {
+    "name": "继承关系",
+    "state": "api.class",
+    "children": [
+      {
+        "name": "Element",
+        "state": "api.class",
+        "params": { "tag": "element" },
+        "children": [
+          {
+            "name": "几何元素GeoElement",
+            "state": "api.class",
+            "params": { "tag": "geoelement" },
+            "children": [
+              {
+                "name": "BaseTextElement",
+                "state": "api.class",
+                "params": { "tag": "basetextelement" },
+                "children": [
+                  {
+                    "name": "NodeElement",
+                    "state": "api.class",
+                    "params": { "tag": "nodeelement" },
+                    "children": [
+                      {
+                        "name": "矩形元素RectElement",
+                        "state": "api.class",
+                        "params": { "tag": "rectelement" },
+                        "children": [
+                          {
+                            "name": "复合元素MixElement",
+                            "state": "api.class",
+                            "params": { "tag": "mixelement" }
+                          },
+                          {
+                            "name": "文本标签元素TextElement",
+                            "state": "api.class",
+                            "params": { "tag": "textelement" }
+                          }
+                        ]
+                      },
+                      {
+                        "name": "圆形元素CircleElement",
+                        "state": "api.class",
+                        "params": { "tag": "circleelement" }
+                      },
+                      {
+                        "name": "多边形元素PolygonElement",
+                        "state": "api.class",
+                        "params": { "tag": "polygonelement" }
+                      },
+                      {
+                        "name": "直线元素LineElement",
+                        "state": "api.class",
+                        "params": { "tag": "lineelement" },
+                        "children": [
+                          {
+                            "name": "连线元素LinkElement",
+                            "state": "api.class",
+                            "params": { "tag": "linkelement" },
+                            "children": [
+                              {
+                                "name": "直角连线元素RAngleLinkElement",
+                                "state": "api.class",
+                                "params": { "tag": "ranglelinkelement" }
+                              },
+                              {
+                                "name": "曲线连线元素CurveLinkElement",
+                                "state": "api.class",
+                                "params": { "tag": "curvelinkelement" }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+
+                ]
+              },
+              {
+                "name": "端点元素EndPointElement",
+                "state": "api.class",
+                "params": { "tag": "endpoint" }
+              },
+              {
+                "name": "组元素GroupElement",
+                "state": "api.class",
+                "params": { "tag": "group" }
+              }
+            ]
+
+          },
+          {
+            "name": "舞台",
+            "state": "api.class",
+            "params": { "tag": "stage" }
+          },
+          {
+            "name": "场景",
+            "state": "api.class",
+            "params": { "tag": "scene" }
+          },
+          {
+            "name": "层",
+            "state": "api.class",
+            "params": { "tag": "layer" }
+          }
+
+        ]
+      }
+
+    ]
+  }
+]

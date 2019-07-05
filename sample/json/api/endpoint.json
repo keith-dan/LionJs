@@ -1,0 +1,1 @@
+[{"type":"class","inherit":"GeoElement","constructor":null,"fields":[],"functions":[],"name":"EndPoint","description":"端点元素\\r\\n该元素为所有节点元素（NodeElement）的调节端点，一般无需设置"}]

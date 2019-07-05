@@ -1,0 +1,1 @@
+[{"type":"class","inherit":"NodeElement","constructor":null,"fields":[{"type":"field","datatype":"number","name":"radius","description":"获取或设置半径"}],"functions":[],"name":"CircleElement","description":"圆形元素"}]

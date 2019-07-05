@@ -1,0 +1,1 @@
+[{"type":"function","params":[],"return":null,"name":"setParent","description":"设置父级元素"},{"type":"field","datatype":"number","name":"width","description":"矩形的宽度"},{"type":"field","datatype":"number","name":"height","description":"矩形的高度"}]

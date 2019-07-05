@@ -1,0 +1,83 @@
+﻿[
+  {
+    "name": "基本元素",
+    "children": [
+      {
+        "name": "圆形",
+        "url": "code/circle.js"
+      },
+      {
+        "name": "矩形",
+        "url": "code/rect.js"
+      },
+      {
+        "name": "事件",
+        "url": "code/event.js"
+      },
+      {
+        "name": "节点",
+        "url": "code/node.js"
+      },
+      {
+        "name": "动画",
+        "url": "code/animation.js"
+      },
+      {
+        "name": "连线",
+        "url": "code/link.js"
+      },
+      {
+        "name": "容器",
+        "url": "code/panel.js"
+      },
+      {
+        "name": "布局方式",
+        "url": "code/layout.js"
+      }
+    ]
+  },
+  {
+    "name": "性能",
+    "state": "demo.index",
+    "children": [
+      {
+        "name": "性能测试",
+         "url": "code/performance.js"
+      },
+      {
+        "name": "动画性能",
+         "url": "code/animation-performance.js"
+      }
+    ]
+  },
+  {
+    "name": "综合实例",
+    "state": "demo.index",
+    "children": [
+
+      
+      {
+        "name": "交叉设备",
+        "url": "code/cross.js"
+      },
+
+      {
+        "name": "机房",
+        "url": "code/cabinet.js"
+      },
+      {
+        "name": "多场景",
+        "url": "code/mulscene.js"
+      },
+      {
+        "name": "动画场景",
+        "url": "code/game.js"
+      },
+      {
+        "name": "拓扑图编辑",
+        "navigate": "pop",
+        "url": "topo.html"
+      }
+    ]
+  }
+]

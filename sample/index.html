@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+    <style>
+        html,body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+                overflow:hidden;
+        }
+        .container {position:relative;width:100%;height:100%;}
+        .top {position:absolute;left:0;right:0;height:30px;background:#0094ff;color:#ffffff;line-height:30px;text-indent:20px;}
+        .top span{padding:0 10px}
+        .top a{color:#ffffff;}
+        .top a:hover{background:#a5d9ff}
+        .content {position:absolute;left:0;right:0;top:30px;bottom:0;}
+
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="top">
+            <span>Lion.js</span>
+            <span><a href="doc.html" target="mainframe">如何开始</a></span>
+            <span><a href="api.html" target="mainframe">API</a></span>
+            <span><a href="demo.html" target="mainframe">Demo</a></span>
+        </div>
+        <div class="content">
+            <iframe name="mainframe" width="100%" height="100%" frameborder="0" ></iframe>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+﻿html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.left {
+    position: absolute;
+    left: 0;
+    width: 200px;
+    top: 0px;
+    bottom: 0;
+
+}
+
+.right {
+    position: absolute;
+    left: 200px;
+    right: 0;
+    top: 0px;
+    bottom: 30px;
+    overflow:auto;
+}
+
+.toolbar {
+    position: absolute;
+    height: 30px;
+    left: 200px;
+    right: 0;
+    bottom: 0;
+    background: #0094ff;
+}
+
+    .toolbar .btn {
+        display: inline-block;
+        height: 100%;
+        line-height: 30px;
+        padding: 0 10px;
+        color: #ffffff;
+    }
+
+        .toolbar .btn:hover {
+            background: #ffffff;
+            cursor: pointer;
+            color: #000000;
+        }
+
+table {
+    border-collapse:collapse;
+    width:100%
+}
+tr {
+    border-bottom:1px dotted #808080
+}
+tr:hover {background:#d2ecff}
+td {
+    padding:5px;
+}
+.apicontent{margin:5px;}
+.l {text-align:left;}
+.c {text-align:center;}
+.r {text-align:right;}
+.pt {padding-top:10px;}
+.ztree li span{padding:5px 0}
+.ztree .node_name{font-size:16px;padding:10px 0}
+
+.menu {
+    list-style:none;
+    padding:10px 10px 0 10px;
+    margin:0;
+}
+.menu li{
+}
+
+.menu ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+.menu ul li {
+    text-indent:20px;
+    padding:5px 0;
+    cursor:pointer;
+}
+.menu ul li:hover{
+    background:#cbcbcb
+}

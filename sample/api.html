@@ -1,0 +1,251 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <link href="css/web.css" rel="stylesheet" />
+    <link href="js/zTree/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+    <script src="js/jquery-3.2.0.min.js"></script>
+    <script src="js/zTree/jquery.ztree.all.min.js"></script>
+	<meta charset="utf-8" />
+</head>
+<body>
+    <script>
+        $(document).ready(function () {
+
+            $.ajax({
+                url: "json/api-menu.json",
+                type: "get",
+                dataType: "json",
+                success: function (data) {
+
+                    var setting = {
+                        view: {
+                            showLine: false,
+                            showIcon: false,
+                            selectedMulti: false,
+                            dblClickExpand: false,
+                            //addDiyDom: addDiyDom
+                        },
+                        data: {
+                            simpleData: {
+                                enable: true
+                            }
+                        },
+                        callback: {
+                            onClick: function (e, treeid, node) {
+                                if (node.params) {
+                                    changeApi(node.state,node.params.tag);
+                                }
+                            }
+                        }
+                    };
+
+                    $.fn.zTree.init($("#tree"), setting, data);
+                }
+            });
+
+            //function addDiyDom(treeId, treeNode) {
+            //    var spaceWidth = 5;
+            //    var switchObj = $("#" + treeNode.tId + "_switch"),
+            //    icoObj = $("#" + treeNode.tId + "_ico");
+            //    switchObj.remove();
+            //    icoObj.before(switchObj);
+
+            //    if (treeNode.level > 1) {
+            //        var spaceStr = "<span style='display: inline-block;width:" + (spaceWidth * treeNode.level) + "px'></span>";
+            //        switchObj.before(spaceStr);
+            //    }
+            //}
+
+        });
+
+        function changeApi(type,api) {
+            $.ajax({
+                url: "json/api/" + api + ".json",
+                type: "get",
+                dataType: "json",
+                success: function (data) {
+                    if (type == "api.enum") {
+                        renderEnum(data);
+                    }
+                    else if (type == "api.class") {
+                        renderClass(data[0]);
+                    }
+                    console.log(data);
+                }
+            });
+        }
+
+        function renderEnum(list) {
+            $(".apicontent").empty();
+            let divenum = $("div[name='enum']").clone()[0];
+            let table = $(divenum).find("table")
+          
+            let temp = $(table).find("tr[repeat]").remove();
+            for (let i = 0; i < list.length; i++) {
+                let tr = $(temp).clone();
+                tr.find("td[bind='name']").text(list[i].name);
+                tr.find("td[bind='description']").html(formatHtml(list[i].description));
+                table.append(tr);
+            }
+
+
+            let r = $(".apicontent");
+            $(r[0]).append(divenum);
+            $(divenum).show();
+        }
+
+        function renderClass(data) {
+            $(".apicontent").empty();
+            let divenum = $("div[name='class']").clone()[0];
+
+            let header = $(divenum).find("div[name='header']");
+            header.find("span[bind='name']").text(data.name);
+            header.find("a[bind='inherit']").text(data.inherit);
+            header.find("a[bind='inherit']").on("click", function () {
+                changeApi("api.class", data.inherit)
+            });
+            $(divenum).find("div[bind='description']").html(formatHtml(data.description));
+
+            let fields = $(divenum).find("table[name='fields']");
+            let temp = $(fields).find("tr[repeat='fields']").remove();
+            for (let i = 0; i < data.fields.length; i++) {
+                let tr = $(temp).clone();
+                tr.find("td[bind='name']").text(data.fields[i].name);
+                tr.find("td[bind='datatype']").text(data.fields[i].datatype);
+                tr.find("td[bind='description']").html(formatHtml(data.fields[i].description));
+                fields.append(tr);
+            }
+
+            
+            let functions = $(divenum).find("table[name='functions']");
+            temp = $(functions).find("tr[repeat='functions']").remove();
+            let cont = temp.find("td[name='content']")
+
+            let params = cont.find("table[name='params']").remove();
+            let tempparams = $(params).find("tr[repeat='params']").remove();
+
+            for (let i = 0; i < data.functions.length; i++) {
+                let tr = $(temp).clone();
+                tr.find("*[bind='name']").text(data.functions[i].name);
+                tr.find("*[bind='return']").text(data.functions[i].return);
+                tr.find("*[bind='description']").html(formatHtml(data.functions[i].description));
+                let tdcont = tr.find("td[name='content']")
+
+
+                let tableparam = $(params).clone();
+                for (let j = 0; j < data.functions[i].params.length; j++) {
+                    let div = $(tempparams).clone();
+                    div.find("*[bind='name']").text(data.functions[i].params[j].name);
+                    div.find("*[bind='datatype']").text(data.functions[i].params[j].datatype);
+                    div.find("*[bind='description']").html(formatHtml(data.functions[i].params[j].description));
+                    tableparam.append(div);
+                    tdcont.append(tableparam);
+                }
+
+                functions.append(tr);
+            }
+
+
+
+            let r = $(".apicontent");
+            $(r[0]).append(divenum);
+            $(divenum).show();
+        }
+
+        function formatHtml(text) {
+            return text.replace(/\\r\\n/g, "<br/>");
+        }
+        
+        
+    </script>
+    <div id="container">
+
+        <div class="left" style="overflow:auto;">
+            <ul id="tree" class="ztree showIcon"></ul>
+        </div>
+        <div class="right">
+            <div class="apicontent"></div>
+        </div>
+    </div>
+
+
+
+    <div  name="enum" style="display:none">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>名称</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+            <tr repeat>
+                <td bind="name" width="200">{{x.name}}</td>
+                <td bind="description"></td>
+            </tr>
+        </table>
+
+    </div>
+    <div name="class" style="display:none" class="api">
+        <div name="header">
+            <span bind="name" class="h3 r1">{{doc.name}}</span>
+            <span class="b r1" ng-show="doc.inherit">inherit</span>
+            <a bind="inherit" href="#">{{doc.inherit}}</a>
+        </div>
+        <div bind="description" class="desc" ng-bind-html="doc.description|formatHTML"></div>
+        <hr/>
+        <table name="fields" ng-show="doc.fields.length>0" class="table table-bordered">
+            <tr>
+                <th>名称</th>
+                <th>数据类型</th>
+                <th>说明</th>
+            </tr>
+
+            <tr repeat="fields" ng-repeat='x in doc.fields'>
+                <td bind="name" width="200">{{x.name}}</td>
+                <td bind="datatype" width="200">{{x.datatype}}</td>
+                <td  bind="description"></td>
+            </tr>
+        </table>
+
+
+        <table name="functions" ng-show="doc.functions.length>0" class="pt">
+            <tr>
+                <th width="300">函数原型</th>
+                <th>说明</th>
+            </tr>
+
+            <tr repeat="functions">
+                <td bind="name">{{x.name}}</td>
+                <td name="content">
+                    <div class="desc"><span class="b r1">描述:</span><span bind="description"></span></div>
+                    <div><span class="b r1">返回值:</span><span bind="return"></span></div>
+                    
+
+                    <table name="params" ng-show="x.params.length>0">
+
+                        <tr class="row hr">
+                            <th width="200" class="c">参数</th>
+                            <th width="200" class="c">数据类型</th>
+                            <th class="c">说明</th>
+                        </tr>
+                        <tr  repeat="params" class="row hr" ng-repeat='y in x.params'>
+                            <td bind="name" class="c">{{y.name}}</td>
+                            <td bind="datatype" class="c">{{y.datatype}}</td>
+                            <td bind="description" class="l"></td>
+                        </tr>
+
+
+                    </table>
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+
+
+
+</body>
+</html>

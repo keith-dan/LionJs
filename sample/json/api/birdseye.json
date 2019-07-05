@@ -1,0 +1,1 @@
+[{"type":"class","inherit":null,"constructor":null,"fields":[{"type":"field","datatype":"Rect","name":"rect","description":"获取鸟瞰图呈现的矩形区域"},{"type":"field","datatype":"Rect[]","name":"rectChildren","description":"获取鸟瞰图下显示的元素（元素均以矩形描述）"}],"functions":[],"name":"BirdsEye","description":"鸟瞰视图\\r\\n在舞台指定位置以缩略图形式展示整个场景信息\\r\\n在鸟瞰图上不显示Line及其子类对象，其他元素将忽略其特性，均以相应缩放的矩形代表呈现"}]
