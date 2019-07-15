@@ -1,4 +1,4 @@
-﻿
+﻿/// <reference path="/script/lion.js"/>
 
 var panel = new lion.MixElement();
         panel.backgroundColor = 'gray'
@@ -16,7 +16,12 @@ var panel = new lion.MixElement();
             ele.y = 100;
             ele.width = 100;
             ele.height = 100;
-  
+            ele.onHover(function () {
+                console.log("hover");
+            });
+            ele.onLeave(function () {
+                console.log("leave");
+            });
             ele.align = lion.Align.TopRight;
             panel.add(ele);
 

@@ -1,4 +1,4 @@
-﻿
+﻿//debugger;
 
     var dataitems =
    [
@@ -610,6 +610,8 @@
 
 
         stage.currentScene.onMouseUp(function (e, ele) {
+            //debugger;
+            lion.Layout.center(stage.currentScene.layers.action.elements, stage.currentScene.layers.action.drawBounds)
             for (var i = 0; i < dataitems.length; i++) {
                 dataitems[i].x = dataitems[i].ui.x;
                 dataitems[i].y = dataitems[i].ui.y;
@@ -725,10 +727,11 @@
                 lineid = relation[i].inid + "_" + relation[i].inport;
                 var inline = inports[lineid];
 
-                var link = stage.new(lion.LinkElement);
+                var link = new lion.RAngleLinkElement() //new lion.LinkElement();
                 link.arrowDirection = lion.ArrowDirection.Right;
                 link.arrowSize = 0;
                 link.borderSize = 1;
+                link.minInflexion = 30;
                 link.canDrag = false;
 
                 link.onHover(function (ele) {
@@ -749,13 +752,13 @@
                 else if (relation[i].state == 3) {
                     link.backgroundColor = "orange";
                 }
-
+            
                 try {
                     if (relation[i].outid == relation[i].inid) {
-                        link.setStartAndEnd(inline.endNode, outline.startNode);
+                        link.setStartAndEndDirection(inline.startNode, outline.endNode, lion.Direction.Right, lion.Direction.Left);
                     }
                     else {
-                        link.setStartAndEnd(outline.endNode, inline.startNode);
+                        link.setStartAndEndDirection(outline.endNode, inline.startNode, lion.Direction.Right, lion.Direction.Left);
                     }
                     scene.addElement(link);
                 }

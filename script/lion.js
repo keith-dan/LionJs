@@ -616,7 +616,7 @@
     var _stageAnimations = {};
     var lion = o.lion || (o.lion = {
         
-        Version: "1.0.1",
+        Version: "1.0.2",
         /**
          * @name Position
          * @description 位置
@@ -1876,12 +1876,14 @@
         */
         Element.prototype.equals = function (ele) {
 
-
-            return this.id == ele.id;
+            if (ele != null) {
+                return this.id == ele.id;
+            }
+            return false;
         }
-        Element.prototype.onserialize = function (key, value) {
+Element.prototype.onserialize = function (key, value) {
             return null;
-        }
+            }
         Element.prototype.ondeserialize = function (key, value) {
             return false;
         }
@@ -1889,16 +1891,16 @@
         Element.prototype.enddeserialize = function () {
 
         }
-        /**
-        * @name dispose
-        * @type function
-        * @description 释放该元素调用的所有资源
-        * @class Element
-        */
+            /**
+            * @name dispose
+            * @type function
+            * @description 释放该元素调用的所有资源
+            * @class Element
+            */
         Element.prototype.dispose = function () {
             if (!this.isdisposed) {
                 this.isdisposed = true;
-            }
+        }
         }
 
 
@@ -1914,13 +1916,13 @@
             for (var i in json) {
                 if (i == 'type') continue;
                 if (i == 'id') obj.setValue(i, json[i]);
-                else if (!obj.ondeserialize(i, json[i])) {
-                    obj[i] = json[i];
-                }
+                else if(!obj.ondeserialize(i, json[i])) {
+                    obj[i]= json[i];
+        }
             }
 
             return obj;
-        }
+            }
         namespace.Element = Element;
     })(lion);
 
@@ -3077,15 +3079,17 @@
 
 
                 if (oldHover && (!_hoverElement || (_hoverElement && !_hoverElement.equals(oldHover)))) {
-                    for (var n = 0; n < oldHover.events.leave.length; n++) {
-                        oldHover.events.leave[n](oldHover);
-                    }
+                    oldHover.fireLeave();
+                    
+                    
+                    
                 }
 
                 if (_hoverElement && (!oldHover || !_hoverElement.equals(oldHover))) {
-                    for (var n = 0; n < _hoverElement.events.hover.length; n++) {
-                        _hoverElement.events.hover[n](_hoverElement);
-                    }
+                    _hoverElement.fireHover();
+                    
+                    
+                    
                 }
 
                 if (_hoverElement) {
@@ -3603,11 +3607,7 @@
             * @param layermode number true 层类型
             */
             this.addElement = function (ele, layoutMode) {
-                
-                
-                
-                
-                
+
                 add(ele, layoutMode);
             }
             /**
@@ -4595,12 +4595,21 @@
                 object: obj, func: callback
             });
         }
-
+        GeoElement.prototype.fireHover = function (e) {
+            for (var n = 0; n < this.events.hover.length; n++) {
+                this.events.hover[n](this);
+            }
+        }
+        GeoElement.prototype.fireLeave = function (e) {
+            for (var n = 0; n < this.events.leave.length; n++) {
+                this.events.leave[n](this);
+        }
+        }
         GeoElement.prototype.fireClick = function (e) {
             var next = true;
             if (e.button == 0) {
                 
-            for (var i = 0; i < this.events.click.length; i++) {
+                for (var i = 0; i < this.events.click.length; i++) {
                 var rtv = this.events.click[i].call(this, this, this.layer);
                 if (rtv != undefined && rtv == false)
                     next = false;
@@ -4611,8 +4620,8 @@
                     var rtv = this.events.rclick[i].call(this, this, this.layer);
                     if (rtv != undefined && rtv == false)
                         next = false;
-                }
             }
+        }
 
             return next;
         }
@@ -4622,8 +4631,8 @@
             for (var i = 0; i < this.events.layout.length; i++) {
                 if (namespace.Util.is(this.events.layout[i], 'object')) {
                     this.events.layout[i].func.call(this.events.layout[i].object);
-                }
             }
+        }
         }
         GeoElement.prototype.onHit = function (fn) {
             this.events.hits.push(fn);
@@ -4632,7 +4641,7 @@
         GeoElement.prototype.fireHit = function (location) {
             for (var i = 0; i < this.events.hits.length; i++)
                 this.events.hits[i]({
-                    x: location.x - this.drawBounds.x, y: location.y - this.drawBounds.y
+                        x: location.x - this.drawBounds.x, y: location.y - this.drawBounds.y
                 });
         }
 
@@ -4648,14 +4657,14 @@
             if (this.tooltip)
                 this.tooltip.setParent(this);
         }
-        /**
-        * @name onLayout(callback)
-        * @type function
-        * @description 设置该元素的标注
-        * @param text string true 显示的文本
-        * @return Tooltip
-        * @class GeoElement
-        */
+            /**
+            * @name onLayout(callback)
+            * @type function
+            * @description 设置该元素的标注
+            * @param text string true 显示的文本
+            * @return Tooltip
+            * @class GeoElement
+            */
         GeoElement.prototype.setTooltip = function (text) {
             
             
@@ -4666,7 +4675,7 @@
                 this.tooltip = new namespace.Tooltip;
                 this.tooltip.setParent(this);
                 
-            }
+        }
 
             if (namespace.Util.isNullOrWhitespace(text)) {
                 this.tooltip.visible = false;
@@ -4675,27 +4684,27 @@
             else {
                 this.tooltip.visible = true;
                 this.tooltip.text = text;
-            }
+        }
             this.layer.setTooltip(this.tooltip);
             
             return this.tooltip;
         }
-        /**
-        * @name setScale(scale)
-        * @type function
-        * @description 设置该元素的缩放比例
-        * @param scale number true 缩放比例
-        * @class GeoElement
-        */
+            /**
+            * @name setScale(scale)
+            * @type function
+            * @description 设置该元素的缩放比例
+            * @param scale number true 缩放比例
+            * @class GeoElement
+            */
         GeoElement.prototype.setScale = function (scale) {
             this.scale = scale;
         }
-        /**
-        * @name updateBounds(g)
-        * @type function
-        * @description 在绘制前更新元素的几何区域，并引发onLayout事件
-        * @class GeoElement
-        */
+            /**
+            * @name updateBounds(g)
+            * @type function
+            * @description 在绘制前更新元素的几何区域，并引发onLayout事件
+            * @class GeoElement
+            */
         GeoElement.prototype.updateBounds = function (g) {
             
 
@@ -4709,13 +4718,13 @@
             this.drawBounds.calc();
             this.fireLayout();
         }
-        /**
-        * @name testPoint(x,y)
-        * @type function
-        * @description 测试点是否在元素区域内
-        * @class GeoElement
-        * @return 在范围内返回true，否则为false
-        */
+            /**
+            * @name testPoint(x,y)
+            * @type function
+            * @description 测试点是否在元素区域内
+            * @class GeoElement
+            * @return 在范围内返回true，否则为false
+            */
         GeoElement.prototype.testPoint = function (x, y) {
             
             return namespace.Util.inRect(this.drawBounds.x, this.drawBounds.y, this.drawBounds.width, this.drawBounds.height, x, y);
@@ -4726,16 +4735,16 @@
             
             this.points = [];
             this.points.push({
-                x: drawrect.x, y: drawrect.y
+                    x: drawrect.x, y: drawrect.y
             });
             this.points.push({
-                x: drawrect.x + drawrect.width, y: drawrect.y
+                    x: drawrect.x + drawrect.width, y: drawrect.y
             });
             this.points.push({
-                x: drawrect.x + drawrect.width, y: drawrect.y + drawrect.height
+                    x: drawrect.x + drawrect.width, y: drawrect.y + drawrect.height
             });
             this.points.push({
-                x: drawrect.x, y: drawrect.y + drawrect.height
+                    x: drawrect.x, y: drawrect.y + drawrect.height
             });
 
 
@@ -4751,28 +4760,28 @@
 
             for (var i = 1; i < this.points.length; i++) {
                 g.lineTo(this.points[i].x, this.points[i].y);
-            }
+        }
             g.closePath();
             if (this.backgroundColor) {
                 g.fill();
-            }
+        }
 
             if (this.backgroundImage) {
 
                 g.drawImage(this.backgroundImage, this.drawBounds.x, this.drawBounds.y, this.drawBounds.width, this.drawBounds.height);
 
-            }
+        }
 
             if (this.borderSize > 0) {
                 g.strokeStyle = this.borderColor;
                 g.lineWidth = this.borderSize;
                 g.stroke();
-            }
+        }
 
             if (namespace.Util.andEnum(this.status, namespace.Status.Selected)) {
                 g.fillStyle = "rgba(255,255,255,0.7)";
                 g.fill();
-            }
+        }
         }
         GeoElement.prototype.renderHighLight = function (g) {
             if (this.highlightColor) {
@@ -4782,11 +4791,11 @@
                 g.moveTo(this.points[0].x, this.points[0].y);
                 for (var i = 1; i < this.points.length; i++) {
                     g.lineTo(this.points[i].x, this.points[i].y);
-                }
+            }
                 g.closePath();
 
                 g.fill();
-            }
+        }
         }
         GeoElement.prototype.renderTooltip = function (g) {
             if (this.tooltip.visible)
@@ -4795,14 +4804,14 @@
         GeoElement.prototype.renderLine = function (g, start, end, style) {
             paintLine(g, start, end, style);
         }
-        /**
-        * @name setAnimation(ani)
-        * @type function
-        * @description 为元素添加一个动画
-        * @class GeoElement
-        * @param ani Animation true 需要添加的动画实例
-        * @return 返回动画id
-        */
+            /**
+            * @name setAnimation(ani)
+            * @type function
+            * @description 为元素添加一个动画
+            * @class GeoElement
+            * @param ani Animation true 需要添加的动画实例
+            * @return 返回动画id
+            */
         GeoElement.prototype.setAnimation = function (ani) {
             ani.setElement(this);
             ani.animationId = parseInt(Math.random() * 100000);
@@ -4810,46 +4819,46 @@
             this.animations.push(ani);
             return ani.animationId;
         }
-        /**
-        * @name removeAnimation(id)
-        * @type function
-        * @description 移除该元素所绑定的动画
-        * @class GeoElement
-        * @param id number true 动画id
-        */
+            /**
+            * @name removeAnimation(id)
+            * @type function
+            * @description 移除该元素所绑定的动画
+            * @class GeoElement
+            * @param id number true 动画id
+            */
         GeoElement.prototype.removeAnimation = function (id) {
             _stageAnimations[id].enable = false;
             delete _stageAnimations[id];
         }
-        GeoElement.prototype.enableAnimation = function (id,enable) {
+        GeoElement.prototype.enableAnimation = function (id, enable) {
             _stageAnimations[id].enable = enable;
         }
-        GeoElement.prototype.enableAllAnimation = function ( enable) {
+        GeoElement.prototype.enableAllAnimation = function (enable) {
             for (var i = 0; i < this.animations.length; i++) {
                 this.animations[i].enable = enable;
-            }
         }
-        /**
-        * @name clearAnimation()
-        * @type function
-        * @description 清除该元素所绑定的所有动画
-        * @class GeoElement
-        */
+        }
+            /**
+            * @name clearAnimation()
+            * @type function
+            * @description 清除该元素所绑定的所有动画
+            * @class GeoElement
+            */
         GeoElement.prototype.clearAnimation = function () {
 
             for (var i = 0; i < this.animations.length; i++) {
                 this.animations[i].enable = false;
                 delete _stageAnimations[this.animations[i].animationId];
-            }
+        }
             this.animations = [];
 
         }
-        /**
-        * @name dispose()
-        * @type function
-        * @description 释放该元素所占用的所有资源
-        * @class GeoElement
-        */
+            /**
+            * @name dispose()
+            * @type function
+            * @description 释放该元素所占用的所有资源
+            * @class GeoElement
+            */
         GeoElement.prototype.dispose = function () {
             if (!this.isdisposed) {
                 this.events.click.splice(0);
@@ -4859,7 +4868,7 @@
                 
                 this.clearAnimation();
                 this.isdisposed = true;
-            }
+        }
         }
         namespace.GeoElement = GeoElement;
 
@@ -6776,7 +6785,7 @@
             data.width = 400;
             data.height = 400;
             data.eventRoute = true;
-
+            this.__hoverElement__;
         }
 
 
@@ -6801,7 +6810,7 @@
             * @type field
             * @datatype boolean
             * @description 获取或设置事件是否路由至子元素，默认为true
-如果为true，事件触发顺序按从上至下依次执行
+            如果为true，事件触发顺序按从上至下依次执行
             * @class MixElement
             */
             eventRoute: {
@@ -6813,6 +6822,7 @@
                 },
                 enumerable: true
             }
+            
         });
         /**
         * @name onClick(callback)
@@ -6824,7 +6834,22 @@
         MixElement.prototype.onClick = function (callback) {
             this.events.click.push(callback);
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
+        
+        
+        
         MixElement.prototype.fireClick = function (e) {
             var next = true;
             if (this.eventRoute) {
@@ -6851,6 +6876,41 @@
         MixElement.prototype.add = function (ele) {
             this.elements.push(ele);
             ele.setParent(this);
+            if (ele.id == -1) {
+                ele.setValue('id', generateId());
+            }
+        }
+        MixElement.prototype.preRender = function (g) {
+            var ishover = false;
+            if (this.eventRoute) {
+                for (var i = 0; i < this.elements.length; i++) {
+                    var mp = this.layer.getMousePoint();
+                    if (mp != null) {
+                        if (this.elements[i].testPoint(mp.x, mp.y)) {
+                            ishover = true;
+                            if (!this.elements[i].equals(this.__hoverElement__)) {
+                                this.__hoverElement__ = this.elements[i];
+                                var rtv = this.__hoverElement__.fireHover();
+
+                                break;
+                            }
+                        }
+                        else {
+                            if (this.elements[i].equals(this.__hoverElement__)) {
+                                this.__hoverElement__.fireLeave();
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (!ishover) {
+                this.__hoverElement__ = null;
+            }
+            
+            namespace.RectElement.prototype.preRender.call(this, g);
+
         }
         MixElement.prototype.updateBounds = function (g) {
             namespace.RectElement.prototype.updateBounds.call(this, g);
@@ -7862,6 +7922,8 @@
             }
 
         }
+        LinkElement.prototype.moveTo = function (x, y, ongrid) {
+        }
         LinkElement.prototype.enddeserialize = function () {
 
             var start = this.layer.findElementById(this._start_[0]);
@@ -8290,6 +8352,7 @@
             var data = this.__data__;
             data.startDirection = namespace.Direction.Right;
             data.endDirection = namespace.Direction.Left;
+            data.minInflexion = 50;
             this.type = "lion.RAngleLinkElement";
             this.__oldStartPos = {
                 x: 0, y: 0
@@ -8332,6 +8395,23 @@
                 },
                 set: function (value) {
                     this.setValue('endDirection', value);
+                    this.invalidLayout("bounds");
+                },
+                enumerable: true
+            },
+            /**
+            * @name minInflexion
+            * @type field
+            * @datatype number
+            * @description 最小转折点
+            * @class RAngleLinkElement
+            */
+            minInflexion: {
+                get: function () {
+                    return this.getValue('minInflexion');
+                },
+                set: function (value) {
+                    this.setValue('minInflexion', value);
                     this.invalidLayout("bounds");
                 },
                 enumerable: true
@@ -8381,9 +8461,9 @@
         }
 
         
-        function findPoints(o, start, end) {
+        function findPoints(o, start, end, minInflexion) {
             var array = [];
-            var blankstep = 50;
+            var blankstep = minInflexion;
             var last = o.startDirection;
             var cur = start;
             array.push(start);
@@ -8521,7 +8601,7 @@
                                 this.__oldStartPos.y != this.startNode.y ||
                                 this.__oldEndtPos.x != this.endNode.x ||
                                 this.__oldEndtPos.y != this.endNode.y) {
-                var ps = findPoints(this, this.startNode.drawBounds.center, this.endNode.drawBounds.center);
+                var ps = findPoints(this, this.startNode.drawBounds.center, this.endNode.drawBounds.center, this.minInflexion);
                 this.points.splice(0);
                 pushArray(this.points, ps);
                 this.__oldStartPos = {
@@ -8583,13 +8663,21 @@
                         return namespace.Direction.Bottom;
                 }
             }
-            namespace.LinkElement.prototype.setStartAndEnd.call(this, start, end, sm, em);
+            namespace.LinkElement.prototype.setStartAndEnd.call(this, start, end,sm,em);
 
-            this.startDirection = getDirection(this.startElement, this.endElement, this.startNode.controlMode);
-            this.endDirection = getDirection(this.startElement, this.endElement, this.endNode.controlMode);
+                this.startDirection = getDirection(this.startElement, this.endElement, this.startNode.controlMode);
+                this.endDirection = getDirection(this.startElement, this.endElement, this.endNode.controlMode);
+            
         });
 
-       
+        RAngleLinkElement.prototype.setStartAndEndDirection = function (start, end, sm, em) {
+           
+            namespace.LinkElement.prototype.setStartAndEnd.call(this, start, end);
+            if (sm != null || em != null) {
+                this.startDirection = sm;
+                this.endDirection = em;
+            }
+        };
 
  
         RAngleLinkElement.prototype.updateBounds = function (g) {
@@ -8659,7 +8747,7 @@
         RAngleLinkElement.prototype.preRender = function (g) {
 
             this.innerfindPoints.call(this);
-
+            if (this.points.length == 0) return;
             this._arrows = [];
             if (this.arrowDirection == namespace.ArrowDirection.Left) {
                 this._arrows.push({
@@ -8941,8 +9029,14 @@
             if (elements instanceof Array) {
                 var newrect = getRect(elements);
                 for (var i = 0; i < elements.length; i++) {
-                    elements[i].x = elements[i].x + (rect.width - newrect.width) / 2 - newrect.x;
-                    elements[i].y = elements[i].y + (rect.height - newrect.height) / 2 - newrect.y;
+                    if (elements[i] instanceof namespace.LineElement) {
+                        elements[i].moveTo(elements[i].x + (rect.width - newrect.width) / 2 - newrect.x,
+                            elements[i].y + (rect.height - newrect.height) / 2 - newrect.y);
+                    }
+                    else {
+                        elements[i].x = elements[i].x + (rect.width - newrect.width) / 2 - newrect.x;
+                        elements[i].y = elements[i].y + (rect.height - newrect.height) / 2 - newrect.y;
+                    }
                 }
             }
             else {
