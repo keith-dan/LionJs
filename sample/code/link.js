@@ -1,5 +1,5 @@
 ﻿
-
+//设置直角连线
 var ele1 = new lion.RectElement();
 ele1.backgroundColor = "blue";
 ele1.x = 100;
@@ -27,7 +27,7 @@ stage.currentScene.addElement(link);
 
 
 
-
+//弧线连线
 var rect1 = new lion.RectElement();
 rect1.backgroundColor = "blue";
 rect1.x = 150;
@@ -52,7 +52,7 @@ stage.currentScene.addElement(link);
 
 
 
-
+//连线
 var rect3 = new lion.RectElement();
 rect3.backgroundColor = "blue";
 rect3.x = 150;
@@ -74,7 +74,7 @@ link.setTextBlock('hello end link', lion.Align.End);
 stage.currentScene.addElement(link);
 
 
-
+//边缘直角连线
 var ele5 = new lion.RectElement();
 ele5.backgroundColor = "blue";
 ele5.x = 400;

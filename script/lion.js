@@ -571,7 +571,7 @@
             }
         }
         this.isNumber = function (number) {
-            var re = /^[0-9]+.?[0-9]*$/; 
+            var re = /^[-0-9]+.?[0-9]*$/; 
             return re.test(number);
         }
     }
@@ -616,7 +616,7 @@
     var _stageAnimations = {};
     var lion = o.lion || (o.lion = {
         
-        Version: "1.0.2",
+        Version: "1.0.3",
         /**
          * @name Position
          * @description 位置
@@ -2684,11 +2684,11 @@ Element.prototype.onserialize = function (key, value) {
             }
 
             /**
-                        * @name clear()
-                        * @type function
-                        * @description 清除所有元素
-                        * @class Layer
-                        */
+            * @name clear()
+            * @type function
+            * @description 清除所有元素
+            * @class Layer
+            */
             this.clear = function () {
                 for (var i = 0; i < layer.elements.length; i++) {
                     layer.elements[i].dispose();
@@ -2857,6 +2857,7 @@ Element.prototype.onserialize = function (key, value) {
 
                             
                             if (ele.editMode == namespace.EditMode.Select) {
+                                
                                 _selectedElement.push(ele);
                                 _actionElement = ele;
                                 ele.status = namespace.Status.Selected;
@@ -3058,6 +3059,13 @@ Element.prototype.onserialize = function (key, value) {
                 if (_hoverElement != null) {
                     _hoverElement.status = namespace.Util.xorEnum(_hoverElement.status, namespace.Status.Hover);
                     if (_hoverElement.group) {
+                        
+                        if (_selectedElement.length == 0) {
+                            for (var n = 0; n < this.elements.length; n++) {
+                                if (this.elements[n] instanceof namespace.Group)
+                                    this.elements[n].status = namespace.Status.None;
+                            }
+                        }
                         _hoverElement.group.status = namespace.Util.xorEnum(_hoverElement.group.status, namespace.Status.Hover);
                     }
                     if (layer.mode == namespace.LayerMode.Action || layer.mode == namespace.LayerMode.Force) {
@@ -3071,8 +3079,6 @@ Element.prototype.onserialize = function (key, value) {
                 }
 
 
-
-
                 if (!hoverElements(_allElements, e, oldHover)) {
                     hoverElements(_alllinks, e, oldHover)
                 }
@@ -3080,16 +3086,12 @@ Element.prototype.onserialize = function (key, value) {
 
                 if (oldHover && (!_hoverElement || (_hoverElement && !_hoverElement.equals(oldHover)))) {
                     oldHover.fireLeave();
-                    
-                    
-                    
+       
                 }
 
                 if (_hoverElement && (!oldHover || !_hoverElement.equals(oldHover))) {
                     _hoverElement.fireHover();
-                    
-                    
-                    
+       
                 }
 
                 if (_hoverElement) {
@@ -3099,6 +3101,11 @@ Element.prototype.onserialize = function (key, value) {
                     layer.stage.cursor = 'default';
                 }
                
+            }
+            this.resetElement = function () {
+                for (var i = 0; i < this.elements.length; i++) {
+                    this.elements[i].Status = namespace.Status.None;
+                }
             }
 
             function hoverElements(eles, e, oldHover) {
@@ -3150,11 +3157,7 @@ Element.prototype.onserialize = function (key, value) {
                             _hoverElement.group.status = namespace.Util.orEnum(_hoverElement.group.status, namespace.Status.Hover);
                         }
 
-                        
-                        
-                        
-                        
-
+       
                         return true;
                     }
 
@@ -6912,11 +6915,28 @@ Element.prototype.onserialize = function (key, value) {
             namespace.RectElement.prototype.preRender.call(this, g);
 
         }
+
+
         MixElement.prototype.updateBounds = function (g) {
             namespace.RectElement.prototype.updateBounds.call(this, g);
             for (var i = 0; i < this.elements.length; i++)
                 this.elements[i].updateBounds(g);
         }
+        MixElement.prototype.renderText = function (g) {
+            for (var i = 0; i < this.elements.length; i++) {
+                this.elements[i].renderText(g, this.elements[i].drawText, this.elements[i].textRect, this.elements[i].forceColor);
+            }
+
+            namespace.RectElement.prototype.renderText.call(this, g);
+        }
+        MixElement.prototype.measureText = function (g) {
+            for (var i = 0; i < this.elements.length; i++) {
+                this.elements[i].measureText(g);
+            }
+
+            namespace.RectElement.prototype.measureText.call(this, g);
+        }
+
         MixElement.prototype.renderHighLight = function (g) {
             for (var i = 0; i < this.elements.length; i++) {
                 var mp = this.layer.getMousePoint();
@@ -8669,7 +8689,16 @@ Element.prototype.onserialize = function (key, value) {
                 this.endDirection = getDirection(this.startElement, this.endElement, this.endNode.controlMode);
             
         });
-
+        /**
+        * @name setStartAndEndDirection(start, end, sm, em)
+        * @type function
+        * @description 以指定方向设置直角连线的起始点
+        * @class RAngleLinkElement
+        * @param start EndPoint true 开始元素节点
+        * @param end EndPoint true 结束元素节点
+        * @param sm number false 开始元素的开始方向
+        * @param em number false 结束元素的结束方向
+        */
         RAngleLinkElement.prototype.setStartAndEndDirection = function (start, end, sm, em) {
            
             namespace.LinkElement.prototype.setStartAndEnd.call(this, start, end);

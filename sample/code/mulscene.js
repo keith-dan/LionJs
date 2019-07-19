@@ -135,7 +135,7 @@ ele.onClick(function (e, layer) {
 })
 stage.currentScene.addElement(ele);
 
-
+//创建一个场景
 function buildScene(flow) {
     var scene1 = new lion.Scene();
     stage.addScene(scene1);
