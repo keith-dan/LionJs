@@ -6,7 +6,7 @@
 */
 
 !(function (o) {
-    //#region 全局函数
+   
 
     /**
     * @name Global
@@ -25,17 +25,17 @@
         }
     }
 
-    //求斜边长度  
+   
     function getBeveling(x, y) {
         return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     }
-    // 绘制直线
+   
     function paintLine(g, start, end, style) {
         if (style == lion.LineStyle.Dotted) {
             var dashLen = 5;
-            //得到斜边的总长度  
+           
             var beveling = getBeveling(end.x - start.x, end.y - start.y);
-            //计算有多少个线段  
+           
             var num = Math.floor(beveling / dashLen);
 
             for (var i = 0; i < num; i++) {
@@ -44,14 +44,14 @@
             g.stroke();
         }
         else {
-            //直线
+           
 
         }
     }
 
     function getRectFromRects(rects) {
-        /// <summary>计算多个矩形,返回矩形结构</summary>
-        /// <param name="elements">矩形数组</param>
+       
+       
         var minW = rects[0].x, maxW = 0, minH = rects[0].y, maxH = 0;
         for (var i = 0; i < rects.length; i++) {
 
@@ -69,7 +69,7 @@
 
         return rect;
     }
-    //计算多个元素形成的矩形边框,返回矩形结构
+   
     function getRect(elements) {
 
         var rects = [];
@@ -82,7 +82,7 @@
 
         return getRectFromRects(rects);
     }
-    //绘制圆角矩形
+   
     function pathRoundRect(g, x, y, w, h, r) {
         if (w < 2 * r) { r = w / 2; }
         if (h < 2 * r) { r = h / 2; }
@@ -95,7 +95,7 @@
         g.closePath();
 
     }
-    //连接2个数组
+   
     function pushArray(array1, array2) {
 
         for (var i = 0; i < array2.length; i++)
@@ -158,16 +158,16 @@
         var angle = Math.atan(diff_y / diff_x);
         return angle;
     }
-    //获取箭头方向
+   
     function getArrowDirection(start, end) {
 
-        //向左上
+       
         if (start.y > end.y && start.x > end.x) return 0;
-            //向右上
+           
         else if (start.y > end.y && start.x < end.x) return 1;
-            //向右下
+           
         else if (start.y < end.y && start.x < end.x) return 2;
-            //向左下
+           
         else if (start.y < end.y && start.x > end.x) return 3;
     }
     function paintArrow(g, start, end, size, bgcolor) {
@@ -282,7 +282,7 @@
         var angle = lion.Util.toAngle(radian);
         var radian1 = Math.abs(radian) + lion.Util.toRadian(45);
 
-        //console.debug(toAngle(angle1));
+       
         var y1 = size * Math.sin(radian1);
         var x1 = size * Math.cos(radian1);
 
@@ -393,7 +393,7 @@
         g.beginPath();
         g.fillRect(x - size, y - size, 2 * size, 2 * size);
     }
-    //获取背景色
+   
     function getBgColor(g,  backgroundColor) {
         if (backgroundColor instanceof lion.Gradient) {
             if (backgroundColor.type == lion.Gradient.Type.Linear) {
@@ -426,8 +426,8 @@
             return backgroundColor;
         }
     }
-    //#endregion
-    //帮助函数
+   
+   
     /**
     * @name Util
     * @type class
@@ -571,11 +571,11 @@
             }
         }
         this.isNumber = function (number) {
-            var re = /^[-0-9]+.?[0-9]*$/; //判断字符串是否为数字 //判断正整数 /^[1-9]+[0-9]*]*$/ 
+            var re = /^[-0-9]+.?[0-9]*$/;
             return re.test(number);
         }
     }
-    //调试器
+   
     function Debugger(stage) {
 
         this.eleDebug = new lion.TextElement();
@@ -615,8 +615,8 @@
 
     var _stageAnimations = {};
     var lion = o.lion || (o.lion = {
-        //版本
-        Version: "1.0.4",
+       
+        Version: "1.0.5",
         /**
          * @name Position
          * @description 位置
@@ -677,15 +677,15 @@
          * @type enum
         */
         ArrowStyle: {
-            //三角形
+           
             Triangle: 1,
-            //箭头
+           
             Arrow: 2,
-            //园型
+           
             Circle: 3,
-            //矩形
+           
             Rect: 4,
-            //无
+           
             None: 0
         },
         /**
@@ -770,19 +770,19 @@
         * @file enum
         * @type enum
         */
-        //元素的状态
+       
         Status: {
-            //无
+           
             None: 1,
-            //被选中
+           
             Selected: 2,
-            //拖拽中
+           
             Draging: 4,
-            //进行编辑状态
+           
             Editing: 8,
-            //悬停状态
+           
             Hover: 16,
-            //端点悬停状态
+           
             NodeHover: 32
         },
         Keys: {
@@ -799,19 +799,19 @@
         * @file enum
         * @type enum
         */
-        //编辑模式
+       
         EditMode: {
-            //无
+           
             Select: 0,
-            //缩放
+           
             Scale: 1,
-            //旋转(未实现)
+           
             Rotate: 2,
-            //多边形自由调整
+           
             Free: 3,
-            //节点控制
+           
             NodeControl: 4,
-            //固定模式
+           
             None: 5
         },
         /**
@@ -833,12 +833,12 @@
         * @file enum
         * @type enum
         */
-        //调节节点模式
+       
         EndPointMode: {
             Start: 0,
             End: 1,
             Middle: 2,
-            //中心点
+           
             Center: 3,
             TopLeft: 11,
             TopRight: 12,
@@ -848,11 +848,11 @@
             MiddleRight: 16,
             MiddleTop: 17,
             MiddleBottom: 18,
-            //横向
+           
             Landscape: 21,
-            //纵向
+           
             Vertical: 22,
-            //自由节点
+           
             Free: 31
         },
         /**
@@ -928,7 +928,7 @@
         },
     };
 
-    //#region 结构
+   
     /**
     * @name Rect
     * @type class
@@ -950,7 +950,7 @@
         var rect = this;
 
         if (arguments.length == 0) {
-            //rect.empty = true;
+           
             this.x = 0;
             this.y = 0;
             this.width = 0;
@@ -1080,9 +1080,9 @@
         this.x = x;
         this.y = y;
     }
-    //#endregion
+   
     
-    //#region Animation
+   
     !(function (namespace) {
         namespace.Animations = {};
 
@@ -1093,20 +1093,20 @@
         * @description 动画基础类
         */
         function Animation() {
-            //Element.call(this);
+           
             this.enable = true;
             this.interval = 33;
             this.element = null;
             this.finished = false;
-            //当动画结束后是否回转还是重新开始
+           
             this.endreverse = false;
-            //动画是否循环播放
+           
             this.loop = true;
 
             var animate = this;
-            //this.invalid = true;
+           
             var _invalid = true;
-            //当前布局是否无效
+           
             Object.defineProperties(this, {
                 invalid: {
                     get: function () {
@@ -1177,7 +1177,7 @@
             this.doAnimationCore = function () {
                 for (var i = 0; i < animate.steps.length; i++) {
                     if (animate.steps[i].direct == 1) {
-                        //正向递推
+                       
 
                         if (animate.element[animate.steps[i].field] >= animate.steps[i].to) {
                             if (!this.loop) return true;
@@ -1194,7 +1194,7 @@
                         }
                     }
                     else {
-                        //反向递推
+                       
 
                         if (animate.element[animate.steps[i].field] <= animate.steps[i].to) {
                             if (!this.loop) return true;
@@ -1323,7 +1323,7 @@
         */
         function PathAnimation(obj) {
             Animation.call(this);
-            //this.step = 50;
+           
             this.stepLength = 10;
             this.path = [];
             this.speed = 3;
@@ -1337,7 +1337,7 @@
                 getPoints(line);
 
 
-                //_calcing = false;
+               
             }
             this.doAnimationCore = function () {
                 if (_points.length > 0) {
@@ -1358,8 +1358,8 @@
                 var steplen = animate.speed;
                 var step = 0;
                 if (line.x1 == line.x2) {
-                    //垂直
-                    //var steplen = Math.abs(Math.abs(line.y2) - Math.abs(line.y1)) / step;
+                   
+                   
                     step = Math.abs(Math.abs(line.y2) - Math.abs(line.y1)) / steplen;
 
                     for (var i = 0; i < step; i++) {
@@ -1370,8 +1370,8 @@
                     }
                 }
                 else if (line.y1 == line.y2) {
-                    //水平
-                    //var steplen = Math.abs(Math.abs(line.x2) - Math.abs(line.x1)) / step;
+                   
+                   
                     step = Math.abs(Math.abs(line.x2) - Math.abs(line.x1)) / steplen;
                     for (var i = 0; i < step; i++) {
                         var x = line.x2 > line.x1 ? line.x1 + i * steplen : line.x1 - i * steplen;
@@ -1382,14 +1382,14 @@
                 }
                 else {
 
-                    // 计算斜率
+                   
                     var k = ((line.y1 - line.y2)) / (line.x1 - line.x2);
 
                     step = Math.abs(Math.abs(line.x2) - Math.abs(line.x1)) / steplen;
-                    // 循环x坐标
+                   
                     for (var i = 0; i < step; i++) {
 
-                        // 根据斜率,计算y坐标
+                       
                         if (k > 0) {
                             var y = line.y1 > line.y2 > 0 ? line.y1 - k * (i * steplen) : k * (i * steplen) + line.y1;
                             var x = line.x1 > line.x2 > 0 ? line.x1 - i * steplen : line.x1 + i * steplen;
@@ -1459,7 +1459,7 @@
         namespace.Animations.PathAnimation = PathAnimation;
     })(lion);
 
-    //#endregion
+   
 
     
     !(function (namespace) {
@@ -1513,7 +1513,7 @@
 
   
 
-    //#region 图形函数
+   
 
     !(function (namespace) {
         function ImageList() {
@@ -1572,12 +1572,12 @@
                 var srcwc = parseInt(img.width / width);
                 var srchc = parseInt(img.height / height);
 
-                var tcan = document.createElement("canvas");//"<canvas width='" + width + "px' height='" + height + "px' ></canvas>");
+                var tcan = document.createElement("canvas")
                 tcan.setAttribute("width", width + "px");
                 tcan.setAttribute("height", height + "px");
                 var g = tcan.getContext('2d');
                 g.save();
-                //以矩阵方式切割
+               
                 if (im.matrixCut) {
                     for (var y = 0; y < srchc; y++) {
                         im.list[y] = [];
@@ -1607,23 +1607,23 @@
             }
             img.src = data;
 
-            //设置像素透明
+           
             function transparent(ctx, width, height) {
                 var imgData = ctx.getImageData(0, 0, width, height);
                 for (var i = 0, len = imgData.data.length ; i < len ; i += 4) {
-                    // 改变每个像素的透明度
+                   
                     imgData.data[i + 3] = imgData.data[i + 3] * 0;
                 }
-                 //将获取的图片数据放回去。
+                
                 ctx.putImageData(imgData, 0, 0);
             }
         }
         namespace.ImageMatrix = ImageMatrix;
     })(lion);
 
-    //#endregion
+   
 
-    //#region Element
+   
     !(function (namespace) {
         /**
         * @name Element
@@ -1751,9 +1751,9 @@
         * @class Element
         */
         Element.prototype.invalidLayout = function (mode) {
-            /// <summary>
-            /// 强制布局无效
-            /// </summary>
+           
+           
+           
             this.setValue('invalid', true);
         }
         /**
@@ -1799,7 +1799,7 @@
         * @class Element
         */
         Element.prototype.serialize = function (ele) {
-            /// <summary>将对象序列化为json字符串</summary>
+           
             var obj = ele ? ele : this;
             var json = "{";
 
@@ -1823,7 +1823,7 @@
                     json += '"' + i + '"' + ":" + (obj[i] ? "true" : "false") + ",";
                 } else if (namespace.Util.is(obj[i], "function")) {
                 } else {
-                    //console.debug(i + " is " + typeof obj[i]);
+                   
                 }
             }
 
@@ -1905,8 +1905,8 @@ Element.prototype.onserialize = function (key, value) {
 
 
         Element.deserialize = function (json, param) {
-            /// <summary>反序列化</summary>
-            /// <param name="json" >json</param>
+           
+           
             var type = eval(json.type);
             var obj = null;
             if (json.type == 'lion.Stage')
@@ -1926,8 +1926,8 @@ Element.prototype.onserialize = function (key, value) {
         namespace.Element = Element;
     })(lion);
 
-    //#endregion
-    //#region Stage
+   
+   
     !(function (namespace) {
         /**
         * @name Stage
@@ -2152,25 +2152,25 @@ Element.prototype.onserialize = function (key, value) {
 
             }
             /**
-            * @name resetSize(w, h, resetscene)
+            * @name resize(w, h)
             * @type function
             * @description 重置舞台大小
             * @class Stage
             * @param w number true 重置的舞台宽度
             * @param h number true 重置的舞台高度
-            * @param resetscene bool true 是否对场景进行重置
             */
-            this.resetSize = function (w, h, resetscene) {
-                ostage.width = w;
-                ostage.height = h;
-                if (resetscene) {
+            this.resize = function (w, h) {
+                var width = w != null ? w : _div.clientWidth;
+                var height = h != null ? h : _div.clientHeight;
+                ostage.width = width;
+                ostage.height = height;
+                this.canvas.setAttribute('width', width + 'px');
+                this.canvas.setAttribute('height', height + 'px');
+   
                     for (var i = 0; i < ostage.scenes.length; i++) {
-                        if (ostage.scenes[i].width < ostage.width)
-                            ostage.scenes[i].width = ostage.width;
-                        if (ostage.scenes[i].height < ostage.height)
-                            ostage.scenes[i].height = ostage.height;
+                        ostage.scenes[i].invalidLayout('bounds');
                     }
-                }
+
             }
             /**
             * @name fill()
@@ -2221,7 +2221,7 @@ Element.prototype.onserialize = function (key, value) {
                 if (namespace.Util.is(type, 'string')) {
                     objtype = eval(type);
                 }
-                //generateId();
+               
                 obj = new objtype(param);
                 if (arguments.length == 3) {
                     obj.setValue('id', arguments[2]);
@@ -2240,9 +2240,9 @@ Element.prototype.onserialize = function (key, value) {
       * @class Stage
       */
             this.dispose = function () {
-                /// <summary>
-                /// 释放所有使用的资源
-                /// </summary>
+               
+               
+               
                 if (!this.isdisposed) {
                     var i = -1;
                     for (i = 0; i < namespace.Timer.stages.length; i++) {
@@ -2300,10 +2300,10 @@ Element.prototype.onserialize = function (key, value) {
                     }
                 };
                 ostage.canvas.onmouseup = function (e) {
-                    //if (e.button == 0) {
+                   
                         if (ostage.currentScene)
                             ostage.currentScene.__onmouseup(e);
-                    //}
+                   
                 };
                 ostage.canvas.ondblclick = function (e) {
                     if (ostage.currentScene)
@@ -2323,7 +2323,7 @@ Element.prototype.onserialize = function (key, value) {
                     ostage.isinited = true;
                 }
                 else {
-                    //如果是通过反序列化生成，需要等所有元素加载完成才开始渲染
+                   
                     ostage.isinited = false;
                 }
 
@@ -2346,7 +2346,7 @@ Element.prototype.onserialize = function (key, value) {
 
             }
 
-            //#region GraphicText
+           
             var graphicTexts = {};
             function getGraphicText(args) {
 
@@ -2364,7 +2364,7 @@ Element.prototype.onserialize = function (key, value) {
                     var span = document.createElement("span");
                     span.id = args.id;
                     span.style.fontFamily = args.font;
-                    //span.style.fontSize = args.size;
+                   
                     span.style.display = "none";
                     span.innerHTML = args.text;
                     _div.appendChild(span);
@@ -2374,7 +2374,7 @@ Element.prototype.onserialize = function (key, value) {
                     graphicTexts[args.id].innerHTML = args.text;
                 }
             }
-            //#endregion
+           
 
             /**
                * @name enableContextMenu(isenbale)
@@ -2452,9 +2452,9 @@ Element.prototype.onserialize = function (key, value) {
         namespace.Stage = Stage;
     })(lion);
 
-    //#endregion
+   
 
-    //#region 层
+   
     !(function (namespace) {
         /**
         * @name Layer
@@ -2465,7 +2465,7 @@ Element.prototype.onserialize = function (key, value) {
         */
         function Layer(layermode) {
             namespace.Element.call(this);
-            //#region 成员变量定义
+           
             this.type = "lion.Layer";
             this.elements = [];
             /**
@@ -2480,10 +2480,10 @@ Element.prototype.onserialize = function (key, value) {
             * @class Layer
             */
             this.mode = layermode;
-            //#endregion
+           
             var layer = this;
 
-            //#region 变量
+           
             var _scale = 1.0;
             var _rangleMove = false;
             var _stepMove = false;
@@ -2491,9 +2491,9 @@ Element.prototype.onserialize = function (key, value) {
             var _scene = null;
             var _displayBounds;
             var _stepGrid = new Point(10, 10);
-            var _mousePoint;//鼠标在层上的定位
-            //#endregion
-            //#region 属性定义
+            var _mousePoint
+           
+           
             Object.defineProperties(this, {
                 scene: {
                     get: function () {
@@ -2542,7 +2542,7 @@ Element.prototype.onserialize = function (key, value) {
                 },
                 drawBounds: {
                     get: function () {
-                        //if (!_displayBounds)
+                       
                         _displayBounds = new Rect(layer.x, layer.y, layer.scene.stage.width, layer.scene.stage.height);
                         return _displayBounds;
                     },
@@ -2551,7 +2551,7 @@ Element.prototype.onserialize = function (key, value) {
             });
 
 
-            //#endregion
+           
             /**
             * @name toFront(ele)
             * @type function
@@ -2737,16 +2737,16 @@ Element.prototype.onserialize = function (key, value) {
                 _allTooltips.push(ele);
             }
 
-            //用于计算鼠标点击块元素的偏移量
+           
             var _offset = {
             };
-            //选中的元素
+           
             var _selectedElement = [];
-            //通过点击命中的元素
+           
             var _actionElement = null;
-            //悬停的元素
+           
             var _hoverElement = null;
-            //等待被拖动的元素
+           
             var _waitDragElement = null;
             var _beginDrag = false;
             /**
@@ -2804,7 +2804,7 @@ Element.prototype.onserialize = function (key, value) {
             */
             this.selectAll = function () {
 
-                //在选择情况，只考虑几何元素，不考虑连线，因为连线的位置是依赖其余元素
+               
                 for (var i = 0; i < _allElements.length; i++) {
                     _allElements[i].status = namespace.Status.Selected;
                     _selectedElement.push(_allElements[i]);
@@ -2815,12 +2815,12 @@ Element.prototype.onserialize = function (key, value) {
 
 
 
-            //#region 鼠标逻辑
+           
 
 
-            //当前鼠标是否按下
+           
             var _mousedown = false;
-            //当前鼠标按下的初始位置
+           
             var _mousedownPoint = new Point();
             this.onmousedown = function (e) {
                 if (_mousedownPoint.x - e.offsetX == 0 && _mousedownPoint.y - e.offsetY == 0) {
@@ -2832,15 +2832,15 @@ Element.prototype.onserialize = function (key, value) {
                     _mousedownPoint.x = e.offsetX;
                     _mousedownPoint.y = e.offsetY;
 
-                    //测试是否有击中的元素，如果有将其作为点击、选择、拖拽的备用元素
+                   
                     if (_hoverElement) {
                         var ele = _hoverElement;
-                        //已有选中元素的情况
+                       
                         if (_selectedElement.length > 0) {
                             var canmove = false;
                             for (var i = 0; i < _selectedElement.length; i++) {
                                 if (_selectedElement[i].equals(ele)) {
-                                    //当选中元素后，再次点击必须作用于已选元素才开始拖拽，都在清除已选元素
+                                   
                                     _actionElement = _selectedElement[i];
                                     canmove = true;
                                     break;
@@ -2862,9 +2862,9 @@ Element.prototype.onserialize = function (key, value) {
                         }
                         else if (ele.canEvent && (ele.canDrag || ele.canSelect)) {
 
-                            //点击元素
+                           
                             if (ele.editMode == namespace.EditMode.Select) {
-                                //layer.cancelSelected();
+                               
                                 _selectedElement.push(ele);
                                 _actionElement = ele;
                                 ele.status = namespace.Status.Selected;
@@ -2876,7 +2876,7 @@ Element.prototype.onserialize = function (key, value) {
                                 }
                                 return ele;
                             }
-                                //点击端点
+                               
                             else if (ele.editMode > namespace.EditMode.Select) {
                                 _actionElement = ele;
                                 _selectedElement.push(ele);
@@ -2903,7 +2903,7 @@ Element.prototype.onserialize = function (key, value) {
                         }
                     }
                     else {
-                        //当前没有悬停元素，清楚所有
+                       
                         layer.cancelSelected();
                     }
                 }
@@ -2921,7 +2921,7 @@ Element.prototype.onserialize = function (key, value) {
                 var offsetX = 0, offsetY = 0;
 
                 if (_mousedown && (Math.abs(_mousedownPoint.x - e.offsetX) > 1 || Math.abs(_mousedownPoint.y - e.offsetY) > 1)) {
-                    //当鼠标按下，且移动一小段距离时判定为拖拽开始
+                   
                     _beginDrag = true;
 
                     layer.stage.cursor = 'move';
@@ -2932,20 +2932,20 @@ Element.prototype.onserialize = function (key, value) {
 
 
                     for (var i = 0; i < _selectedElement.length; i++) {
-                        //当前已选中了元素
-                        //开始端点调节
+                       
+                       
                         if (_selectedElement[i].editMode > namespace.EditMode.Select) {
                             offsetX = e.offsetX / _scale;
                             offsetY = e.offsetY / _scale;
 
-                            //进入端点移动
+                           
                             if (_selectedElement[i].controlNode) {
-                                //不可编辑则退出
+                               
                                 if (!_selectedElement[i].canEdit) return;
-                                //直线节点调节
+                               
                                 if (_selectedElement[i] instanceof namespace.LineElement) {
                                     if (_selectedElement[i].controlNode.controlMode == namespace.EndPointMode.Start) {
-                                        //处理按下shift
+                                       
                                         if (_rangleMove) {
                                             if (Math.abs(e.offsetX - _selectedElement[i].endNode.x) > Math.abs(e.offsetY - _selectedElement[i].endNode.y)) {
                                                 _selectedElement[i].controlNode.move(e.offsetX, _selectedElement[i].endNode.y);
@@ -2972,7 +2972,7 @@ Element.prototype.onserialize = function (key, value) {
                                 }
                             }
                         }
-                            //进行元素操作
+                           
                         else {
 
                             var dragEle = _selectedElement[i];
@@ -2987,9 +2987,9 @@ Element.prototype.onserialize = function (key, value) {
                             }
                             if (_selectedElement[i].group) {
                                 dragEle = _selectedElement[i].group;
-                                //continue;
+                               
                             }
-                            //按步进移动
+                           
                             if (dragEle && _stepMove) {
 
                                 if (Math.abs(e.offsetX - _offset.x) > Math.abs(e.offsetY - _offset.y)) {
@@ -3019,8 +3019,8 @@ Element.prototype.onserialize = function (key, value) {
                             }
                             else {
 
-                                offsetX = parseFloat(e.offsetX - _offset.x) / _scale;//* (1.0-(_scale - 1.0)); // / (_scale * _scale),
-                                offsetY = parseFloat(e.offsetY - _offset.y) / _scale;//* (1.0 - (_scale - 1.0)); /// (_scale * _scale);
+                                offsetX = parseFloat(e.offsetX - _offset.x) / _scale
+                                offsetY = parseFloat(e.offsetY - _offset.y) / _scale
 
                                 if (_rangleMove) {
                                     if (Math.abs(e.offsetX - _offset.x) > Math.abs(e.offsetY - _offset.y)) {
@@ -3062,18 +3062,18 @@ Element.prototype.onserialize = function (key, value) {
 
                     _offset.x = e.offsetX;
                     _offset.y = e.offsetY;
-                    //return;
+                   
                 }
 
 
-                //之前的悬停元素
+               
                 var oldHover = _hoverElement;
-                //悬停的元素
+               
 
                 if (_hoverElement != null) {
                     _hoverElement.status = namespace.Util.xorEnum(_hoverElement.status, namespace.Status.Hover);
                     if (_hoverElement.group) {
-                        //如果是组，且没有选择，清除原有选择
+                       
                         if (_selectedElement.length == 0) {
                             for (var n = 0; n < this.elements.length; n++) {
                                 if (this.elements[n] instanceof namespace.Group)
@@ -3126,10 +3126,10 @@ Element.prototype.onserialize = function (key, value) {
                 for (var i = eles.length - 1; i >= 0; i--) {
                     var ele = eles[i];
 
-                    //测试端点
+                   
                     if (ele.canEvent && ele instanceof namespace.NodeElement && ele.displayNodes.length > 0) {
-                        //端点具有可见端点时才进行测试，呈现高亮
-                        //因为可能有实际端点较多，但可见端点较少的情况
+                       
+                       
                         var hnode = ele.testNode(e.offsetX, e.offsetY);
                         if (hnode) {
                             for (var n = 0; n < ele.displayNodes.length; n++) {
@@ -3180,11 +3180,11 @@ Element.prototype.onserialize = function (key, value) {
                 return false;
             }
 
-            //鼠标弹起，rect为从点下到弹起所形成的矩形区域
+           
             this.onmouseup = function (e, rect) {
                 _mousedown = false;
                 _selectedElement = [];
-                //鼠标弹起的动作数据，0无操作，1为之前发生了拖拽，2为发生点击
+               
                 var result = 0;
                 if (_beginDrag) {
                     if (_actionElement) {
@@ -3202,7 +3202,7 @@ Element.prototype.onserialize = function (key, value) {
                         _actionElement.status = namespace.Status.None;
                         _actionElement.controlNode = null;
 
-                        //左键，如果允许选择，才允许被选中
+                       
                         if (e.button==0 && _actionElement.canSelect && (
                              namespace.Util.orEnum(layer.scene.mode, namespace.SceneMode.SingleSelect) ||
                              namespace.Util.orEnum(layer.scene.mode, namespace.SceneMode.MultipleSelect))) {
@@ -3244,12 +3244,12 @@ Element.prototype.onserialize = function (key, value) {
                 return result;
             }
 
-            //#endregion
+           
 
             this.preRender = function (g) {
                 preRenderCore(_allElements, g);
                 preRenderCore(_alllinks, g);
-                //preRenderCore(_allTooltips, g);
+               
             }
 
             function preRenderCore(eles, g) {
@@ -3261,8 +3261,8 @@ Element.prototype.onserialize = function (key, value) {
                             ele.buildNodes();
                         }
                         ele.updateBounds(g);
-                        //if (ele.tooltip)
-                        //    ele.tooltip.updateBounds(g);
+                       
+                       
                         if (ele instanceof namespace.BaseTextElement) {
                             if (!(ele instanceof namespace.TextElement && ele.autoSize)) {
                                 ele.measureText(g);
@@ -3308,7 +3308,7 @@ Element.prototype.onserialize = function (key, value) {
 
             function isVisiable(ele) {
                 if (!ele.visible) return false;
-                //计算元素是否在可显示区域内
+               
                 if (!(ele instanceof namespace.LinkElement)) {
                     if (layer.stage.drawBounds.intersect(ele.drawBounds) == -1)
                         return false;
@@ -3321,22 +3321,22 @@ Element.prototype.onserialize = function (key, value) {
                 g.save();
 
                 ele.preRender(g);
-                //绘制背景
+               
                 ele.renderBackground(g);
-                //绘制元素前景
+               
                 ele.render(g);
 
-                //绘制文字
+               
                 if (ele instanceof namespace.BaseTextElement)
                     ele.renderText(g, ele.text, ele.textRect, ele.forceColor);
 
-                //绘制悬停高亮
+               
                 if (namespace.Util.andEnum(ele.status, namespace.Status.Hover))
                     ele.renderHighLight(g);
-                //绘制选中
+               
                 if (namespace.Util.andEnum(ele.status, namespace.Status.Selected))
                     ele.renderHighLight(g);
-                //绘制节点
+               
                 if (ele instanceof namespace.NodeElement) {
                     if (ele.editMode > namespace.EditMode.Select || ele.displayNodes.length > 0) {
                         ele.renderNodes(g);
@@ -3435,11 +3435,14 @@ Element.prototype.onserialize = function (key, value) {
             data.backgroundColor = '#eeeeee';
             var layer = this;
             var _graphData;
+
             this.renderBackground = function (g) {
-                if (!_graphData) {
+                if (this.invalid || !_graphData) {
                     g.fillStyle = layer.backgroundColor;
                     g.fillRect(layer.x, layer.y, layer.width, layer.height);
                     _graphData = g.getImageData(0, 0, layer.width, layer.height);
+
+                    this.setValue('invalid', false);
                 }
                 else {
                     g.putImageData(_graphData, 0, 0);
@@ -3462,12 +3465,12 @@ Element.prototype.onserialize = function (key, value) {
 
         });
         namespace.BackgroundLayer = BackgroundLayer;
-        //虚拟层
+       
         function VirtualLayer() {
             Layer.call(this, namespace.LayerMode.Virtual);
             this.type = "lion.VirtualLayer";
             var layer = this;
-            //用于选择的虚拟高亮矩形框
+           
             var _selectVirtualEle = null;
             var _mode = namespace.LayerMode.Virtual;
             this.getVirtualRect = function () {
@@ -3498,7 +3501,7 @@ Element.prototype.onserialize = function (key, value) {
                     if (_selectVirtualEle) {
                         _selectVirtualEle.width = e.offsetX - _selectVirtualEle.x;
                         _selectVirtualEle.height = e.offsetY - _selectVirtualEle.y;
-                        //return;
+                       
                     }
                 }
             }
@@ -3518,8 +3521,8 @@ Element.prototype.onserialize = function (key, value) {
 
 
 
-    //#endregion
-    //#region 场景
+   
+   
     !(function (namespace) {
         /**
         * @name Scene
@@ -3537,9 +3540,9 @@ Element.prototype.onserialize = function (key, value) {
             data.x = 0;
             data.y = 0;
             data.mode = namespace.SceneMode.Normal;
-            //var _width = null;
-            //var _height = null;;
-            //鸟瞰图全局变量
+           
+           
+           
             var _eye;
             /**
             * @name showBirdsEye()
@@ -3548,16 +3551,120 @@ Element.prototype.onserialize = function (key, value) {
             * @class Scene
             */
             this.showBirdsEye = function () {
-                /// <summary>
-                /// 显示鸟瞰视图
-                /// </summary>
+               
+               
+               
                 _eye = new namespace.BirdsEye();
                 _eye.canDrag = false;
                 add(_eye, namespace.LayerMode.Force);
             }
-            //拖拽的元素
+           
             var _dragElement;
             var scene = this
+
+            Object.defineProperties(Scene.prototype, {
+                /**
+                    * @name width
+                    * @type field
+                    * @datatype number
+                    * @description 获取或设置场景的宽度
+                    * @class Scene
+                    */
+                width: {
+                    get: function () {
+                        if (!this.getValue('width')) return this.stage.width;
+                        return this.getValue('width');;
+                    },
+                    set: function (val) {
+                        this.setValue('width', val);
+                        this.invalidLayout("bounds");
+                        for (var i in this.layers) {
+                            this.layers[i].invalidLayout("bounds");
+                        }
+
+                    },
+                    enumerable: true,
+                },
+                /**
+                * @name height
+                * @type field
+                * @datatype number
+                * @description 获取或设置场景的高度
+                * @class Scene
+                */
+                height: {
+                    get: function () {
+                        if (!this.getValue('height')) return this.stage.height;
+                        return this.getValue('height');
+                    },
+                    set: function (val) {
+                        this.setValue('height', val);
+                        this.invalidLayout("bounds");
+                        for (var i in this.layers) {
+                            this.layers[i].invalidLayout("bounds");
+                        }
+                    },
+                    enumerable: true
+                },
+                /**
+                * @name mode
+                * @type field
+                * @datatype Mode
+                * @description 获取或设置场景的模式
+                * @class Scene
+                */
+                mode: {
+                    get: function () {
+                        return this.getValue('mode');
+                    },
+                    set: function (value) {
+                        this.setValue('mode', value);
+                        this.invalidLayout();
+                    },
+                    enumerable: true
+                },
+                /**
+                * @name x
+                * @type field
+                * @datatype Mode
+                * @description 获取或设置场景的x坐标
+                * @class Scene
+                */
+                x: {
+                    get: function () {
+                        return this.getValue('x');
+                    },
+                    set: function (value) {
+                        this.setValue('x', value);
+                        this.invalidLayout("bounds");
+                    },
+                    enumerable: true
+                },
+                /**
+                * @name y
+                * @type field
+                * @datatype Mode
+                * @description 获取或设置场景的y坐标
+                * @class Scene
+                */
+                y: {
+                    get: function () {
+                        return this.getValue('y');
+                    },
+                    set: function (value) {
+                        this.setValue('y', value);
+                        this.invalidLayout("bounds");
+                    },
+                    enumerable: true
+                }
+
+            });
+            this.invalidLayout = function (mode) {
+                namespace.Element.prototype.invalidLayout.call(this, mode);
+                for (var i in this.layers) {
+                    this.layers[i].invalidLayout("bounds");
+                }
+            }
             /**
             * @name setScale(scale, layermode)
             * @type function
@@ -3599,11 +3706,11 @@ Element.prototype.onserialize = function (key, value) {
             * @param layermode number true 层类型
             */
             this.setScale = function (scale, layermode) {
-                /// <summary>
-                /// 设置缩放比例.只影响action和background层
-                /// </summary>
-                /// <param name="scale" type="float">缩放比例</param>
-                /// <param name="layermode" type="type">层类型，缺省为全部层设置，否则指定某个层设置缩放比例</param>
+               
+               
+               
+               
+               
                 if (!layermode) {
                     scene.layers.action.setScale(scale);
                     scene.layers.background.setScale(scale);
@@ -3636,11 +3743,11 @@ Element.prototype.onserialize = function (key, value) {
             * @param callback function true 遍历时回调函数fn(ele)
             */
             this.foreach = function (layerMode, callback) {
-                /// <summary>
-                /// 循环场景下的所有元素
-                /// </summary>
-                /// <param name="layerMode" type="type">场景</param>
-                /// <param name="callback" type="type">回调函数,fn(ele)</param>
+               
+               
+               
+               
+               
                 var layer = getLayer(layerMode);
                 for (var i = 0; i < layer.elements.length; i++)
                     callback(layer.elements[i]);
@@ -3657,12 +3764,12 @@ Element.prototype.onserialize = function (key, value) {
             * @return 找到的元素Element
             */
             this.find = function (layerMode, callback) {
-                /// <summary>
-                /// 通过回调查找场景下所有元素
-                /// </summary>
-                /// <param name="layerMode" type="type"></param>
-                /// <param name="callback" type="type"></param>
-                /// <returns type=""></returns>
+               
+               
+               
+               
+               
+               
                 var layer = getLayer(layerMode);
                 for (var i = 0; i < layer.elements.length; i++)
                     if (callback(layer.elements[i])) return layer.elements[i];
@@ -3671,11 +3778,11 @@ Element.prototype.onserialize = function (key, value) {
             }
 
             function getLayer(layerMode) {
-                /// <summary>
-                /// 获取层
-                /// </summary>
-                /// <param name="layerMode" type="type">层类型</param>
-                /// <returns type=""></returns>
+               
+               
+               
+               
+               
                 if (layerMode == namespace.LayerMode.Virtual) return scene.layers.virtual;
                 else if (layerMode == namespace.LayerMode.Force) return scene.layers.force;
                 else if (layerMode == namespace.LayerMode.Background) return scene.layers.background;
@@ -3686,8 +3793,8 @@ Element.prototype.onserialize = function (key, value) {
 
 
 
-                //ele.x = ele.x - scene.x;
-                //ele.y = ele.y - scene.y;
+               
+               
                 if (layoutMode == namespace.LayerMode.Force) {
                     scene.layers.force.add(ele);
                 } else if (layoutMode == namespace.LayerMode.Background) {
@@ -3710,10 +3817,10 @@ Element.prototype.onserialize = function (key, value) {
             * @param layermode number false 层类型，默认为action层
             */
             this.clear = function (layerMode) {
-                /// <summary>
-                /// 指定清除某个层下所有元素
-                /// </summary>
-                /// <param name="layerMode" type="type">层类型，默认为action层</param>
+               
+               
+               
+               
                 if (layerMode == namespace.LayerMode.Force) {
                     scene.layers.force.clear();
                 } else if (layerMode == namespace.LayerMode.Background) {
@@ -3812,7 +3919,7 @@ Element.prototype.onserialize = function (key, value) {
 
                         _sceneOffset.x = e.clientX;
                         _sceneOffset.y = e.clientY;
-                        //scene.layers.force.refresh();
+                       
                         scene.layers.action.refresh();
                         scene.layers.background.refresh();
                         return;
@@ -3973,14 +4080,14 @@ Element.prototype.onserialize = function (key, value) {
             }
 
 
-            ////前景层,不可移动，固定大小，响应事件
-            //this.layers.force= new Layer(this, namespace.LayerMode.Force),
-            ////活动层，可移动，响应事件
-            //action: new Layer(this, namespace.LayerMode.Action),
-            ////背景层，可移动，不响应事件
-            //background: new BackgroundLayer(this),
-            ////虚拟层，不可移动，固定大小，用于辅助线、选择虚框等，mousedown于action之后执行，mouseup最先执行，mouseup时清除本层次所有元素
-            //virtual: new VirtualLayer(this),
+           
+           
+           
+           
+           
+           
+           
+           
             if (!arguments[0]) {
                 this.setLayer(namespace.LayerMode.Force);
                 this.setLayer(namespace.LayerMode.Action);
@@ -3989,96 +4096,7 @@ Element.prototype.onserialize = function (key, value) {
             }
         }
         Scene.prototype = new namespace.Element(true);
-        Object.defineProperties(Scene.prototype, {
-            /**
-                * @name width
-                * @type field
-                * @datatype number
-                * @description 获取或设置场景的宽度
-                * @class Scene
-                */
-            width: {
-                get: function () {
-                    if (!this.getValue('width')) return this.stage.width;
-                    return this.getValue('width');;
-                },
-                set: function (val) {
-                    this.setValue('width', val);
-                    this.invalidLayout("bounds");
-                },
-                enumerable: true,
-            },
-            /**
-            * @name height
-            * @type field
-            * @datatype number
-            * @description 获取或设置场景的高度
-            * @class Scene
-            */
-            height: {
-                get: function () {
-                    if (!this.getValue('height')) return this.stage.height;
-                    return this.getValue('height');
-                },
-                set: function (val) {
-                    this.setValue('height', val);
-                    this.invalidLayout("bounds");
-                },
-                enumerable: true
-            },
-            /**
-            * @name mode
-            * @type field
-            * @datatype Mode
-            * @description 获取或设置场景的模式
-            * @class Scene
-            */
-            mode: {
-                get: function () {
-                    return this.getValue('mode');
-                },
-                set: function (value) {
-                    this.setValue('mode', value);
-                    this.invalidLayout();
-                },
-                enumerable: true
-            },
-            /**
-            * @name x
-            * @type field
-            * @datatype Mode
-            * @description 获取或设置场景的x坐标
-            * @class Scene
-            */
-            x: {
-                get: function () {
-                    return this.getValue('x');
-                },
-                set: function (value) {
-                    this.setValue('x', value);
-                    this.invalidLayout("bounds");
-                },
-                enumerable: true
-            },
-            /**
-            * @name y
-            * @type field
-            * @datatype Mode
-            * @description 获取或设置场景的y坐标
-            * @class Scene
-            */
-            y: {
-                get: function () {
-                    return this.getValue('y');
-                },
-                set: function (value) {
-                    this.setValue('y', value);
-                    this.invalidLayout("bounds");
-                },
-                enumerable: true
-            }
-
-        });
+        
         Scene.prototype.setParent = function (parentEle) {
             namespace.Element.prototype.setParent.call(this, parentEle);
             this.stage = parentEle;
@@ -4091,8 +4109,8 @@ Element.prototype.onserialize = function (key, value) {
         namespace.Scene = Scene;
     })(lion);
 
-    //#endregion
-    //#region 基本几何元素
+   
+   
     !(function (namespace) {
         /**
         * @name GeoElement
@@ -4118,7 +4136,7 @@ Element.prototype.onserialize = function (key, value) {
             data.shadow = null;
             data.backgroundImageUrl = null;
             data.visible = true;
-            //高亮颜色
+           
             data.highlightColor = "rgba(255,255,255,0.7)";
             data.status = namespace.Status.None;
             data.canDrag = true;
@@ -4129,10 +4147,10 @@ Element.prototype.onserialize = function (key, value) {
             data.scene = null;
             data.layer = null;
             data.drawBounds = new Rect();
-            //标注元素
+           
             data.tooltip = null;
             data.lines = [];
-            //动画元素
+           
             this.animations = [];
             this.events.hover = [];
             this.events.leave = [];
@@ -4625,7 +4643,7 @@ Element.prototype.onserialize = function (key, value) {
         GeoElement.prototype.fireClick = function (e) {
             var next = true;
             if (e.button == 0) {
-                //左键点击
+               
                 for (var i = 0; i < this.events.click.length; i++) {
                 var rtv = this.events.click[i].call(this, this, this.layer);
                 if (rtv != undefined && rtv == false)
@@ -4644,7 +4662,7 @@ Element.prototype.onserialize = function (key, value) {
         }
 
         GeoElement.prototype.fireLayout = function () {
-            //element.onUpdateLayout();
+           
             for (var i = 0; i < this.events.layout.length; i++) {
                 if (namespace.Util.is(this.events.layout[i], 'object')) {
                     this.events.layout[i].func.call(this.events.layout[i].object);
@@ -4683,15 +4701,15 @@ Element.prototype.onserialize = function (key, value) {
             * @class GeoElement
             */
         GeoElement.prototype.setTooltip = function (text) {
-            /// <summary>
-            /// 设置该元素的标注
-            /// </summary>
-            /// <param name="text" type="string">显示的文本</param>
-            /// <returns type="">返回该标注元素</returns>
+           
+           
+           
+           
+           
             if (!this.tooltip) {
                 this.tooltip = new namespace.Tooltip;
                 this.tooltip.setParent(this);
-                //this.tooltip.setOwner(this);
+               
         }
 
             if (namespace.Util.isNullOrWhitespace(text)) {
@@ -4703,7 +4721,7 @@ Element.prototype.onserialize = function (key, value) {
                 this.tooltip.text = text;
         }
             this.layer.setTooltip(this.tooltip);
-            //this.invalidLayout();
+           
             return this.tooltip;
         }
             /**
@@ -4723,13 +4741,13 @@ Element.prototype.onserialize = function (key, value) {
             * @class GeoElement
             */
         GeoElement.prototype.updateBounds = function (g) {
-            /// <summary>计算几何元素的边界矩形</summary>
+           
 
             var px = this.parent ? this.parent.drawBounds.x : 0;
             var py = this.parent ? this.parent.drawBounds.y : 0;
 
-            this.drawBounds.x = (this.x * this.scale + px);//(this.x + px) * this.scale;
-            this.drawBounds.y = (this.y * this.scale + py);//(this.y + py) * this.scale;
+            this.drawBounds.x = (this.x * this.scale + px)
+            this.drawBounds.y = (this.y * this.scale + py)
             this.drawBounds.width = this.width * this.scale;
             this.drawBounds.height = this.height * this.scale;
             this.drawBounds.calc();
@@ -4743,13 +4761,13 @@ Element.prototype.onserialize = function (key, value) {
             * @return 在范围内返回true，否则为false
             */
         GeoElement.prototype.testPoint = function (x, y) {
-            /// <summary>测试点是否在元素区域内</summary>
+           
             return namespace.Util.inRect(this.drawBounds.x, this.drawBounds.y, this.drawBounds.width, this.drawBounds.height, x, y);
         }
 
         GeoElement.prototype.preRender = function (g) {
             var drawrect = this.drawBounds;
-            //形成几何图形的边条
+           
             this.points = [];
             this.points.push({
                     x: drawrect.x, y: drawrect.y
@@ -4882,7 +4900,7 @@ Element.prototype.onserialize = function (key, value) {
                 this.events.hits.splice(0);
                 this.events.hover.splice(0);
                 this.events.layout.splice(0);
-                //this.nodes.splice(0);
+               
                 this.clearAnimation();
                 this.isdisposed = true;
         }
@@ -4892,8 +4910,8 @@ Element.prototype.onserialize = function (key, value) {
     })(lion);
 
 
-    //#endregion
-    //#region 基础文字处理
+   
+   
     !(function (namespace) {
         /**
         * @name BaseTextElement
@@ -4907,22 +4925,22 @@ Element.prototype.onserialize = function (key, value) {
                 namespace.GeoElement.call(this, arguments[0]);
                 this.type = 'lion.BaseTextElement';
                 var data = this.__data__;
-                //是否允许多行
+               
                 data.allowMultiline = false;
-                //是否允许自动换行
+               
                 data.allowWrap = true;
-                //文本颜色
+               
                 data.foreColor = "#000000";
-                //字体大小
+               
                 data.fontSize = 15;
                 data.isGraphicText = false;
-                //字体
-                data.fontFamliy = "Arial";//"FontAwesome";
+               
+                data.fontFamliy = "Arial"
                 data.textStyle = namespace.TextStyle.None;
-                //对齐方式
+               
                 data.align = namespace.Align.Center;
                 data.text = '';
-                //文字所形成的矩形区域
+               
                 data.textRect = null;
                 data.textlines = [];
                 data.pointLines = [];
@@ -5225,24 +5243,24 @@ Element.prototype.onserialize = function (key, value) {
             }
 
             function measureTextPostion(element, lines, index, w, h) {
-                /// <summary>
-                /// 计算当前行所在的位置
-                /// </summary>
-                /// <param name="element" type="type"></param>
-                /// <param name="lines" type="type"></param>
-                /// <param name="index" type="type"></param>
-                /// <param name="w" type="type">当前行宽</param>
-                /// <param name="h" type="type">当前行高</param>
-                /// <returns type=""></returns>
+               
+               
+               
+               
+               
+               
+               
+               
+               
                 var pos = {
                 };
                 linew = w;
                 lineh = h;
                 if (element.allowMultiline) getMultilineTextRect(lines, w, h);
                 if (element.drawBounds.width == 0 && element.drawBounds.height == 0) {
-                    //自动大小
-                    //pos.x = element.drawBounds.x + 3;
-                    //pos.y = element.drawBounds.y + h;
+                   
+                   
+                   
                     pos.x = element.drawBounds.x + 3;
                     pos.y = element.drawBounds.y + index * h + h + 3;
                 }
@@ -5256,7 +5274,7 @@ Element.prototype.onserialize = function (key, value) {
                     }
                     else if (element.align == namespace.Align.TopLeft) {
 
-                        pos.x = element.drawBounds.x;//element.drawBounds.x + (element.drawBounds.width - linew) / 2;
+                        pos.x = element.drawBounds.x
                         pos.y = element.drawBounds.y - ((lines.length - 1) - index) * h - 5;
 
                     }
@@ -5268,7 +5286,7 @@ Element.prototype.onserialize = function (key, value) {
                     }
                     else if (element.align == namespace.Align.TopRight) {
 
-                        pos.x = element.drawBounds.x + (element.drawBounds.width - linew);//element.drawBounds.x + (element.drawBounds.width - linew) / 2;
+                        pos.x = element.drawBounds.x + (element.drawBounds.width - linew)
                         pos.y = element.drawBounds.y - ((lines.length - 1) - index) * h - 5;
 
                     }
@@ -5310,8 +5328,8 @@ Element.prototype.onserialize = function (key, value) {
                 
                 var size = measureTextSize(g, lines[index]);
 
-                //var w = g.measureText(lines[index]).width;
-                //var h = g.measureText("田").width;
+               
+               
                 element.lineHeight = size.height;
                 var rect = new Rect();
                 if (element.drawBounds != null) {
@@ -5333,7 +5351,7 @@ Element.prototype.onserialize = function (key, value) {
 
 
 
-            //自动换行
+           
             if (this.allowMultiline) {
 
                 var rs = [];
@@ -5342,7 +5360,7 @@ Element.prototype.onserialize = function (key, value) {
                     var rect = getTextPos(this, g, lines, i);
                     rs.push(rect);
                     this.pointLines.push({
-                        x: rect.x, y: rect.y //- this.lineHeight * (this.textlines.length - 1)
+                        x: rect.x, y: rect.y
                     });
                 }
 
@@ -5375,7 +5393,7 @@ Element.prototype.onserialize = function (key, value) {
         BaseTextElement.prototype.measureText = function (g) {
 
 
-            //分割文本
+           
             function getLines(element, lines) {
                 lines.splice(0);
                 if (element.allowMultiline) {
@@ -5406,13 +5424,13 @@ Element.prototype.onserialize = function (key, value) {
                 g.font = parseInt(this.fontSize * this.scale) + "px " + this.fontFamliy;
                 g.fillStyle = ocolor;
 
-                //if (this.isGraphicText) {
-                //    var graphicText = this.stage.notifyCmd("getGraphicText", { id: this.id });
-                //    g.fillText(graphicText, orect.x, orect.y);
-                //}
-                //else {
+               
+               
+               
+               
+               
 
-                //自动换行
+               
                 if (this.allowMultiline) {
                     for (var i = 0; i < this.textlines.length; i++) {
                         g.fillText(this.textlines[i], this.pointLines[i].x, this.pointLines[i].y);
@@ -5430,7 +5448,7 @@ Element.prototype.onserialize = function (key, value) {
                     }
 
                 }
-                //}
+               
             }
 
         }
@@ -5440,8 +5458,8 @@ Element.prototype.onserialize = function (key, value) {
     })(lion);
 
 
-    //#endregion
-    //#region 群组
+   
+   
     !(function (namespace) {
         /**
         * @name Group
@@ -5454,7 +5472,7 @@ Element.prototype.onserialize = function (key, value) {
         */
         function Group() {
             namespace.GeoElement.call(this);
-            //Group.prototype.initialize.call(this);
+           
             this.type = "lion.Group";
             var data = this.__data__;
             data.editMode = namespace.EditMode.Select;
@@ -5539,7 +5557,7 @@ Element.prototype.onserialize = function (key, value) {
         * @class Group
         */
         Group.prototype.updateBounds = function (g) {
-            /// <summary>计算几何元素的边界矩形</summary>
+           
 
             var rect = getRect(this.elements);
 
@@ -5558,13 +5576,13 @@ Element.prototype.onserialize = function (key, value) {
             for (var i = 0; i < this.points.length - 1; i++) {
                 g.beginPath();
                 this.renderLine(g, this.points[i], this.points[i + 1], namespace.LineStyle.Dotted);
-                //g.closePath();
+               
             }
             g.beginPath();
             this.renderLine(g, this.points[this.points.length - 1], this.points[0], namespace.LineStyle.Dotted);
         }
-        //Group.prototype.renderNodes = function (g) {
-        //}
+       
+       
         Group.prototype.render = function (g) {
         }
         Group.prototype.onserialize = function (key, value) {
@@ -5587,11 +5605,11 @@ Element.prototype.onserialize = function (key, value) {
         Group.prototype.ondeserialize = function (key, value) {
             if (key == "elements") {
                 this._elements_ = [];
-                //for (var i in value) {
-                //    var ele = this.layer.findElementById(value[i]);
-                //    if (ele)
-                //        this.add(ele);
-                //}
+               
+               
+               
+               
+               
                 for (var i = 0; i < value.length; i++) {
                     this._elements_[i] = value[i];
                 }
@@ -5610,8 +5628,8 @@ Element.prototype.onserialize = function (key, value) {
         namespace.Group = Group;
     })(lion);
 
-    //#endregion
-    //#region 节点元素
+   
+   
     !(function (namespace) {
         /**
         * @name NodeElement
@@ -5626,12 +5644,12 @@ Element.prototype.onserialize = function (key, value) {
             this.type = "lion.Node";
 
             var data = this.__data__;
-            //设置需要展示的节点标志，1为全部，否则为显示节点类型数组
+           
             data.shownodes = null;
             data.displayNodes = [];
-            //当前所控制的端点
+           
             data.controlNode = null;
-            //data.invalidNodes = false;
+           
             data.nodes = [];
             data.hoverNode = null;
 
@@ -5735,7 +5753,7 @@ Element.prototype.onserialize = function (key, value) {
         * @return 返回命中的端点EndPoint
         */
         NodeElement.prototype.testNode = function (x, y) {
-            //测试命中端点
+           
 
             for (var i = 0; i < this.nodes.length; i++) {
                 if (this.nodes[i].testPoint(x, y)) {
@@ -5777,8 +5795,8 @@ Element.prototype.onserialize = function (key, value) {
         * @param mode number true 编辑模式，为EditMode枚举
         */
         NodeElement.prototype.setEditMode = function (mode) {
-            /// <summary>设置元素的编辑模式</summary>
-            /// <param name="mode">编辑模式，为lion.EditMode枚举</param>
+           
+           
             if (this.canEdit && this.canEvent) {
                 this.setValue('editMode', mode);
                 if (this.editMode > namespace.EditMode.Select) {
@@ -5814,8 +5832,8 @@ Element.prototype.onserialize = function (key, value) {
         * @param disnodes Array true 端点类型数组,缺省则显示所有端点
         */
         NodeElement.prototype.showNodes = function (disnodes) {
-            /// <summary>指定显示某些端点</summary>
-            /// <param name="nodes">端点类型数组</param>
+           
+           
 
             if (!disnodes) {
                 this.shownodes = 1;
@@ -5910,10 +5928,10 @@ Element.prototype.onserialize = function (key, value) {
 
         }
         NodeElement.prototype.initNodes = function (nodeTypes) {
-            /// <summary>
-            /// 手动生产节点，必须于再场景添加以后才可以调用
-            /// </summary>
-            /// <param name="nodeTypes" type="type">节点类型，空值则创建该元素可能的所有节点，否则按需生成节点</param>
+           
+           
+           
+           
             if (this.nodes.length == 0) {
 
                 if (!nodeTypes || (nodeTypes && nodeTypes.indexOf(namespace.EndPointMode.TopLeft) > -1)) {
@@ -6017,8 +6035,8 @@ Element.prototype.onserialize = function (key, value) {
         namespace.NodeElement = NodeElement;
     })(lion);
 
-    //#endregion
-    //#region 多边形元素
+   
+   
     !(function (namespace) {
         /**
         * @name PolygonElement
@@ -6036,9 +6054,9 @@ Element.prototype.onserialize = function (key, value) {
             data.height = 0;
             data.points = [];
             data.pathPoints = [];
-            //for (var i = 0; i < this.nodeCount; i++) {
-            //    this.nodes.push(new namespace.EndPoint(this));
-            //}
+           
+           
+           
 
         }
 
@@ -6084,7 +6102,7 @@ Element.prototype.onserialize = function (key, value) {
                 set: function (val) {
                     this.setValue('path', val);
                     this.invalidLayout("bounds");
-                    //this.buildPath(val);
+                   
                 },
                 enumerable: true
             },
@@ -6153,12 +6171,12 @@ Element.prototype.onserialize = function (key, value) {
                     this.points[i].y = this.drawBounds.y + this.pathPoints[i].y * this.scale;
                 }
 
-                //this.points[i].x *= this.scale;
-                //this.points[i].y *= this.scale;
+               
+               
 
-                //this.points[i].x = this.drawBounds.x + this.pathPoints[i].x;
+               
 
-                //this.points[i].y = this.drawBounds.y + this.pathPoints[i].y;
+               
             }
 
             this.fireLayout();
@@ -6187,7 +6205,7 @@ Element.prototype.onserialize = function (key, value) {
             }
 
             if (this.rotate > 0) {
-                //找到最小坐标，进行平移
+               
                 var minX = this.pathPoints[0].x;
                 var minY = this.pathPoints[0].y;
                 for (var i = 1; i < this.pathPoints.length; i++) {
@@ -6214,8 +6232,8 @@ Element.prototype.onserialize = function (key, value) {
 
         PolygonElement.prototype.render = function (g) {
             g.save();
-            //g.translate(this.drawBounds.center.x, this.drawBounds.center.y);//设置画布上的(0,0)位置，也就是旋转的中心点
-            //g.rotate(90 * Math.PI / 180);
+           
+           
             g.moveTo(this.points[0].x, this.points[0].y);
 
             for (var i = 1; i < this.points.length; i++) {
@@ -6249,8 +6267,8 @@ Element.prototype.onserialize = function (key, value) {
         PolygonElement.prototype.preRender = function (g) {
         }
         PolygonElement.prototype.setEditMode = function (mode) {
-            /// <summary>设置元素的编辑模式</summary>
-            /// <param name="mode">编辑模式，为namespace.EditMode枚举</param>
+           
+           
             if (this.canEdit && this.canEvent) {
                 this.setValue('editMode', mode);
                 if (this.editMode > namespace.EditMode.Select) {
@@ -6261,8 +6279,8 @@ Element.prototype.onserialize = function (key, value) {
         namespace.PolygonElement = PolygonElement;
     })(lion);
 
-    //#endregion
-    //#region 鸟瞰视图
+   
+   
     !(function (namespace) {
         /**
         * @name BirdsEye
@@ -6377,7 +6395,7 @@ Element.prototype.onserialize = function (key, value) {
             var scaleY = this.height / this.scene.height;
             var eles = this.scene.layers.action.elements;
             for (var i = 0; i < eles.length; i++) {
-                //对于连线跳过处理
+               
                 if (eles[i] instanceof namespace.LinkElement) continue;
                 if (eles[i] instanceof namespace.LineElement) {
 
@@ -6393,9 +6411,9 @@ Element.prototype.onserialize = function (key, value) {
             }
         }
         BirdsEye.prototype.render = function (g) {
-            //var scaleX = this.width / this.scene.width;
-            //var scaleY = this.height / this.scene.height;
-            //var eles = this.scene.layers.action.elements;
+           
+           
+           
 
             g.fillStyle = this.backgroundColor;
             g.fillRect(this.drawBounds.x, this.drawBounds.y, this.drawBounds.width, this.drawBounds.height);
@@ -6411,8 +6429,8 @@ Element.prototype.onserialize = function (key, value) {
         namespace.BirdsEye = BirdsEye;
     })(lion);
 
-    //#endregion
-    //#region 端点元素
+   
+   
     !(function (namespace) {
         /**
         * @name EndPoint
@@ -6473,40 +6491,40 @@ Element.prototype.onserialize = function (key, value) {
 
         EndPoint.prototype.updateBounds = function (g) {
 
-            /// <summary>计算几何元素的边界矩形</summary>
+           
             var px = 0, py = 0;
             if (this.parent instanceof namespace.LineElement) {
 
                 px = this.scene.x;
                 py = this.scene.y;
-                this.drawBounds.x = (this.x * this.scale+ px); //* this.scale;
-                this.drawBounds.y = (this.y * this.scale+ py) ;//* this.scale;
+                this.drawBounds.x = (this.x * this.scale+ px);
+                this.drawBounds.y = (this.y * this.scale+ py) 
 
             }
             else {
                 px = this.parent ? this.parent.drawBounds.x : 0;
                 py = this.parent ? this.parent.drawBounds.y : 0;
-                this.drawBounds.x = (this.x * this.scale + px); //* this.scale;
-                this.drawBounds.y = (this.y * this.scale + py);//* this.scale;
+                this.drawBounds.x = (this.x * this.scale + px);
+                this.drawBounds.y = (this.y * this.scale + py)
             }
 
-            //    px = this.parent ? this.parent.drawBounds.x : 0;
-            //    py = this.parent ? this.parent.drawBounds.y : 0;
-            //    this.drawBounds.x = (this.x * this.scale + px); //* this.scale;
-            //    this.drawBounds.y = (this.y * this.scale + py);//* this.scale;
+           
+           
+           
+           
 
 
-            this.drawBounds.width = this.width;// * element.scale;
-            this.drawBounds.height = this.height;// * element.scale;
+            this.drawBounds.width = this.width
+            this.drawBounds.height = this.height
             this.drawBounds.calc();
 
         }
         EndPoint.prototype.move = function (x, y) {
-            /// <summary>
-            /// 控制节点移动，按偏移量位移
-            /// </summary>
-            /// <param name="x" type="type"></param>
-            /// <param name="y" type="type"></param>
+           
+           
+           
+           
+           
             if (this.controlMode == namespace.EndPointMode.TopLeft) {
 
                 if (this.controlElement.editMode == namespace.EditMode.Free ||
@@ -6571,7 +6589,7 @@ Element.prototype.onserialize = function (key, value) {
             }
             else if (this.controlMode == namespace.EndPointMode.MiddleBottom) {
                 this.controlElement.height += y;
-                // this.y += y;
+               
             }
             else if (this.controlMode == namespace.EndPointMode.MiddleLeft) {
                 this.controlElement.x += x;
@@ -6579,7 +6597,7 @@ Element.prototype.onserialize = function (key, value) {
             }
             else if (this.controlMode == namespace.EndPointMode.MiddleRight) {
                 this.controlElement.width += x;
-                //this.x = x;
+               
             }
 
             else if (this.controlMode == namespace.EndPointMode.Landscape) {
@@ -6598,7 +6616,7 @@ Element.prototype.onserialize = function (key, value) {
                 }
             }
 
-            //this.controlElement.invalidNodes = true;
+           
             for (var n = 0; n < this.controlElement.nodes.length; n++) {
                 if (!(this.controlElement instanceof namespace.LineElement)) {
                     this.controlElement.resetNodeLocation(this.controlElement.nodes[n]);
@@ -6631,8 +6649,8 @@ Element.prototype.onserialize = function (key, value) {
     })(lion);
 
 
-    //#endregion
-    //#region 矩形元素
+   
+   
     !(function (namespace) {
         /**
         * @name RectElement
@@ -6663,16 +6681,16 @@ Element.prototype.onserialize = function (key, value) {
             * @description 矩形的宽度
             * @class RectElement
             */
-            //width: {
-            //    get: function () {
-            //        return this.getValue('width');
-            //    },
-            //    set: function (value) {
-            //        this.setValue('width', value);
-            //        this.invalidLayout("bounds");
-            //    },
-            //    enumerable: true
-            //},
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
             /**
             * @name height
             * @type field
@@ -6680,16 +6698,16 @@ Element.prototype.onserialize = function (key, value) {
             * @description 矩形的高度
             * @class RectElement
             */
-            //height: {
-            //    get: function () {
-            //        return this.getValue('height');
-            //    },
-            //    set: function (value) {
-            //        this.setValue('height', value);
-            //        this.invalidLayout("bounds");
-            //    },
-            //    enumerable: true
-            //},
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
             /**
             * @name radius
             * @type field
@@ -6781,8 +6799,8 @@ Element.prototype.onserialize = function (key, value) {
         namespace.RectElement = RectElement;
     })(lion);
 
-    //#endregion
-    //#region 复合元素
+   
+   
     !(function (namespace) {
         /**
             * @name MixElement
@@ -6979,8 +6997,8 @@ Element.prototype.onserialize = function (key, value) {
         namespace.MixElement = MixElement;
     })(lion);
 
-    //#endregion
-    //#region 文本元素
+   
+   
     !(function (namespace) {
         function TextElement() {
             /**
@@ -7033,8 +7051,8 @@ Element.prototype.onserialize = function (key, value) {
                 var py = this.parent ? this.parent.drawBounds.y : 0;
             }
             if (this.autoSize) {
-                this.drawBounds.x = (this.x * this.scale + px);//(this.x + px) * this.scale;
-                this.drawBounds.y = (this.y * this.scale + py);//(this.y + py) * this.scale;
+                this.drawBounds.x = (this.x * this.scale + px)
+                this.drawBounds.y = (this.y * this.scale + py)
                 this.drawBounds.width = 0;
                 this.drawBounds.height = 0;
 
@@ -7054,14 +7072,14 @@ Element.prototype.onserialize = function (key, value) {
 
         }
         TextElement.prototype.renderHighLight = function (g) {
-            //this.renderText(g, this.highlightColor);
+           
         }
         namespace.TextElement = TextElement;
     })(lion);
 
 
-    //#endregion
-    //#region Tooltip
+   
+   
     !(function (namespace) {
         /**
         * @name TooltipElement
@@ -7074,7 +7092,7 @@ Element.prototype.onserialize = function (key, value) {
             namespace.BaseTextElement.call(this);
             this.type = "lion.Tooltip";
             var data = this.__data__;
-            //this.__owner = null;
+           
             data.position = namespace.Align.TopRight;
             data.autoSize = true;
             this.align = namespace.Align.TopLeft;
@@ -7138,8 +7156,8 @@ Element.prototype.onserialize = function (key, value) {
         namespace.Tooltip = TooltipElement;
     })(lion);
 
-    //#endregion
-    //#region 圆形元素
+   
+   
     !(function (namespace) {
         /**
         * @name CircleElement
@@ -7152,7 +7170,7 @@ Element.prototype.onserialize = function (key, value) {
 
             namespace.NodeElement.call(this);
             var data = this.__data__;
-            //半径
+           
             this.radius = 20;
             this.type = "lion.CircleElement";
 
@@ -7264,8 +7282,8 @@ Element.prototype.onserialize = function (key, value) {
         namespace.CircleElement = CircleElement;
     })(lion);
 
-    //#endregion
-    //#region 直线元素
+   
+   
     !(function (namespace) {
         /**
         * @name LineElement
@@ -7280,16 +7298,16 @@ Element.prototype.onserialize = function (key, value) {
             var data = this.__data__;
             this.type = "lion.LineElement";
             data.backgroundColor = "#333333";
-            //箭头大小
+           
             data.arrowSize = 10;
-            //箭头方向
+           
             data.arrowDirection = namespace.ArrowDirection.Right;
-            //箭头样式
+           
             data.arrowStyle = namespace.ArrowStyle.Triangle;
             data.bindPathAnimations = [];
-            //开始连接元素
+           
             data.startNode = new namespace.EndPoint(this);
-            //结束连接元素
+           
             data.endNode = new namespace.EndPoint(this);
             data.arrows = [];
             data.points = [];
@@ -7520,11 +7538,11 @@ Element.prototype.onserialize = function (key, value) {
             }
 
             namespace.NodeElement.prototype.invalidLayout.call(this, mode);
-            //作为连线元素，不处理节点问题，因为连接节点依赖于连接两端元素，否则会形成死循环
+           
         }
         LineElement.prototype.updateBounds = function (g) {
 
-            /// <summary>计算几何元素的边界矩形</summary>
+           
 
             this.startNode.updateBounds(g);
             this.endNode.updateBounds(g);
@@ -7561,12 +7579,12 @@ Element.prototype.onserialize = function (key, value) {
         */
         LineElement.prototype.testPoint = function (x, y) {
 
-            //range 判断的的误差，不需要误差则赋值0
+           
             var range = 5;
             var pf = { x: x, y: y };
             var p1 = this.startNode.drawBounds.center;
             var p2 = this.endNode.drawBounds.center;
-            //点在线段首尾两端之外则return false
+           
             var cross = (p2.x - p1.x) * (pf.x - p1.x) + (p2.y - p1.y) * (pf.y - p1.y);
             if (cross <= 0) return false;
             var d2 = (p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y);
@@ -7576,9 +7594,9 @@ Element.prototype.onserialize = function (key, value) {
             var r = cross / d2;
             var px = p1.x + (p2.x - p1.x) * r;
             var py = p1.y + (p2.y - p1.y) * r;
-            //判断距离是否小于误差
+           
             var ran = Math.sqrt((pf.x - px) * (pf.x - px) + (py - pf.y) * (py - pf.y));
-            // console.log(ran);
+           
             return ran <= range;
 
         }
@@ -7657,7 +7675,7 @@ Element.prototype.onserialize = function (key, value) {
             this.startNode.y = y1;
             this.startNode.width = 10;
             this.startNode.height = 10;
-            //this.startNode.setParent(this.parent);
+           
 
 
             this.endNode.controlMode = namespace.EndPointMode.End;
@@ -7700,7 +7718,7 @@ Element.prototype.onserialize = function (key, value) {
         * @param y number true 点的y坐标
         */
         LineElement.prototype.lineTo = function (x, y) {
-            /// <summary>设置直线的结束点</summary>
+           
             this.endNode.x = x;
             this.endNode.y = y;
             this.invalidLayout("bounds");
@@ -7715,7 +7733,7 @@ Element.prototype.onserialize = function (key, value) {
        * @param ongrid number false 是否按网格移动，默认为false
        */
         LineElement.prototype.offset = function (x, y, ongrid) {
-            /// <summary>移动直线</summary>
+           
             this.startNode.x += x;
             this.startNode.y += y;
             this.endNode.x += x;
@@ -7854,8 +7872,8 @@ Element.prototype.onserialize = function (key, value) {
     })(lion);
 
 
-    //#endregion
-    //#region 连线元素
+   
+   
     !(function (namespace) {
         /**
         * @name LinkElement
@@ -7938,7 +7956,7 @@ Element.prototype.onserialize = function (key, value) {
         });
         LinkElement.prototype.ondeserialize = function (key, value) {
 
-            //var start, end,startM,endM;
+           
             if (key == "startNode") {
                 this._start_ = value.split('_');;
             }
@@ -7998,7 +8016,7 @@ Element.prototype.onserialize = function (key, value) {
             this.fireLayout();
         }
         function getEdge(ele, ele2) {
-            //查找e.e2和ele的连线，位于ele上的边缘交点寻址
+           
             if (ele instanceof namespace.RectElement) {
                 if (ele.drawBounds.center.x < ele2.drawBounds.center.x && ele.drawBounds.center.y < ele2.drawBounds.center.y) {
                     var w = ele2.drawBounds.center.x - ele.drawBounds.center.x;
@@ -8123,7 +8141,7 @@ Element.prototype.onserialize = function (key, value) {
             }
         }
         LinkElement.prototype.preRender = function (g) {
-            //计算边缘
+           
             
      
             this.points.splice(0);
@@ -8158,13 +8176,13 @@ Element.prototype.onserialize = function (key, value) {
                     this.points.push({
                         x: this.endNode.drawBounds.center.x, y: this.endNode.drawBounds.center.y
                     });
-                    //this.points.push(this.endElement.drawBounds.center);
+                   
                 }
                 this._arrows = [];
                 this.preArrow(g, this.points[0], this.points[1]);
             }
      
-            //namespace.LineElement.prototype.preRender.call(this,g);
+           
         }
 
 
@@ -8224,7 +8242,7 @@ Element.prototype.onserialize = function (key, value) {
             }
 
             namespace.BaseTextElement.prototype.invalidLayout.call(this,mode);
-            //作为连线元素，不处理节点问题，因为连接节点依赖于连接两端元素，否则会形成死循环
+           
         }
         LinkElement.prototype.onserialize = function (key, value) {
             if (key == "startNode") return '"startNode":"' + value.controlElement.id + '_' + value.controlMode + '"';
@@ -8233,8 +8251,8 @@ Element.prototype.onserialize = function (key, value) {
         namespace.LinkElement = LinkElement;
     })(lion);
 
-    //#endregion
-    //#region 曲线元素
+   
+   
     !(function (namespace) {
         /**
         * @name CurveLinkElement
@@ -8249,14 +8267,14 @@ Element.prototype.onserialize = function (key, value) {
             this.type = "lion.CurveLinkElement";
 
             function getPointOnCurve(t, p0, p1, p2) {
-                /// <summary>
-                /// 计算二次贝塞尔曲线上点的位置，t为距离控制点的比例
-                /// </summary>
-                /// <param name="t" type="type"></param>
-                /// <param name="p0" type="type"></param>
-                /// <param name="p1" type="type"></param>
-                /// <param name="p2" type="type"></param>
-                /// <returns type=""></returns>
+               
+               
+               
+               
+               
+               
+               
+               
                 var point = {};
                 var temp = 1 - t;
                 point.x = temp * temp * p0.x + 2 * t * temp * p1.x + t * t * p2.x;
@@ -8361,8 +8379,8 @@ Element.prototype.onserialize = function (key, value) {
         namespace.CurveLinkElement = CurveLinkElement;
     })(lion);
 
-    //#endregion
-    //#region 直角连线元素
+   
+   
     !(function (namespace) {
         /**
         * @name RAngleLinkElement
@@ -8455,7 +8473,7 @@ Element.prototype.onserialize = function (key, value) {
         }
 
 
-        //判断下一步是否可以到达终点
+       
         function nextIsEnd(curDirection, endDirection, start, end) {
             switch (curDirection) {
                 case namespace.Direction.Top:
@@ -8485,14 +8503,14 @@ Element.prototype.onserialize = function (key, value) {
             }
         }
 
-        //从开始位置进行寻址
+       
         function findPoints(o, start, end, minInflexion) {
             var array = [];
             var blankstep = minInflexion;
             var last = o.startDirection;
             var cur = start;
             array.push(start);
-            //从开始方向向下一个位置进行寻址
+           
             while (cur.x != end.x || cur.y != end.y) {
                 switch (last) {
                     case namespace.Direction.Top: {
@@ -8727,7 +8745,7 @@ Element.prototype.onserialize = function (key, value) {
             var ey = this.endElement.drawBounds.center.y;
 
             if (Math.abs(ex - sx) > Math.abs(ey - sy)) {
-                //横
+               
                 if (sx < ex) {
                     this.startNode = this.startElement.getNode(namespace.EndPointMode.MiddleRight);
                     this.endNode = this.endElement.getNode(namespace.EndPointMode.MiddleLeft);
@@ -8741,7 +8759,7 @@ Element.prototype.onserialize = function (key, value) {
                 }
             }
             else {
-                //竖
+               
                 if (sy <= ey) {
                     this.startNode = this.startElement.getNode(namespace.EndPointMode.MiddleBottom);
                     this.endNode = this.endElement.getNode(namespace.EndPointMode.MiddleTop);
@@ -8858,9 +8876,9 @@ Element.prototype.onserialize = function (key, value) {
         namespace.RAngleLinkElement = RAngleLinkElement;
     })(lion);
 
-    //#endregion
+   
 
-    //#region 布局模式
+   
     !(function (namespace) {
         /**
         * @name Layout
@@ -8871,7 +8889,7 @@ Element.prototype.onserialize = function (key, value) {
         */
         function Layout() { }
         namespace.Layout = Layout;
-        //对齐模式
+       
         Layout.AlignMode = {
             Left: 0,
             Right: 1,
@@ -8880,7 +8898,7 @@ Element.prototype.onserialize = function (key, value) {
             Horizontal: 10,
             Vertical: 11
         }
-        //排列模式
+       
         Layout.ArrangeMode = {
             Horizontal: 0,
             Vertical: 1
@@ -9080,7 +9098,7 @@ Element.prototype.onserialize = function (key, value) {
         }
     })
     (lion);
-    //#endregion
+   
 
     return lion.Timer.init();
 

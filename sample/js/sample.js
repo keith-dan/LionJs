@@ -2,6 +2,7 @@
 /// <reference path="/script/lion.js"/>
 /// <reference path="/script/lion.ui.js"/>
 var stage;
+
 $(window.document).ready(function () {
 
     lion.debug = lion.DebugMode.All;
@@ -58,6 +59,16 @@ $(window.document).ready(function () {
     });
     stage.currentScene.addElement(ele, lion.LayerMode.Force);
 
+    ele = new lion.ui.Button();
+    ele.x = 600;
+    ele.y = 10;
+    ele.text = "网格移动";
+    ele.onClick(function () {
+        stage.currentScene.layers.action.moveOnGrid(true, 50, 50);
+    });
+    stage.currentScene.addElement(ele, lion.LayerMode.Force);
+    
+
     //ele = new lion.ui.TextArea();
     //ele.x = 500;
     //ele.y = 10;
@@ -104,6 +115,11 @@ $(window.document).ready(function () {
     $("#btnView").on("click", function () {
         $("#txtSource").hide();
     });
+
+    $(window).resize(function () {
+        stage.resize();
+        //console.log(window.document)
+    })
 
 });
 
