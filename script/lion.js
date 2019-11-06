@@ -6,7 +6,7 @@
 */
 
 !(function (o) {
-   
+
 
     /**
     * @name Global
@@ -16,26 +16,26 @@
     */
     function defineMethod(object, name, fn) {
         var old = object[name];
-        object[name] = function() {
-            if(fn.length === arguments.length) {
+        object[name] = function () {
+            if (fn.length === arguments.length) {
                 return fn.apply(this, arguments);
-            } else if(typeof old === "function") {
+            } else if (typeof old === "function") {
                 return old.apply(this, arguments);
             }
         }
     }
 
-   
+
     function getBeveling(x, y) {
         return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     }
-   
+
     function paintLine(g, start, end, style) {
         if (style == lion.LineStyle.Dotted) {
             var dashLen = 5;
-           
+
             var beveling = getBeveling(end.x - start.x, end.y - start.y);
-           
+
             var num = Math.floor(beveling / dashLen);
 
             for (var i = 0; i < num; i++) {
@@ -44,14 +44,14 @@
             g.stroke();
         }
         else {
-           
+
 
         }
     }
 
     function getRectFromRects(rects) {
-       
-       
+
+
         var minW = rects[0].x, maxW = 0, minH = rects[0].y, maxH = 0;
         for (var i = 0; i < rects.length; i++) {
 
@@ -69,20 +69,20 @@
 
         return rect;
     }
-   
+
     function getRect(elements) {
 
         var rects = [];
         for (var i = 0; i < elements.length; i++) {
             if (elements[i] instanceof lion.LinkElement)
                 continue;
-            else 
+            else
                 rects.push(elements[i].getOutRect());
         }
 
         return getRectFromRects(rects);
     }
-   
+
     function pathRoundRect(g, x, y, w, h, r) {
         if (w < 2 * r) { r = w / 2; }
         if (h < 2 * r) { r = h / 2; }
@@ -95,7 +95,7 @@
         g.closePath();
 
     }
-   
+
     function pushArray(array1, array2) {
 
         for (var i = 0; i < array2.length; i++)
@@ -118,7 +118,7 @@
         return date.getTime().toString() + parseInt(Math.random() * 100000);
 
     }
-    
+
     /**
     * @name fromJson(jsonString, div, autoSize)
     * @description 从Json中反序列化为对象
@@ -158,16 +158,16 @@
         var angle = Math.atan(diff_y / diff_x);
         return angle;
     }
-   
+
     function getArrowDirection(start, end) {
 
-       
+
         if (start.y > end.y && start.x > end.x) return 0;
-           
+
         else if (start.y > end.y && start.x < end.x) return 1;
-           
+
         else if (start.y < end.y && start.x < end.x) return 2;
-           
+
         else if (start.y < end.y && start.x > end.x) return 3;
     }
     function paintArrow(g, start, end, size, bgcolor) {
@@ -282,7 +282,7 @@
         var angle = lion.Util.toAngle(radian);
         var radian1 = Math.abs(radian) + lion.Util.toRadian(45);
 
-       
+
         var y1 = size * Math.sin(radian1);
         var x1 = size * Math.cos(radian1);
 
@@ -393,8 +393,8 @@
         g.beginPath();
         g.fillRect(x - size, y - size, 2 * size, 2 * size);
     }
-   
-    function getBgColor(g,  backgroundColor) {
+
+    function getBgColor(g, backgroundColor) {
         if (backgroundColor instanceof lion.Gradient) {
             if (backgroundColor.type == lion.Gradient.Type.Linear) {
                 var grd = g.createLinearGradient(backgroundColor.drawPoint1.x,
@@ -421,13 +421,12 @@
 
 
         }
-        else
-        {
+        else {
             return backgroundColor;
         }
     }
-   
-   
+
+
     /**
     * @name Util
     * @type class
@@ -538,7 +537,7 @@
          * @param startPoint Point 开始点
          * @param endPoint Point 结束点
          */
-        this.getDistance = function(startPoint, endPoint) {
+        this.getDistance = function (startPoint, endPoint) {
 
             var x = Math.abs(endPoint.x - startPoint.x);
             var y = Math.abs(endPoint.y - startPoint.y);
@@ -559,7 +558,7 @@
          * @param pw number 测试矩形宽度
          * @param ph number 测试矩形高度
          */
-        this.inRect = function(x, y, w, h, px, py, pw, ph) {
+        this.inRect = function (x, y, w, h, px, py, pw, ph) {
             if (arguments.length == 8) {
                 x = w < 0 ? w + x : x;
                 y = h < 0 ? h + y : y;
@@ -575,7 +574,7 @@
             return re.test(number);
         }
     }
-   
+
     function Debugger(stage) {
 
         this.eleDebug = new lion.TextElement();
@@ -611,12 +610,12 @@
             }
         }
     }
-    
+
 
     var _stageAnimations = {};
     var lion = o.lion || (o.lion = {
-       
-        Version: "1.0.5",
+
+        Version: "1.0.6",
         /**
          * @name Position
          * @description 位置
@@ -677,15 +676,15 @@
          * @type enum
         */
         ArrowStyle: {
-           
+
             Triangle: 1,
-           
+
             Arrow: 2,
-           
+
             Circle: 3,
-           
+
             Rect: 4,
-           
+
             None: 0
         },
         /**
@@ -770,19 +769,19 @@
         * @file enum
         * @type enum
         */
-       
+
         Status: {
-           
+
             None: 1,
-           
+
             Selected: 2,
-           
+
             Draging: 4,
-           
+
             Editing: 8,
-           
+
             Hover: 16,
-           
+
             NodeHover: 32
         },
         Keys: {
@@ -799,19 +798,19 @@
         * @file enum
         * @type enum
         */
-       
+
         EditMode: {
-           
+
             Select: 0,
-           
+
             Scale: 1,
-           
+
             Rotate: 2,
-           
+
             Free: 3,
-           
+
             NodeControl: 4,
-           
+
             None: 5
         },
         /**
@@ -833,12 +832,12 @@
         * @file enum
         * @type enum
         */
-       
+
         EndPointMode: {
             Start: 0,
             End: 1,
             Middle: 2,
-           
+
             Center: 3,
             TopLeft: 11,
             TopRight: 12,
@@ -848,11 +847,11 @@
             MiddleRight: 16,
             MiddleTop: 17,
             MiddleBottom: 18,
-           
+
             Landscape: 21,
-           
+
             Vertical: 22,
-           
+
             Free: 31
         },
         /**
@@ -928,7 +927,7 @@
         },
     };
 
-   
+
     /**
     * @name Rect
     * @type class
@@ -950,7 +949,7 @@
         var rect = this;
 
         if (arguments.length == 0) {
-           
+
             this.x = 0;
             this.y = 0;
             this.width = 0;
@@ -966,8 +965,8 @@
             get: function () {
                 return this.__x__;
             },
-            set: function(value) {
-                lion.Util.isNumber( value ) ? this.__x__ = value : 0;
+            set: function (value) {
+                lion.Util.isNumber(value) ? this.__x__ = value : 0;
 
             },
             enumerable: false
@@ -976,7 +975,7 @@
             get: function () {
                 return this.__y__;
             },
-            set: function(value) {
+            set: function (value) {
                 lion.Util.isNumber(value) ? this.__y__ = value : 0;
 
             },
@@ -986,7 +985,7 @@
             get: function () {
                 return this.__width__;
             },
-            set: function(value) {
+            set: function (value) {
                 lion.Util.isNumber(value) ? this.__width__ = value : 0;
 
             },
@@ -1080,9 +1079,9 @@
         this.x = x;
         this.y = y;
     }
-   
-    
-   
+
+
+
     !(function (namespace) {
         namespace.Animations = {};
 
@@ -1093,20 +1092,20 @@
         * @description 动画基础类
         */
         function Animation() {
-           
+
             this.enable = true;
             this.interval = 33;
             this.element = null;
             this.finished = false;
-           
+
             this.endreverse = false;
-           
+
             this.loop = true;
 
             var animate = this;
-           
+
             var _invalid = true;
-           
+
             Object.defineProperties(this, {
                 invalid: {
                     get: function () {
@@ -1177,7 +1176,7 @@
             this.doAnimationCore = function () {
                 for (var i = 0; i < animate.steps.length; i++) {
                     if (animate.steps[i].direct == 1) {
-                       
+
 
                         if (animate.element[animate.steps[i].field] >= animate.steps[i].to) {
                             if (!this.loop) return true;
@@ -1194,7 +1193,7 @@
                         }
                     }
                     else {
-                       
+
 
                         if (animate.element[animate.steps[i].field] <= animate.steps[i].to) {
                             if (!this.loop) return true;
@@ -1323,7 +1322,7 @@
         */
         function PathAnimation(obj) {
             Animation.call(this);
-           
+
             this.stepLength = 10;
             this.path = [];
             this.speed = 3;
@@ -1332,12 +1331,12 @@
             var _points = [];
             var _calcing = false;
             this.addPath = function (line) {
-          
+
                 animate.path.push(line);
                 getPoints(line);
 
 
-               
+
             }
             this.doAnimationCore = function () {
                 if (_points.length > 0) {
@@ -1358,8 +1357,8 @@
                 var steplen = animate.speed;
                 var step = 0;
                 if (line.x1 == line.x2) {
-                   
-                   
+
+
                     step = Math.abs(Math.abs(line.y2) - Math.abs(line.y1)) / steplen;
 
                     for (var i = 0; i < step; i++) {
@@ -1370,8 +1369,8 @@
                     }
                 }
                 else if (line.y1 == line.y2) {
-                   
-                   
+
+
                     step = Math.abs(Math.abs(line.x2) - Math.abs(line.x1)) / steplen;
                     for (var i = 0; i < step; i++) {
                         var x = line.x2 > line.x1 ? line.x1 + i * steplen : line.x1 - i * steplen;
@@ -1382,14 +1381,14 @@
                 }
                 else {
 
-                   
+
                     var k = ((line.y1 - line.y2)) / (line.x1 - line.x2);
 
                     step = Math.abs(Math.abs(line.x2) - Math.abs(line.x1)) / steplen;
-                   
+
                     for (var i = 0; i < step; i++) {
 
-                       
+
                         if (k > 0) {
                             var y = line.y1 > line.y2 > 0 ? line.y1 - k * (i * steplen) : k * (i * steplen) + line.y1;
                             var x = line.x1 > line.x2 > 0 ? line.x1 - i * steplen : line.x1 + i * steplen;
@@ -1412,7 +1411,7 @@
 
             var line;
             this.preAnimation = function () {
-                if (animate.invalid ) {
+                if (animate.invalid) {
                     if (line && line.points.length > 0) {
                         _index = 0;
                         animate.path = [];
@@ -1427,12 +1426,12 @@
 
                         }
 
-       
+
                     }
 
                     animate.invalid = false;
                 }
-      
+
 
             }
 
@@ -1459,35 +1458,35 @@
         namespace.Animations.PathAnimation = PathAnimation;
     })(lion);
 
-   
 
-    
+
+
     !(function (namespace) {
         function Gradient(type, x1, y1, x2, y2, color1, color2) {
-        this.type = type;
-        this.x1 = x1;
-        this.y1 = y1;
-        this.x2 = x2;
-        this.y2 = y2;
+            this.type = type;
+            this.x1 = x1;
+            this.y1 = y1;
+            this.x2 = x2;
+            this.y2 = y2;
 
-        this.colors = [];
-        if (color1 && color2) {
-            this.addColorStop(0, color1);
-            this.addColorStop(1, color2);
+            this.colors = [];
+            if (color1 && color2) {
+                this.addColorStop(0, color1);
+                this.addColorStop(1, color2);
+            }
         }
-    }
         namespace.Gradient = Gradient;
-    Gradient.Type = {
-        Linear: 1,
-        Radial: 2
-    }
-    Object.defineProperties(Gradient.prototype, {
+        Gradient.Type = {
+            Linear: 1,
+            Radial: 2
+        }
+        Object.defineProperties(Gradient.prototype, {
 
-        drawPoint1: {
-            get: function () {
+            drawPoint1: {
+                get: function () {
                     return new Point(this.owner.drawBounds.x + this.x1 * this.owner.scale,
                         this.owner.drawBounds.y + this.y1 * this.owner.scale);
-            },
+                },
 
                 enumerable: true
             },
@@ -1504,16 +1503,16 @@
             this.colors.push({
                 step: step,
                 color: color
-        });
-    }
-    Gradient.prototype.setOwner = function (owner) {
-        this.owner = owner;
-    }
+            });
+        }
+        Gradient.prototype.setOwner = function (owner) {
+            this.owner = owner;
+        }
     })(lion);
 
-  
 
-   
+
+
 
     !(function (namespace) {
         function ImageList() {
@@ -1541,7 +1540,7 @@
                     img.src = arr[i];
                     this.list.push(img);
                 }
-                
+
                 this.list[i].onloadedmetadata = loaded;
             }
         }
@@ -1555,7 +1554,7 @@
     })(lion);
 
     !(function (namespace) {
-        function ImageMatrix(bWidth, bHeight,matrix) {
+        function ImageMatrix(bWidth, bHeight, matrix) {
             namespace.ImageList.call(this);
             this.blockWidth = bWidth;
             this.blockHeight = bHeight;
@@ -1577,7 +1576,7 @@
                 tcan.setAttribute("height", height + "px");
                 var g = tcan.getContext('2d');
                 g.save();
-               
+
                 if (im.matrixCut) {
                     for (var y = 0; y < srchc; y++) {
                         im.list[y] = [];
@@ -1607,23 +1606,23 @@
             }
             img.src = data;
 
-           
+
             function transparent(ctx, width, height) {
                 var imgData = ctx.getImageData(0, 0, width, height);
                 for (var i = 0, len = imgData.data.length ; i < len ; i += 4) {
-                   
+
                     imgData.data[i + 3] = imgData.data[i + 3] * 0;
                 }
-                
+
                 ctx.putImageData(imgData, 0, 0);
             }
         }
         namespace.ImageMatrix = ImageMatrix;
     })(lion);
 
-   
 
-   
+
+
     !(function (namespace) {
         /**
         * @name Element
@@ -1751,9 +1750,9 @@
         * @class Element
         */
         Element.prototype.invalidLayout = function (mode) {
-           
-           
-           
+
+
+
             this.setValue('invalid', true);
         }
         /**
@@ -1799,7 +1798,7 @@
         * @class Element
         */
         Element.prototype.serialize = function (ele) {
-           
+
             var obj = ele ? ele : this;
             var json = "{";
 
@@ -1823,7 +1822,7 @@
                     json += '"' + i + '"' + ":" + (obj[i] ? "true" : "false") + ",";
                 } else if (namespace.Util.is(obj[i], "function")) {
                 } else {
-                   
+
                 }
             }
 
@@ -1881,9 +1880,9 @@
             }
             return false;
         }
-Element.prototype.onserialize = function (key, value) {
+        Element.prototype.onserialize = function (key, value) {
             return null;
-            }
+        }
         Element.prototype.ondeserialize = function (key, value) {
             return false;
         }
@@ -1891,22 +1890,22 @@ Element.prototype.onserialize = function (key, value) {
         Element.prototype.enddeserialize = function () {
 
         }
-            /**
-            * @name dispose
-            * @type function
-            * @description 释放该元素调用的所有资源
-            * @class Element
-            */
+        /**
+        * @name dispose
+        * @type function
+        * @description 释放该元素调用的所有资源
+        * @class Element
+        */
         Element.prototype.dispose = function () {
             if (!this.isdisposed) {
                 this.isdisposed = true;
-        }
+            }
         }
 
 
         Element.deserialize = function (json, param) {
-           
-           
+
+
             var type = eval(json.type);
             var obj = null;
             if (json.type == 'lion.Stage')
@@ -1916,18 +1915,18 @@ Element.prototype.onserialize = function (key, value) {
             for (var i in json) {
                 if (i == 'type') continue;
                 if (i == 'id') obj.setValue(i, json[i]);
-                else if(!obj.ondeserialize(i, json[i])) {
-                    obj[i]= json[i];
-        }
+                else if (!obj.ondeserialize(i, json[i])) {
+                    obj[i] = json[i];
+                }
             }
 
             return obj;
-            }
+        }
         namespace.Element = Element;
     })(lion);
 
-   
-   
+
+
     !(function (namespace) {
         /**
         * @name Stage
@@ -2166,10 +2165,10 @@ Element.prototype.onserialize = function (key, value) {
                 ostage.height = height;
                 this.canvas.setAttribute('width', width + 'px');
                 this.canvas.setAttribute('height', height + 'px');
-   
-                    for (var i = 0; i < ostage.scenes.length; i++) {
-                        ostage.scenes[i].invalidLayout('bounds');
-                    }
+
+                for (var i = 0; i < ostage.scenes.length; i++) {
+                    ostage.scenes[i].invalidLayout('bounds');
+                }
 
             }
             /**
@@ -2221,7 +2220,7 @@ Element.prototype.onserialize = function (key, value) {
                 if (namespace.Util.is(type, 'string')) {
                     objtype = eval(type);
                 }
-               
+
                 obj = new objtype(param);
                 if (arguments.length == 3) {
                     obj.setValue('id', arguments[2]);
@@ -2240,9 +2239,9 @@ Element.prototype.onserialize = function (key, value) {
       * @class Stage
       */
             this.dispose = function () {
-               
-               
-               
+
+
+
                 if (!this.isdisposed) {
                     var i = -1;
                     for (i = 0; i < namespace.Timer.stages.length; i++) {
@@ -2282,7 +2281,7 @@ Element.prototype.onserialize = function (key, value) {
                 var can = document.createElement('canvas');
                 can.setAttribute('width', width + 'px');
                 can.setAttribute('height', height + 'px');
-                
+
                 _div.style.overflow = "hidden";
                 _div.appendChild(can);
                 ostage.canvas = can;
@@ -2300,10 +2299,10 @@ Element.prototype.onserialize = function (key, value) {
                     }
                 };
                 ostage.canvas.onmouseup = function (e) {
-                   
-                        if (ostage.currentScene)
-                            ostage.currentScene.__onmouseup(e);
-                   
+
+                    if (ostage.currentScene)
+                        ostage.currentScene.__onmouseup(e);
+
                 };
                 ostage.canvas.ondblclick = function (e) {
                     if (ostage.currentScene)
@@ -2323,11 +2322,11 @@ Element.prototype.onserialize = function (key, value) {
                     ostage.isinited = true;
                 }
                 else {
-                   
+
                     ostage.isinited = false;
                 }
 
-       
+
                 _debugger = new Debugger(ostage);
                 ostage.debugger.write("Stage Inited");
 
@@ -2346,7 +2345,7 @@ Element.prototype.onserialize = function (key, value) {
 
             }
 
-           
+
             var graphicTexts = {};
             function getGraphicText(args) {
 
@@ -2364,7 +2363,7 @@ Element.prototype.onserialize = function (key, value) {
                     var span = document.createElement("span");
                     span.id = args.id;
                     span.style.fontFamily = args.font;
-                   
+
                     span.style.display = "none";
                     span.innerHTML = args.text;
                     _div.appendChild(span);
@@ -2374,7 +2373,7 @@ Element.prototype.onserialize = function (key, value) {
                     graphicTexts[args.id].innerHTML = args.text;
                 }
             }
-           
+
 
             /**
                * @name enableContextMenu(isenbale)
@@ -2452,9 +2451,9 @@ Element.prototype.onserialize = function (key, value) {
         namespace.Stage = Stage;
     })(lion);
 
-   
 
-   
+
+
     !(function (namespace) {
         /**
         * @name Layer
@@ -2465,7 +2464,7 @@ Element.prototype.onserialize = function (key, value) {
         */
         function Layer(layermode) {
             namespace.Element.call(this);
-           
+
             this.type = "lion.Layer";
             this.elements = [];
             /**
@@ -2480,20 +2479,20 @@ Element.prototype.onserialize = function (key, value) {
             * @class Layer
             */
             this.mode = layermode;
-           
+
             var layer = this;
 
-           
+
             var _scale = 1.0;
             var _rangleMove = false;
             var _stepMove = false;
-            var _stepOffset = new Point(0,0);
+            var _stepOffset = new Point(0, 0);
             var _scene = null;
             var _displayBounds;
             var _stepGrid = new Point(10, 10);
             var _mousePoint
-           
-           
+
+
             Object.defineProperties(this, {
                 scene: {
                     get: function () {
@@ -2542,7 +2541,7 @@ Element.prototype.onserialize = function (key, value) {
                 },
                 drawBounds: {
                     get: function () {
-                       
+
                         _displayBounds = new Rect(layer.x, layer.y, layer.scene.stage.width, layer.scene.stage.height);
                         return _displayBounds;
                     },
@@ -2551,7 +2550,7 @@ Element.prototype.onserialize = function (key, value) {
             });
 
 
-           
+
             /**
             * @name toFront(ele)
             * @type function
@@ -2622,10 +2621,10 @@ Element.prototype.onserialize = function (key, value) {
                 _rangleMove = bool;
             }
 
-            this.moveOnGrid = function (bool,x,y) {
+            this.moveOnGrid = function (bool, x, y) {
                 _stepMove = bool;
-                if (x!=null) _stepGrid.x = x;
-                if (y!=null) _stepGrid.y = y;
+                if (x != null) _stepGrid.x = x;
+                if (y != null) _stepGrid.y = y;
             }
             /**
             * @name refresh()
@@ -2737,16 +2736,16 @@ Element.prototype.onserialize = function (key, value) {
                 _allTooltips.push(ele);
             }
 
-           
+
             var _offset = {
             };
-           
+
             var _selectedElement = [];
-           
+
             var _actionElement = null;
-           
+
             var _hoverElement = null;
-           
+
             var _waitDragElement = null;
             var _beginDrag = false;
             /**
@@ -2804,7 +2803,7 @@ Element.prototype.onserialize = function (key, value) {
             */
             this.selectAll = function () {
 
-               
+
                 for (var i = 0; i < _allElements.length; i++) {
                     _allElements[i].status = namespace.Status.Selected;
                     _selectedElement.push(_allElements[i]);
@@ -2815,12 +2814,12 @@ Element.prototype.onserialize = function (key, value) {
 
 
 
-           
 
 
-           
+
+
             var _mousedown = false;
-           
+
             var _mousedownPoint = new Point();
             this.onmousedown = function (e) {
                 if (_mousedownPoint.x - e.offsetX == 0 && _mousedownPoint.y - e.offsetY == 0) {
@@ -2832,15 +2831,15 @@ Element.prototype.onserialize = function (key, value) {
                     _mousedownPoint.x = e.offsetX;
                     _mousedownPoint.y = e.offsetY;
 
-                   
+
                     if (_hoverElement) {
                         var ele = _hoverElement;
-                       
+
                         if (_selectedElement.length > 0) {
                             var canmove = false;
                             for (var i = 0; i < _selectedElement.length; i++) {
                                 if (_selectedElement[i].equals(ele)) {
-                                   
+
                                     _actionElement = _selectedElement[i];
                                     canmove = true;
                                     break;
@@ -2862,9 +2861,9 @@ Element.prototype.onserialize = function (key, value) {
                         }
                         else if (ele.canEvent && (ele.canDrag || ele.canSelect)) {
 
-                           
+
                             if (ele.editMode == namespace.EditMode.Select) {
-                               
+
                                 _selectedElement.push(ele);
                                 _actionElement = ele;
                                 ele.status = namespace.Status.Selected;
@@ -2876,7 +2875,7 @@ Element.prototype.onserialize = function (key, value) {
                                 }
                                 return ele;
                             }
-                               
+
                             else if (ele.editMode > namespace.EditMode.Select) {
                                 _actionElement = ele;
                                 _selectedElement.push(ele);
@@ -2903,7 +2902,7 @@ Element.prototype.onserialize = function (key, value) {
                         }
                     }
                     else {
-                       
+
                         layer.cancelSelected();
                     }
                 }
@@ -2921,7 +2920,7 @@ Element.prototype.onserialize = function (key, value) {
                 var offsetX = 0, offsetY = 0;
 
                 if (_mousedown && (Math.abs(_mousedownPoint.x - e.offsetX) > 1 || Math.abs(_mousedownPoint.y - e.offsetY) > 1)) {
-                   
+
                     _beginDrag = true;
 
                     layer.stage.cursor = 'move';
@@ -2932,20 +2931,20 @@ Element.prototype.onserialize = function (key, value) {
 
 
                     for (var i = 0; i < _selectedElement.length; i++) {
-                       
-                       
+
+
                         if (_selectedElement[i].editMode > namespace.EditMode.Select) {
                             offsetX = e.offsetX / _scale;
                             offsetY = e.offsetY / _scale;
 
-                           
+
                             if (_selectedElement[i].controlNode) {
-                               
+
                                 if (!_selectedElement[i].canEdit) return;
-                               
+
                                 if (_selectedElement[i] instanceof namespace.LineElement) {
                                     if (_selectedElement[i].controlNode.controlMode == namespace.EndPointMode.Start) {
-                                       
+
                                         if (_rangleMove) {
                                             if (Math.abs(e.offsetX - _selectedElement[i].endNode.x) > Math.abs(e.offsetY - _selectedElement[i].endNode.y)) {
                                                 _selectedElement[i].controlNode.move(e.offsetX, _selectedElement[i].endNode.y);
@@ -2972,7 +2971,7 @@ Element.prototype.onserialize = function (key, value) {
                                 }
                             }
                         }
-                           
+
                         else {
 
                             var dragEle = _selectedElement[i];
@@ -2987,9 +2986,9 @@ Element.prototype.onserialize = function (key, value) {
                             }
                             if (_selectedElement[i].group) {
                                 dragEle = _selectedElement[i].group;
-                               
+
                             }
-                           
+
                             if (dragEle && _stepMove) {
 
                                 if (Math.abs(e.offsetX - _offset.x) > Math.abs(e.offsetY - _offset.y)) {
@@ -3062,18 +3061,18 @@ Element.prototype.onserialize = function (key, value) {
 
                     _offset.x = e.offsetX;
                     _offset.y = e.offsetY;
-                   
+
                 }
 
 
-               
+
                 var oldHover = _hoverElement;
-               
+
 
                 if (_hoverElement != null) {
                     _hoverElement.status = namespace.Util.xorEnum(_hoverElement.status, namespace.Status.Hover);
                     if (_hoverElement.group) {
-                       
+
                         if (_selectedElement.length == 0) {
                             for (var n = 0; n < this.elements.length; n++) {
                                 if (this.elements[n] instanceof namespace.Group)
@@ -3087,7 +3086,7 @@ Element.prototype.onserialize = function (key, value) {
                     }
                 }
 
-      
+
                 if (_actionElement) {
                     return;
                 }
@@ -3100,12 +3099,12 @@ Element.prototype.onserialize = function (key, value) {
 
                 if (oldHover && (!_hoverElement || (_hoverElement && !_hoverElement.equals(oldHover)))) {
                     oldHover.fireLeave();
-       
+
                 }
 
                 if (_hoverElement && (!oldHover || !_hoverElement.equals(oldHover))) {
                     _hoverElement.fireHover();
-       
+
                 }
 
                 if (_hoverElement) {
@@ -3114,7 +3113,7 @@ Element.prototype.onserialize = function (key, value) {
                 else {
                     layer.stage.cursor = 'default';
                 }
-               
+
             }
             this.resetElement = function () {
                 for (var i = 0; i < this.elements.length; i++) {
@@ -3126,10 +3125,10 @@ Element.prototype.onserialize = function (key, value) {
                 for (var i = eles.length - 1; i >= 0; i--) {
                     var ele = eles[i];
 
-                   
+
                     if (ele.canEvent && ele instanceof namespace.NodeElement && ele.displayNodes.length > 0) {
-                       
-                       
+
+
                         var hnode = ele.testNode(e.offsetX, e.offsetY);
                         if (hnode) {
                             for (var n = 0; n < ele.displayNodes.length; n++) {
@@ -3171,7 +3170,7 @@ Element.prototype.onserialize = function (key, value) {
                             _hoverElement.group.status = namespace.Util.orEnum(_hoverElement.group.status, namespace.Status.Hover);
                         }
 
-       
+
                         return true;
                     }
 
@@ -3180,11 +3179,11 @@ Element.prototype.onserialize = function (key, value) {
                 return false;
             }
 
-           
+
             this.onmouseup = function (e, rect) {
                 _mousedown = false;
                 _selectedElement = [];
-               
+
                 var result = 0;
                 if (_beginDrag) {
                     if (_actionElement) {
@@ -3202,8 +3201,8 @@ Element.prototype.onserialize = function (key, value) {
                         _actionElement.status = namespace.Status.None;
                         _actionElement.controlNode = null;
 
-                       
-                        if (e.button==0 && _actionElement.canSelect && (
+
+                        if (e.button == 0 && _actionElement.canSelect && (
                              namespace.Util.orEnum(layer.scene.mode, namespace.SceneMode.SingleSelect) ||
                              namespace.Util.orEnum(layer.scene.mode, namespace.SceneMode.MultipleSelect))) {
                             _actionElement.status = namespace.Status.Selected;
@@ -3230,7 +3229,7 @@ Element.prototype.onserialize = function (key, value) {
                     for (var i = 0; i < layer.elements.length; i++) {
                         var ele = layer.elements[i];
                         if (ele.group == null && ele.inRect(rect.x, rect.y, rect.width, rect.height)) {
-     
+
                             ele.status = namespace.Status.Selected;
                             _selectedElement.push(ele);
                         }
@@ -3244,12 +3243,12 @@ Element.prototype.onserialize = function (key, value) {
                 return result;
             }
 
-           
+
 
             this.preRender = function (g) {
                 preRenderCore(_allElements, g);
                 preRenderCore(_alllinks, g);
-               
+
             }
 
             function preRenderCore(eles, g) {
@@ -3261,8 +3260,8 @@ Element.prototype.onserialize = function (key, value) {
                             ele.buildNodes();
                         }
                         ele.updateBounds(g);
-                       
-                       
+
+
                         if (ele instanceof namespace.BaseTextElement) {
                             if (!(ele instanceof namespace.TextElement && ele.autoSize)) {
                                 ele.measureText(g);
@@ -3308,7 +3307,7 @@ Element.prototype.onserialize = function (key, value) {
 
             function isVisiable(ele) {
                 if (!ele.visible) return false;
-               
+
                 if (!(ele instanceof namespace.LinkElement)) {
                     if (layer.stage.drawBounds.intersect(ele.drawBounds) == -1)
                         return false;
@@ -3321,22 +3320,22 @@ Element.prototype.onserialize = function (key, value) {
                 g.save();
 
                 ele.preRender(g);
-               
+
                 ele.renderBackground(g);
-               
+
                 ele.render(g);
 
-               
+
                 if (ele instanceof namespace.BaseTextElement)
                     ele.renderText(g, ele.text, ele.textRect, ele.forceColor);
 
-               
+
                 if (namespace.Util.andEnum(ele.status, namespace.Status.Hover))
                     ele.renderHighLight(g);
-               
+
                 if (namespace.Util.andEnum(ele.status, namespace.Status.Selected))
                     ele.renderHighLight(g);
-               
+
                 if (ele instanceof namespace.NodeElement) {
                     if (ele.editMode > namespace.EditMode.Select || ele.displayNodes.length > 0) {
                         ele.renderNodes(g);
@@ -3375,6 +3374,7 @@ Element.prototype.onserialize = function (key, value) {
             for (var i = 0; i < this.elements.length; i++)
                 this.elements[i].setParent(this);
         }
+        
         /**
         * @name findElementById(id)
         * @type function
@@ -3439,7 +3439,8 @@ Element.prototype.onserialize = function (key, value) {
             this.renderBackground = function (g) {
                 if (this.invalid || !_graphData) {
                     g.fillStyle = layer.backgroundColor;
-                    g.fillRect(layer.x, layer.y, layer.width, layer.height);
+                    g.fillRect(0,0, layer.width, layer.height);
+                   
                     _graphData = g.getImageData(0, 0, layer.width, layer.height);
 
                     this.setValue('invalid', false);
@@ -3465,12 +3466,12 @@ Element.prototype.onserialize = function (key, value) {
 
         });
         namespace.BackgroundLayer = BackgroundLayer;
-       
+
         function VirtualLayer() {
             Layer.call(this, namespace.LayerMode.Virtual);
             this.type = "lion.VirtualLayer";
             var layer = this;
-           
+
             var _selectVirtualEle = null;
             var _mode = namespace.LayerMode.Virtual;
             this.getVirtualRect = function () {
@@ -3501,7 +3502,7 @@ Element.prototype.onserialize = function (key, value) {
                     if (_selectVirtualEle) {
                         _selectVirtualEle.width = e.offsetX - _selectVirtualEle.x;
                         _selectVirtualEle.height = e.offsetY - _selectVirtualEle.y;
-                       
+
                     }
                 }
             }
@@ -3520,9 +3521,6 @@ Element.prototype.onserialize = function (key, value) {
     })(lion);
 
 
-
-   
-   
     !(function (namespace) {
         /**
         * @name Scene
@@ -3540,9 +3538,9 @@ Element.prototype.onserialize = function (key, value) {
             data.x = 0;
             data.y = 0;
             data.mode = namespace.SceneMode.Normal;
-           
-           
-           
+
+
+
             var _eye;
             /**
             * @name showBirdsEye()
@@ -3551,114 +3549,18 @@ Element.prototype.onserialize = function (key, value) {
             * @class Scene
             */
             this.showBirdsEye = function () {
-               
-               
-               
+
+
+
                 _eye = new namespace.BirdsEye();
                 _eye.canDrag = false;
                 add(_eye, namespace.LayerMode.Force);
             }
-           
+
             var _dragElement;
             var scene = this
 
-            Object.defineProperties(Scene.prototype, {
-                /**
-                    * @name width
-                    * @type field
-                    * @datatype number
-                    * @description 获取或设置场景的宽度
-                    * @class Scene
-                    */
-                width: {
-                    get: function () {
-                        if (!this.getValue('width')) return this.stage.width;
-                        return this.getValue('width');;
-                    },
-                    set: function (val) {
-                        this.setValue('width', val);
-                        this.invalidLayout("bounds");
-                        for (var i in this.layers) {
-                            this.layers[i].invalidLayout("bounds");
-                        }
 
-                    },
-                    enumerable: true,
-                },
-                /**
-                * @name height
-                * @type field
-                * @datatype number
-                * @description 获取或设置场景的高度
-                * @class Scene
-                */
-                height: {
-                    get: function () {
-                        if (!this.getValue('height')) return this.stage.height;
-                        return this.getValue('height');
-                    },
-                    set: function (val) {
-                        this.setValue('height', val);
-                        this.invalidLayout("bounds");
-                        for (var i in this.layers) {
-                            this.layers[i].invalidLayout("bounds");
-                        }
-                    },
-                    enumerable: true
-                },
-                /**
-                * @name mode
-                * @type field
-                * @datatype Mode
-                * @description 获取或设置场景的模式
-                * @class Scene
-                */
-                mode: {
-                    get: function () {
-                        return this.getValue('mode');
-                    },
-                    set: function (value) {
-                        this.setValue('mode', value);
-                        this.invalidLayout();
-                    },
-                    enumerable: true
-                },
-                /**
-                * @name x
-                * @type field
-                * @datatype Mode
-                * @description 获取或设置场景的x坐标
-                * @class Scene
-                */
-                x: {
-                    get: function () {
-                        return this.getValue('x');
-                    },
-                    set: function (value) {
-                        this.setValue('x', value);
-                        this.invalidLayout("bounds");
-                    },
-                    enumerable: true
-                },
-                /**
-                * @name y
-                * @type field
-                * @datatype Mode
-                * @description 获取或设置场景的y坐标
-                * @class Scene
-                */
-                y: {
-                    get: function () {
-                        return this.getValue('y');
-                    },
-                    set: function (value) {
-                        this.setValue('y', value);
-                        this.invalidLayout("bounds");
-                    },
-                    enumerable: true
-                }
-
-            });
             this.invalidLayout = function (mode) {
                 namespace.Element.prototype.invalidLayout.call(this, mode);
                 for (var i in this.layers) {
@@ -3706,11 +3608,11 @@ Element.prototype.onserialize = function (key, value) {
             * @param layermode number true 层类型
             */
             this.setScale = function (scale, layermode) {
-               
-               
-               
-               
-               
+
+
+
+
+
                 if (!layermode) {
                     scene.layers.action.setScale(scale);
                     scene.layers.background.setScale(scale);
@@ -3743,11 +3645,7 @@ Element.prototype.onserialize = function (key, value) {
             * @param callback function true 遍历时回调函数fn(ele)
             */
             this.foreach = function (layerMode, callback) {
-               
-               
-               
-               
-               
+
                 var layer = getLayer(layerMode);
                 for (var i = 0; i < layer.elements.length; i++)
                     callback(layer.elements[i]);
@@ -3764,12 +3662,12 @@ Element.prototype.onserialize = function (key, value) {
             * @return 找到的元素Element
             */
             this.find = function (layerMode, callback) {
-               
-               
-               
-               
-               
-               
+
+
+
+
+
+
                 var layer = getLayer(layerMode);
                 for (var i = 0; i < layer.elements.length; i++)
                     if (callback(layer.elements[i])) return layer.elements[i];
@@ -3778,11 +3676,8 @@ Element.prototype.onserialize = function (key, value) {
             }
 
             function getLayer(layerMode) {
-               
-               
-               
-               
-               
+
+
                 if (layerMode == namespace.LayerMode.Virtual) return scene.layers.virtual;
                 else if (layerMode == namespace.LayerMode.Force) return scene.layers.force;
                 else if (layerMode == namespace.LayerMode.Background) return scene.layers.background;
@@ -3793,8 +3688,8 @@ Element.prototype.onserialize = function (key, value) {
 
 
 
-               
-               
+
+
                 if (layoutMode == namespace.LayerMode.Force) {
                     scene.layers.force.add(ele);
                 } else if (layoutMode == namespace.LayerMode.Background) {
@@ -3817,10 +3712,10 @@ Element.prototype.onserialize = function (key, value) {
             * @param layermode number false 层类型，默认为action层
             */
             this.clear = function (layerMode) {
-               
-               
-               
-               
+
+
+
+
                 if (layerMode == namespace.LayerMode.Force) {
                     scene.layers.force.clear();
                 } else if (layerMode == namespace.LayerMode.Background) {
@@ -3919,7 +3814,7 @@ Element.prototype.onserialize = function (key, value) {
 
                         _sceneOffset.x = e.clientX;
                         _sceneOffset.y = e.clientY;
-                       
+
                         scene.layers.action.refresh();
                         scene.layers.background.refresh();
                         return;
@@ -4080,14 +3975,28 @@ Element.prototype.onserialize = function (key, value) {
             }
 
 
-           
-           
-           
-           
-           
-           
-           
-           
+
+            /**
+            * @name toCenter(ele)
+            * @type function
+            * @description 定位某个元素，并以元素为中心平移
+            * @param ele Element true 待定位的中心元素
+            * @class Scene
+            */
+            this.toCenter = function (ele) {
+
+                var cx = scene.stage.width / 2;
+                var cy = scene.stage.height / 2;
+                var offx = cx - ele.drawBounds.center.x;
+                var offy = cy - ele.drawBounds.center.y;
+                scene.x = offx;
+                scene.y = offy;
+                scene.layers.action.refresh();
+                scene.layers.background.refresh();
+            }
+
+
+
             if (!arguments[0]) {
                 this.setLayer(namespace.LayerMode.Force);
                 this.setLayer(namespace.LayerMode.Action);
@@ -4096,7 +4005,105 @@ Element.prototype.onserialize = function (key, value) {
             }
         }
         Scene.prototype = new namespace.Element(true);
-        
+
+        Object.defineProperties(Scene.prototype, {
+            /**
+            * @name width
+            * @type field
+            * @datatype number
+            * @description 获取或设置场景的宽度
+            * @class Scene
+            */
+            width: {
+                get: function () {
+                    if (!this.getValue('width') && this.stage) return this.stage.width;
+                    return this.getValue('width');;
+                },
+                set: function (val) {
+                    this.setValue('width', val);
+                    this.invalidLayout("bounds");
+                    for (var i in this.layers) {
+                        this.layers[i].invalidLayout("bounds");
+                    }
+
+                },
+                enumerable: true,
+            },
+            /**
+            * @name height
+            * @type field
+            * @datatype number
+            * @description 获取或设置场景的高度
+            * @class Scene
+            */
+            height: {
+                get: function () {
+                    if (!this.getValue('height') && this.stage) return this.stage.height;
+                    return this.getValue('height');
+                },
+                set: function (val) {
+                    this.setValue('height', val);
+                    this.invalidLayout("bounds");
+                    for (var i in this.layers) {
+                        this.layers[i].invalidLayout("bounds");
+                    }
+                },
+                enumerable: true
+            },
+            /**
+            * @name mode
+            * @type field
+            * @datatype Mode
+            * @description 获取或设置场景的模式
+            * @class Scene
+            */
+            mode: {
+                get: function () {
+                    return this.getValue('mode');
+                },
+                set: function (value) {
+                    this.setValue('mode', value);
+                    this.invalidLayout();
+                },
+                enumerable: true
+            },
+            /**
+            * @name x
+            * @type field
+            * @datatype Mode
+            * @description 获取或设置场景的x坐标
+            * @class Scene
+            */
+            x: {
+                get: function () {
+                    return this.getValue('x');
+                },
+                set: function (value) {
+                    this.setValue('x', value);
+                    this.invalidLayout("bounds");
+                },
+                enumerable: true
+            },
+            /**
+            * @name y
+            * @type field
+            * @datatype Mode
+            * @description 获取或设置场景的y坐标
+            * @class Scene
+            */
+            y: {
+                get: function () {
+                    return this.getValue('y');
+                },
+                set: function (value) {
+                    this.setValue('y', value);
+                    this.invalidLayout("bounds");
+                },
+                enumerable: true
+            }
+
+        });
+
         Scene.prototype.setParent = function (parentEle) {
             namespace.Element.prototype.setParent.call(this, parentEle);
             this.stage = parentEle;
@@ -4109,8 +4116,8 @@ Element.prototype.onserialize = function (key, value) {
         namespace.Scene = Scene;
     })(lion);
 
-   
-   
+
+
     !(function (namespace) {
         /**
         * @name GeoElement
@@ -4136,7 +4143,7 @@ Element.prototype.onserialize = function (key, value) {
             data.shadow = null;
             data.backgroundImageUrl = null;
             data.visible = true;
-           
+
             data.highlightColor = "rgba(255,255,255,0.7)";
             data.status = namespace.Status.None;
             data.canDrag = true;
@@ -4147,10 +4154,10 @@ Element.prototype.onserialize = function (key, value) {
             data.scene = null;
             data.layer = null;
             data.drawBounds = new Rect();
-           
+
             data.tooltip = null;
             data.lines = [];
-           
+
             this.animations = [];
             this.events.hover = [];
             this.events.leave = [];
@@ -4386,7 +4393,7 @@ Element.prototype.onserialize = function (key, value) {
                     return this.getValue('backgroundImageUrl');
                 },
                 set: function (value) {
-                        this.setValue('backgroundImageUrl', value);
+                    this.setValue('backgroundImageUrl', value);
                     if (value) {
                         var backgroundImage = new Image();
                         backgroundImage.src = this.backgroundImageUrl;
@@ -4585,7 +4592,7 @@ Element.prototype.onserialize = function (key, value) {
         * @class GeoElement
         */
         GeoElement.prototype.invalidLayout = function (mode) {
-            namespace.Element.prototype.invalidLayout.call(this,mode);
+            namespace.Element.prototype.invalidLayout.call(this, mode);
             for (var i = 0; i < this.lines.length; i++)
                 this.lines[i].invalidLayout(mode);
         }
@@ -4638,36 +4645,36 @@ Element.prototype.onserialize = function (key, value) {
         GeoElement.prototype.fireLeave = function (e) {
             for (var n = 0; n < this.events.leave.length; n++) {
                 this.events.leave[n](this);
-        }
+            }
         }
         GeoElement.prototype.fireClick = function (e) {
             var next = true;
             if (e.button == 0) {
-               
+
                 for (var i = 0; i < this.events.click.length; i++) {
-                var rtv = this.events.click[i].call(this, this, this.layer);
-                if (rtv != undefined && rtv == false)
-                    next = false;
-            }
+                    var rtv = this.events.click[i].call(this, this, this.layer);
+                    if (rtv != undefined && rtv == false)
+                        next = false;
+                }
             }
             else if (e.button == 2) {
                 for (var i = 0; i < this.events.rclick.length; i++) {
                     var rtv = this.events.rclick[i].call(this, this, this.layer);
                     if (rtv != undefined && rtv == false)
                         next = false;
+                }
             }
-        }
 
             return next;
         }
 
         GeoElement.prototype.fireLayout = function () {
-           
+
             for (var i = 0; i < this.events.layout.length; i++) {
                 if (namespace.Util.is(this.events.layout[i], 'object')) {
                     this.events.layout[i].func.call(this.events.layout[i].object);
+                }
             }
-        }
         }
         GeoElement.prototype.onHit = function (fn) {
             this.events.hits.push(fn);
@@ -4676,7 +4683,7 @@ Element.prototype.onserialize = function (key, value) {
         GeoElement.prototype.fireHit = function (location) {
             for (var i = 0; i < this.events.hits.length; i++)
                 this.events.hits[i]({
-                        x: location.x - this.drawBounds.x, y: location.y - this.drawBounds.y
+                    x: location.x - this.drawBounds.x, y: location.y - this.drawBounds.y
                 });
         }
 
@@ -4692,25 +4699,25 @@ Element.prototype.onserialize = function (key, value) {
             if (this.tooltip)
                 this.tooltip.setParent(this);
         }
-            /**
-            * @name onLayout(callback)
-            * @type function
-            * @description 设置该元素的标注
-            * @param text string true 显示的文本
-            * @return Tooltip
-            * @class GeoElement
-            */
+        /**
+        * @name onLayout(callback)
+        * @type function
+        * @description 设置该元素的标注
+        * @param text string true 显示的文本
+        * @return Tooltip
+        * @class GeoElement
+        */
         GeoElement.prototype.setTooltip = function (text) {
-           
-           
-           
-           
-           
+
+
+
+
+
             if (!this.tooltip) {
                 this.tooltip = new namespace.Tooltip;
                 this.tooltip.setParent(this);
-               
-        }
+
+            }
 
             if (namespace.Util.isNullOrWhitespace(text)) {
                 this.tooltip.visible = false;
@@ -4719,29 +4726,29 @@ Element.prototype.onserialize = function (key, value) {
             else {
                 this.tooltip.visible = true;
                 this.tooltip.text = text;
-        }
+            }
             this.layer.setTooltip(this.tooltip);
-           
+
             return this.tooltip;
         }
-            /**
-            * @name setScale(scale)
-            * @type function
-            * @description 设置该元素的缩放比例
-            * @param scale number true 缩放比例
-            * @class GeoElement
-            */
+        /**
+        * @name setScale(scale)
+        * @type function
+        * @description 设置该元素的缩放比例
+        * @param scale number true 缩放比例
+        * @class GeoElement
+        */
         GeoElement.prototype.setScale = function (scale) {
             this.scale = scale;
         }
-            /**
-            * @name updateBounds(g)
-            * @type function
-            * @description 在绘制前更新元素的几何区域，并引发onLayout事件
-            * @class GeoElement
-            */
+        /**
+        * @name updateBounds(g)
+        * @type function
+        * @description 在绘制前更新元素的几何区域，并引发onLayout事件
+        * @class GeoElement
+        */
         GeoElement.prototype.updateBounds = function (g) {
-           
+
 
             var px = this.parent ? this.parent.drawBounds.x : 0;
             var py = this.parent ? this.parent.drawBounds.y : 0;
@@ -4753,33 +4760,33 @@ Element.prototype.onserialize = function (key, value) {
             this.drawBounds.calc();
             this.fireLayout();
         }
-            /**
-            * @name testPoint(x,y)
-            * @type function
-            * @description 测试点是否在元素区域内
-            * @class GeoElement
-            * @return 在范围内返回true，否则为false
-            */
+        /**
+        * @name testPoint(x,y)
+        * @type function
+        * @description 测试点是否在元素区域内
+        * @class GeoElement
+        * @return 在范围内返回true，否则为false
+        */
         GeoElement.prototype.testPoint = function (x, y) {
-           
+
             return namespace.Util.inRect(this.drawBounds.x, this.drawBounds.y, this.drawBounds.width, this.drawBounds.height, x, y);
         }
 
         GeoElement.prototype.preRender = function (g) {
             var drawrect = this.drawBounds;
-           
+
             this.points = [];
             this.points.push({
-                    x: drawrect.x, y: drawrect.y
+                x: drawrect.x, y: drawrect.y
             });
             this.points.push({
-                    x: drawrect.x + drawrect.width, y: drawrect.y
+                x: drawrect.x + drawrect.width, y: drawrect.y
             });
             this.points.push({
-                    x: drawrect.x + drawrect.width, y: drawrect.y + drawrect.height
+                x: drawrect.x + drawrect.width, y: drawrect.y + drawrect.height
             });
             this.points.push({
-                    x: drawrect.x, y: drawrect.y + drawrect.height
+                x: drawrect.x, y: drawrect.y + drawrect.height
             });
 
 
@@ -4795,28 +4802,28 @@ Element.prototype.onserialize = function (key, value) {
 
             for (var i = 1; i < this.points.length; i++) {
                 g.lineTo(this.points[i].x, this.points[i].y);
-        }
+            }
             g.closePath();
             if (this.backgroundColor) {
                 g.fill();
-        }
+            }
 
             if (this.backgroundImage) {
 
                 g.drawImage(this.backgroundImage, this.drawBounds.x, this.drawBounds.y, this.drawBounds.width, this.drawBounds.height);
 
-        }
+            }
 
             if (this.borderSize > 0) {
                 g.strokeStyle = this.borderColor;
                 g.lineWidth = this.borderSize;
                 g.stroke();
-        }
+            }
 
             if (namespace.Util.andEnum(this.status, namespace.Status.Selected)) {
                 g.fillStyle = "rgba(255,255,255,0.7)";
                 g.fill();
-        }
+            }
         }
         GeoElement.prototype.renderHighLight = function (g) {
             if (this.highlightColor) {
@@ -4826,11 +4833,11 @@ Element.prototype.onserialize = function (key, value) {
                 g.moveTo(this.points[0].x, this.points[0].y);
                 for (var i = 1; i < this.points.length; i++) {
                     g.lineTo(this.points[i].x, this.points[i].y);
-            }
+                }
                 g.closePath();
 
                 g.fill();
-        }
+            }
         }
         GeoElement.prototype.renderTooltip = function (g) {
             if (this.tooltip.visible)
@@ -4839,14 +4846,14 @@ Element.prototype.onserialize = function (key, value) {
         GeoElement.prototype.renderLine = function (g, start, end, style) {
             paintLine(g, start, end, style);
         }
-            /**
-            * @name setAnimation(ani)
-            * @type function
-            * @description 为元素添加一个动画
-            * @class GeoElement
-            * @param ani Animation true 需要添加的动画实例
-            * @return 返回动画id
-            */
+        /**
+        * @name setAnimation(ani)
+        * @type function
+        * @description 为元素添加一个动画
+        * @class GeoElement
+        * @param ani Animation true 需要添加的动画实例
+        * @return 返回动画id
+        */
         GeoElement.prototype.setAnimation = function (ani) {
             ani.setElement(this);
             ani.animationId = parseInt(Math.random() * 100000);
@@ -4854,13 +4861,13 @@ Element.prototype.onserialize = function (key, value) {
             this.animations.push(ani);
             return ani.animationId;
         }
-            /**
-            * @name removeAnimation(id)
-            * @type function
-            * @description 移除该元素所绑定的动画
-            * @class GeoElement
-            * @param id number true 动画id
-            */
+        /**
+        * @name removeAnimation(id)
+        * @type function
+        * @description 移除该元素所绑定的动画
+        * @class GeoElement
+        * @param id number true 动画id
+        */
         GeoElement.prototype.removeAnimation = function (id) {
             _stageAnimations[id].enable = false;
             delete _stageAnimations[id];
@@ -4871,47 +4878,47 @@ Element.prototype.onserialize = function (key, value) {
         GeoElement.prototype.enableAllAnimation = function (enable) {
             for (var i = 0; i < this.animations.length; i++) {
                 this.animations[i].enable = enable;
+            }
         }
-        }
-            /**
-            * @name clearAnimation()
-            * @type function
-            * @description 清除该元素所绑定的所有动画
-            * @class GeoElement
-            */
+        /**
+        * @name clearAnimation()
+        * @type function
+        * @description 清除该元素所绑定的所有动画
+        * @class GeoElement
+        */
         GeoElement.prototype.clearAnimation = function () {
 
             for (var i = 0; i < this.animations.length; i++) {
                 this.animations[i].enable = false;
                 delete _stageAnimations[this.animations[i].animationId];
-        }
+            }
             this.animations = [];
 
         }
-            /**
-            * @name dispose()
-            * @type function
-            * @description 释放该元素所占用的所有资源
-            * @class GeoElement
-            */
+        /**
+        * @name dispose()
+        * @type function
+        * @description 释放该元素所占用的所有资源
+        * @class GeoElement
+        */
         GeoElement.prototype.dispose = function () {
             if (!this.isdisposed) {
                 this.events.click.splice(0);
                 this.events.hits.splice(0);
                 this.events.hover.splice(0);
                 this.events.layout.splice(0);
-               
+
                 this.clearAnimation();
                 this.isdisposed = true;
-        }
+            }
         }
         namespace.GeoElement = GeoElement;
 
     })(lion);
 
 
-   
-   
+
+
     !(function (namespace) {
         /**
         * @name BaseTextElement
@@ -4925,22 +4932,22 @@ Element.prototype.onserialize = function (key, value) {
                 namespace.GeoElement.call(this, arguments[0]);
                 this.type = 'lion.BaseTextElement';
                 var data = this.__data__;
-               
+
                 data.allowMultiline = false;
-               
+
                 data.allowWrap = true;
-               
+
                 data.foreColor = "#000000";
-               
+
                 data.fontSize = 15;
                 data.isGraphicText = false;
-               
+
                 data.fontFamliy = "Arial"
                 data.textStyle = namespace.TextStyle.None;
-               
+
                 data.align = namespace.Align.Center;
                 data.text = '';
-               
+
                 data.textRect = null;
                 data.textlines = [];
                 data.pointLines = [];
@@ -5243,24 +5250,24 @@ Element.prototype.onserialize = function (key, value) {
             }
 
             function measureTextPostion(element, lines, index, w, h) {
-               
-               
-               
-               
-               
-               
-               
-               
-               
+
+
+
+
+
+
+
+
+
                 var pos = {
                 };
                 linew = w;
                 lineh = h;
                 if (element.allowMultiline) getMultilineTextRect(lines, w, h);
                 if (element.drawBounds.width == 0 && element.drawBounds.height == 0) {
-                   
-                   
-                   
+
+
+
                     pos.x = element.drawBounds.x + 3;
                     pos.y = element.drawBounds.y + index * h + h + 3;
                 }
@@ -5325,11 +5332,11 @@ Element.prototype.onserialize = function (key, value) {
             }
 
             function getTextPos(element, g, lines, index) {
-                
+
                 var size = measureTextSize(g, lines[index]);
 
-               
-               
+
+
                 element.lineHeight = size.height;
                 var rect = new Rect();
                 if (element.drawBounds != null) {
@@ -5351,7 +5358,7 @@ Element.prototype.onserialize = function (key, value) {
 
 
 
-           
+
             if (this.allowMultiline) {
 
                 var rs = [];
@@ -5393,7 +5400,7 @@ Element.prototype.onserialize = function (key, value) {
         BaseTextElement.prototype.measureText = function (g) {
 
 
-           
+
             function getLines(element, lines) {
                 lines.splice(0);
                 if (element.allowMultiline) {
@@ -5424,13 +5431,13 @@ Element.prototype.onserialize = function (key, value) {
                 g.font = parseInt(this.fontSize * this.scale) + "px " + this.fontFamliy;
                 g.fillStyle = ocolor;
 
-               
-               
-               
-               
-               
 
-               
+
+
+
+
+
+
                 if (this.allowMultiline) {
                     for (var i = 0; i < this.textlines.length; i++) {
                         g.fillText(this.textlines[i], this.pointLines[i].x, this.pointLines[i].y);
@@ -5448,7 +5455,7 @@ Element.prototype.onserialize = function (key, value) {
                     }
 
                 }
-               
+
             }
 
         }
@@ -5458,8 +5465,8 @@ Element.prototype.onserialize = function (key, value) {
     })(lion);
 
 
-   
-   
+
+
     !(function (namespace) {
         /**
         * @name Group
@@ -5472,7 +5479,7 @@ Element.prototype.onserialize = function (key, value) {
         */
         function Group() {
             namespace.GeoElement.call(this);
-           
+
             this.type = "lion.Group";
             var data = this.__data__;
             data.editMode = namespace.EditMode.Select;
@@ -5557,7 +5564,7 @@ Element.prototype.onserialize = function (key, value) {
         * @class Group
         */
         Group.prototype.updateBounds = function (g) {
-           
+
 
             var rect = getRect(this.elements);
 
@@ -5576,13 +5583,13 @@ Element.prototype.onserialize = function (key, value) {
             for (var i = 0; i < this.points.length - 1; i++) {
                 g.beginPath();
                 this.renderLine(g, this.points[i], this.points[i + 1], namespace.LineStyle.Dotted);
-               
+
             }
             g.beginPath();
             this.renderLine(g, this.points[this.points.length - 1], this.points[0], namespace.LineStyle.Dotted);
         }
-       
-       
+
+
         Group.prototype.render = function (g) {
         }
         Group.prototype.onserialize = function (key, value) {
@@ -5605,11 +5612,11 @@ Element.prototype.onserialize = function (key, value) {
         Group.prototype.ondeserialize = function (key, value) {
             if (key == "elements") {
                 this._elements_ = [];
-               
-               
-               
-               
-               
+
+
+
+
+
                 for (var i = 0; i < value.length; i++) {
                     this._elements_[i] = value[i];
                 }
@@ -5628,8 +5635,8 @@ Element.prototype.onserialize = function (key, value) {
         namespace.Group = Group;
     })(lion);
 
-   
-   
+
+
     !(function (namespace) {
         /**
         * @name NodeElement
@@ -5644,12 +5651,12 @@ Element.prototype.onserialize = function (key, value) {
             this.type = "lion.Node";
 
             var data = this.__data__;
-           
+
             data.shownodes = null;
             data.displayNodes = [];
-           
+
             data.controlNode = null;
-           
+
             data.nodes = [];
             data.hoverNode = null;
 
@@ -5753,7 +5760,7 @@ Element.prototype.onserialize = function (key, value) {
         * @return 返回命中的端点EndPoint
         */
         NodeElement.prototype.testNode = function (x, y) {
-           
+
 
             for (var i = 0; i < this.nodes.length; i++) {
                 if (this.nodes[i].testPoint(x, y)) {
@@ -5780,7 +5787,7 @@ Element.prototype.onserialize = function (key, value) {
 
         }
         NodeElement.prototype.invalidLayout = function (mode) {
-            namespace.BaseTextElement.prototype.invalidLayout.call(this,mode);
+            namespace.BaseTextElement.prototype.invalidLayout.call(this, mode);
             for (var i = 0; i < this.nodes.length; i++)
                 this.nodes[i].invalidLayout(mode);
 
@@ -5795,8 +5802,8 @@ Element.prototype.onserialize = function (key, value) {
         * @param mode number true 编辑模式，为EditMode枚举
         */
         NodeElement.prototype.setEditMode = function (mode) {
-           
-           
+
+
             if (this.canEdit && this.canEvent) {
                 this.setValue('editMode', mode);
                 if (this.editMode > namespace.EditMode.Select) {
@@ -5832,8 +5839,8 @@ Element.prototype.onserialize = function (key, value) {
         * @param disnodes Array true 端点类型数组,缺省则显示所有端点
         */
         NodeElement.prototype.showNodes = function (disnodes) {
-           
-           
+
+
 
             if (!disnodes) {
                 this.shownodes = 1;
@@ -5928,10 +5935,10 @@ Element.prototype.onserialize = function (key, value) {
 
         }
         NodeElement.prototype.initNodes = function (nodeTypes) {
-           
-           
-           
-           
+
+
+
+
             if (this.nodes.length == 0) {
 
                 if (!nodeTypes || (nodeTypes && nodeTypes.indexOf(namespace.EndPointMode.TopLeft) > -1)) {
@@ -6035,8 +6042,8 @@ Element.prototype.onserialize = function (key, value) {
         namespace.NodeElement = NodeElement;
     })(lion);
 
-   
-   
+
+
     !(function (namespace) {
         /**
         * @name PolygonElement
@@ -6054,9 +6061,9 @@ Element.prototype.onserialize = function (key, value) {
             data.height = 0;
             data.points = [];
             data.pathPoints = [];
-           
-           
-           
+
+
+
 
         }
 
@@ -6102,7 +6109,7 @@ Element.prototype.onserialize = function (key, value) {
                 set: function (val) {
                     this.setValue('path', val);
                     this.invalidLayout("bounds");
-                   
+
                 },
                 enumerable: true
             },
@@ -6147,7 +6154,7 @@ Element.prototype.onserialize = function (key, value) {
             }
 
             this.drawBounds.x = (this.x * this.scale + px);
-            this.drawBounds.y = (this.y * this.scale+ py) ;
+            this.drawBounds.y = (this.y * this.scale + py);
             this.drawBounds.width = (this.width > 0 ? this.width * this.scale : maxW * this.scale);
             this.drawBounds.height = (this.height > 0 ? this.height * this.scale : maxH * this.scale);
             this.drawBounds.calc();
@@ -6171,12 +6178,12 @@ Element.prototype.onserialize = function (key, value) {
                     this.points[i].y = this.drawBounds.y + this.pathPoints[i].y * this.scale;
                 }
 
-               
-               
 
-               
 
-               
+
+
+
+
             }
 
             this.fireLayout();
@@ -6205,7 +6212,7 @@ Element.prototype.onserialize = function (key, value) {
             }
 
             if (this.rotate > 0) {
-               
+
                 var minX = this.pathPoints[0].x;
                 var minY = this.pathPoints[0].y;
                 for (var i = 1; i < this.pathPoints.length; i++) {
@@ -6232,8 +6239,8 @@ Element.prototype.onserialize = function (key, value) {
 
         PolygonElement.prototype.render = function (g) {
             g.save();
-           
-           
+
+
             g.moveTo(this.points[0].x, this.points[0].y);
 
             for (var i = 1; i < this.points.length; i++) {
@@ -6267,8 +6274,8 @@ Element.prototype.onserialize = function (key, value) {
         PolygonElement.prototype.preRender = function (g) {
         }
         PolygonElement.prototype.setEditMode = function (mode) {
-           
-           
+
+
             if (this.canEdit && this.canEvent) {
                 this.setValue('editMode', mode);
                 if (this.editMode > namespace.EditMode.Select) {
@@ -6279,8 +6286,8 @@ Element.prototype.onserialize = function (key, value) {
         namespace.PolygonElement = PolygonElement;
     })(lion);
 
-   
-   
+
+
     !(function (namespace) {
         /**
         * @name BirdsEye
@@ -6395,7 +6402,7 @@ Element.prototype.onserialize = function (key, value) {
             var scaleY = this.height / this.scene.height;
             var eles = this.scene.layers.action.elements;
             for (var i = 0; i < eles.length; i++) {
-               
+
                 if (eles[i] instanceof namespace.LinkElement) continue;
                 if (eles[i] instanceof namespace.LineElement) {
 
@@ -6411,9 +6418,9 @@ Element.prototype.onserialize = function (key, value) {
             }
         }
         BirdsEye.prototype.render = function (g) {
-           
-           
-           
+
+
+
 
             g.fillStyle = this.backgroundColor;
             g.fillRect(this.drawBounds.x, this.drawBounds.y, this.drawBounds.width, this.drawBounds.height);
@@ -6429,8 +6436,8 @@ Element.prototype.onserialize = function (key, value) {
         namespace.BirdsEye = BirdsEye;
     })(lion);
 
-   
-   
+
+
     !(function (namespace) {
         /**
         * @name EndPoint
@@ -6483,7 +6490,7 @@ Element.prototype.onserialize = function (key, value) {
 
         });
         EndPoint.prototype.invalidLayout = function (mode) {
-            namespace.GeoElement.prototype.invalidLayout.call(this,mode);
+            namespace.GeoElement.prototype.invalidLayout.call(this, mode);
             for (var i = 0; i < this.lines.length; i++) {
                 this.lines[i].invalidLayout(mode);
             }
@@ -6491,14 +6498,14 @@ Element.prototype.onserialize = function (key, value) {
 
         EndPoint.prototype.updateBounds = function (g) {
 
-           
+
             var px = 0, py = 0;
             if (this.parent instanceof namespace.LineElement) {
 
                 px = this.scene.x;
                 py = this.scene.y;
-                this.drawBounds.x = (this.x * this.scale+ px);
-                this.drawBounds.y = (this.y * this.scale+ py) 
+                this.drawBounds.x = (this.x * this.scale + px);
+                this.drawBounds.y = (this.y * this.scale + py)
 
             }
             else {
@@ -6508,10 +6515,10 @@ Element.prototype.onserialize = function (key, value) {
                 this.drawBounds.y = (this.y * this.scale + py)
             }
 
-           
-           
-           
-           
+
+
+
+
 
 
             this.drawBounds.width = this.width
@@ -6520,11 +6527,11 @@ Element.prototype.onserialize = function (key, value) {
 
         }
         EndPoint.prototype.move = function (x, y) {
-           
-           
-           
-           
-           
+
+
+
+
+
             if (this.controlMode == namespace.EndPointMode.TopLeft) {
 
                 if (this.controlElement.editMode == namespace.EditMode.Free ||
@@ -6589,7 +6596,7 @@ Element.prototype.onserialize = function (key, value) {
             }
             else if (this.controlMode == namespace.EndPointMode.MiddleBottom) {
                 this.controlElement.height += y;
-               
+
             }
             else if (this.controlMode == namespace.EndPointMode.MiddleLeft) {
                 this.controlElement.x += x;
@@ -6597,7 +6604,7 @@ Element.prototype.onserialize = function (key, value) {
             }
             else if (this.controlMode == namespace.EndPointMode.MiddleRight) {
                 this.controlElement.width += x;
-               
+
             }
 
             else if (this.controlMode == namespace.EndPointMode.Landscape) {
@@ -6616,7 +6623,7 @@ Element.prototype.onserialize = function (key, value) {
                 }
             }
 
-           
+
             for (var n = 0; n < this.controlElement.nodes.length; n++) {
                 if (!(this.controlElement instanceof namespace.LineElement)) {
                     this.controlElement.resetNodeLocation(this.controlElement.nodes[n]);
@@ -6649,8 +6656,8 @@ Element.prototype.onserialize = function (key, value) {
     })(lion);
 
 
-   
-   
+
+
     !(function (namespace) {
         /**
         * @name RectElement
@@ -6674,40 +6681,8 @@ Element.prototype.onserialize = function (key, value) {
         RectElement.prototype = new namespace.NodeElement();
 
         Object.defineProperties(RectElement.prototype, {
-            /**
-            * @name width
-            * @type field
-            * @datatype number
-            * @description 矩形的宽度
-            * @class RectElement
-            */
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-            /**
-            * @name height
-            * @type field
-            * @datatype number
-            * @description 矩形的高度
-            * @class RectElement
-            */
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
+
+
             /**
             * @name radius
             * @type field
@@ -6731,19 +6706,21 @@ Element.prototype.onserialize = function (key, value) {
             namespace.NodeElement.prototype.updateBounds.call(this, g);
         }
         RectElement.prototype.preRender = function (g) {
-            if (this.radius > 0) {
-                pathRoundRect(g,
-                this.drawBounds.x,
-                this.drawBounds.y,
-                this.drawBounds.width,
-                this.drawBounds.height,
-                this.radius
-                );
-            }
+
         }
         RectElement.prototype.renderHighLight = function (g) {
             if (this.highlightColor) {
                 if (this.radius > 0) {
+
+                    pathRoundRect(g,
+                    this.drawBounds.x,
+                    this.drawBounds.y,
+                    this.drawBounds.width,
+                    this.drawBounds.height,
+                    this.radius
+                    );
+
+
                     g.fillStyle = this.highlightColor;
                     g.fill();
                 }
@@ -6759,16 +6736,23 @@ Element.prototype.onserialize = function (key, value) {
             g.shadowColor = this.shadow;
             if (this.backgroundColor) {
                 if (this.radius > 0) {
+                    pathRoundRect(g,
+                                        this.drawBounds.x,
+                                        this.drawBounds.y,
+                                        this.drawBounds.width,
+                                        this.drawBounds.height,
+                                        this.radius
+                                        );
                     g.fillStyle = getBgColor(g, this.backgroundColor);
                     g.fill();
                 }
-                else {        
+                else {
                     g.fillStyle = getBgColor(g, this.backgroundColor);
                     g.fillRect(this.drawBounds.x, this.drawBounds.y, this.drawBounds.width, this.drawBounds.height);
 
                 }
             }
-            
+
             if (this.backgroundImage) {
                 g.save();
                 if (this.radius > 0) g.clip();
@@ -6778,10 +6762,16 @@ Element.prototype.onserialize = function (key, value) {
 
         }
         RectElement.prototype.render = function (g) {
-         
+
 
             if (this.radius > 0) {
-
+                pathRoundRect(g,
+                                    this.drawBounds.x,
+                                    this.drawBounds.y,
+                                    this.drawBounds.width,
+                                    this.drawBounds.height,
+                                    this.radius
+                                    );
                 if (this.borderSize > 0) {
                     g.strokeStyle = this.borderColor;
                     g.lineWidth = this.borderSize;
@@ -6799,8 +6789,8 @@ Element.prototype.onserialize = function (key, value) {
         namespace.RectElement = RectElement;
     })(lion);
 
-   
-   
+
+
     !(function (namespace) {
         /**
             * @name MixElement
@@ -6853,11 +6843,11 @@ Element.prototype.onserialize = function (key, value) {
                     return this.getValue('eventRoute');
                 },
                 set: function (value) {
-                    this.setValue('eventRoute',value);
+                    this.setValue('eventRoute', value);
                 },
                 enumerable: true
             }
-            
+
         });
         /**
         * @name onClick(callback)
@@ -6890,7 +6880,7 @@ Element.prototype.onserialize = function (key, value) {
             }
 
             if (next)
-                namespace.RectElement.prototype.fireClick.call(this,e);
+                namespace.RectElement.prototype.fireClick.call(this, e);
         }
         /**
         * @name add(ele)
@@ -6934,9 +6924,10 @@ Element.prototype.onserialize = function (key, value) {
             if (!ishover) {
                 this.__hoverElement__ = null;
             }
-            
-            namespace.RectElement.prototype.preRender.call(this, g);
 
+            namespace.RectElement.prototype.preRender.call(this, g);
+            for (var i = 0; i < this.elements.length; i++)
+                this.elements[i].preRender(g);
         }
 
 
@@ -6970,7 +6961,7 @@ Element.prototype.onserialize = function (key, value) {
         }
 
         MixElement.prototype.invalidLayout = function (mode) {
-            namespace.RectElement.prototype.invalidLayout.call(this,mode);
+            namespace.RectElement.prototype.invalidLayout.call(this, mode);
             for (var i = 0; i < this.elements.length; i++)
                 this.elements[i].invalidLayout(mode);
         }
@@ -6997,8 +6988,8 @@ Element.prototype.onserialize = function (key, value) {
         namespace.MixElement = MixElement;
     })(lion);
 
-   
-   
+
+
     !(function (namespace) {
         function TextElement() {
             /**
@@ -7068,18 +7059,18 @@ Element.prototype.onserialize = function (key, value) {
                 return namespace.RectElement.prototype.updateBounds.call(this, g);
             }
 
-            
+
 
         }
         TextElement.prototype.renderHighLight = function (g) {
-           
+
         }
         namespace.TextElement = TextElement;
     })(lion);
 
 
-   
-   
+
+
     !(function (namespace) {
         /**
         * @name TooltipElement
@@ -7092,7 +7083,7 @@ Element.prototype.onserialize = function (key, value) {
             namespace.BaseTextElement.call(this);
             this.type = "lion.Tooltip";
             var data = this.__data__;
-           
+
             data.position = namespace.Align.TopRight;
             data.autoSize = true;
             this.align = namespace.Align.TopLeft;
@@ -7156,8 +7147,8 @@ Element.prototype.onserialize = function (key, value) {
         namespace.Tooltip = TooltipElement;
     })(lion);
 
-   
-   
+
+
     !(function (namespace) {
         /**
         * @name CircleElement
@@ -7170,7 +7161,7 @@ Element.prototype.onserialize = function (key, value) {
 
             namespace.NodeElement.call(this);
             var data = this.__data__;
-           
+
             this.radius = 20;
             this.type = "lion.CircleElement";
 
@@ -7226,8 +7217,8 @@ Element.prototype.onserialize = function (key, value) {
 
         });
         CircleElement.prototype.updateBounds = function (g) {
-            var px = this.parent ? this.parent.x : 0;
-            var py = this.parent ? this.parent.y : 0;
+            var px = this.parent ? this.parent.drawBounds.x : 0;
+            var py = this.parent ? this.parent.drawBounds.y : 0;
 
             this.drawBounds.x = (this.x * this.scale + px);
             this.drawBounds.y = (this.y * this.scale + py);
@@ -7242,25 +7233,28 @@ Element.prototype.onserialize = function (key, value) {
             this.fireLayout();
         }
         CircleElement.prototype.preRender = function (g) {
+
+        }
+        CircleElement.prototype.renderHighLight = function (g) {
             g.beginPath();
             g.arc(this.drawBounds.center.x, this.drawBounds.center.y, this.radius * this.scale, 0, 2 * Math.PI);
             g.closePath();
-        }
-        CircleElement.prototype.renderHighLight = function (g) {
             g.fillStyle = this.highlightColor;
-;
             g.fill();
 
         }
         CircleElement.prototype.renderBackground = function (g) {
-
+            g.beginPath();
+            g.arc(this.drawBounds.center.x, this.drawBounds.center.y, this.radius * this.scale, 0, 2 * Math.PI);
+            g.closePath();
 
             if (g.shadowColor != this.shadow) {
                 g.shadowBlur = 8;
                 g.shadowColor = this.shadow;
             }
-            if (g.fillStyle != this.backgroundColor) g.fillStyle = this.backgroundColor;
-           
+            if (g.fillStyle != this.backgroundColor)
+                g.fillStyle = this.backgroundColor;
+
             g.fill();
 
             if (this.backgroundImage) {
@@ -7273,7 +7267,9 @@ Element.prototype.onserialize = function (key, value) {
         CircleElement.prototype.render = function (g) {
 
             if (this.borderSize > 0) {
-
+                g.beginPath();
+                g.arc(this.drawBounds.center.x, this.drawBounds.center.y, this.radius * this.scale, 0, 2 * Math.PI);
+                g.closePath();
                 g.strokeStyle = this.borderColor;
                 g.lineWidth = this.borderSize;
                 g.stroke();
@@ -7282,8 +7278,8 @@ Element.prototype.onserialize = function (key, value) {
         namespace.CircleElement = CircleElement;
     })(lion);
 
-   
-   
+
+
     !(function (namespace) {
         /**
         * @name LineElement
@@ -7298,16 +7294,16 @@ Element.prototype.onserialize = function (key, value) {
             var data = this.__data__;
             this.type = "lion.LineElement";
             data.backgroundColor = "#333333";
-           
+
             data.arrowSize = 10;
-           
+
             data.arrowDirection = namespace.ArrowDirection.Right;
-           
+
             data.arrowStyle = namespace.ArrowStyle.Triangle;
             data.bindPathAnimations = [];
-           
+
             data.startNode = new namespace.EndPoint(this);
-           
+
             data.endNode = new namespace.EndPoint(this);
             data.arrows = [];
             data.points = [];
@@ -7538,11 +7534,11 @@ Element.prototype.onserialize = function (key, value) {
             }
 
             namespace.NodeElement.prototype.invalidLayout.call(this, mode);
-           
+
         }
         LineElement.prototype.updateBounds = function (g) {
 
-           
+
 
             this.startNode.updateBounds(g);
             this.endNode.updateBounds(g);
@@ -7579,12 +7575,12 @@ Element.prototype.onserialize = function (key, value) {
         */
         LineElement.prototype.testPoint = function (x, y) {
 
-           
+
             var range = 5;
             var pf = { x: x, y: y };
             var p1 = this.startNode.drawBounds.center;
             var p2 = this.endNode.drawBounds.center;
-           
+
             var cross = (p2.x - p1.x) * (pf.x - p1.x) + (p2.y - p1.y) * (pf.y - p1.y);
             if (cross <= 0) return false;
             var d2 = (p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y);
@@ -7594,9 +7590,9 @@ Element.prototype.onserialize = function (key, value) {
             var r = cross / d2;
             var px = p1.x + (p2.x - p1.x) * r;
             var py = p1.y + (p2.y - p1.y) * r;
-           
+
             var ran = Math.sqrt((pf.x - px) * (pf.x - px) + (py - pf.y) * (py - pf.y));
-           
+
             return ran <= range;
 
         }
@@ -7675,7 +7671,7 @@ Element.prototype.onserialize = function (key, value) {
             this.startNode.y = y1;
             this.startNode.width = 10;
             this.startNode.height = 10;
-           
+
 
 
             this.endNode.controlMode = namespace.EndPointMode.End;
@@ -7718,7 +7714,7 @@ Element.prototype.onserialize = function (key, value) {
         * @param y number true 点的y坐标
         */
         LineElement.prototype.lineTo = function (x, y) {
-           
+
             this.endNode.x = x;
             this.endNode.y = y;
             this.invalidLayout("bounds");
@@ -7733,7 +7729,7 @@ Element.prototype.onserialize = function (key, value) {
        * @param ongrid number false 是否按网格移动，默认为false
        */
         LineElement.prototype.offset = function (x, y, ongrid) {
-           
+
             this.startNode.x += x;
             this.startNode.y += y;
             this.endNode.x += x;
@@ -7872,8 +7868,8 @@ Element.prototype.onserialize = function (key, value) {
     })(lion);
 
 
-   
-   
+
+
     !(function (namespace) {
         /**
         * @name LinkElement
@@ -7894,9 +7890,9 @@ Element.prototype.onserialize = function (key, value) {
             data.startElement = null;
             data.endElement = null;
             data.onEdge = false;
-  
+
         }
-        
+
         LinkElement.prototype = new namespace.LineElement();
         Object.defineProperties(LinkElement.prototype, {
 
@@ -7951,12 +7947,12 @@ Element.prototype.onserialize = function (key, value) {
                 },
                 enumerable: true
             }
-           
+
 
         });
         LinkElement.prototype.ondeserialize = function (key, value) {
 
-           
+
             if (key == "startNode") {
                 this._start_ = value.split('_');;
             }
@@ -7976,7 +7972,7 @@ Element.prototype.onserialize = function (key, value) {
             delete this._end_;
         }
 
-        
+
 
         LinkElement.prototype.updateBounds = function (g) {
 
@@ -8016,24 +8012,23 @@ Element.prototype.onserialize = function (key, value) {
             this.fireLayout();
         }
         function getEdge(ele, ele2) {
-           
             if (ele instanceof namespace.RectElement) {
+               
+                var cangle = namespace.Util.toAngle(Math.atan((ele.drawBounds.height / 2) / (ele.drawBounds.width / 2)));
                 if (ele.drawBounds.center.x < ele2.drawBounds.center.x && ele.drawBounds.center.y < ele2.drawBounds.center.y) {
                     var w = ele2.drawBounds.center.x - ele.drawBounds.center.x;
                     var h = ele2.drawBounds.center.y - ele.drawBounds.center.y;
                     var radian = Math.atan(h / w);
                     var angle = namespace.Util.toAngle(radian);
-
-                    if (angle <= 45) {
-                        var h2 = ele.drawBounds.width / 2 * Math.tan(radian);
-
+                   
+                    if (angle <= cangle) {
                         var x = ele.drawBounds.x + ele.drawBounds.width;
+                        var h2 = ele.drawBounds.width / 2 * Math.tan(radian);
                         var y = ele.drawBounds.y + ele.drawBounds.height / 2 + h2;
                         return { x: x, y: y };
                     }
-                    else if (angle > 45) {
+                    else if (angle > cangle) {
                         var w2 = ele.drawBounds.height / 2 / Math.tan(radian);
-
                         var x = ele.drawBounds.x + ele.drawBounds.width / 2 + w2;
                         var y = ele.drawBounds.y + ele.drawBounds.height;
                         return { x: x, y: y };
@@ -8047,16 +8042,17 @@ Element.prototype.onserialize = function (key, value) {
                     var h = ele2.drawBounds.center.y - ele.drawBounds.center.y;
                     var radian = Math.atan(h / w);
                     var angle = namespace.Util.toAngle(radian);
-                    if (angle <= 45) {
-                        var h2 = ele.drawBounds.width / 2 * Math.tan(radian);
+                   
+
+                    if (angle <= cangle) {
                         var x = ele.drawBounds.x;
-                        var y = ele.drawBounds.center.y + h2;
+                        var h2 = ele.drawBounds.width / 2 * Math.tan(radian);
+                        var y = ele.drawBounds.y + ele.drawBounds.height / 2 + h2;
                         return { x: x, y: y };
                     }
-                    else if (angle > 45) {
+                    else if (angle > cangle) {
                         var w2 = ele.drawBounds.height / 2 / Math.tan(radian);
-
-                        var x = ele.drawBounds.center.x - w2;
+                        var x = ele.drawBounds.x + ele.drawBounds.width / 2 - w2;
                         var y = ele.drawBounds.y + ele.drawBounds.height;
                         return { x: x, y: y };
                     }
@@ -8069,16 +8065,17 @@ Element.prototype.onserialize = function (key, value) {
                     var h = ele.drawBounds.center.y - ele2.drawBounds.center.y;
                     var radian = Math.atan(h / w);
                     var angle = namespace.Util.toAngle(radian);
-                    if (angle <= 45) {
+                   
+
+                    if (angle <= cangle) {
+                        var x = ele.drawBounds.x ;
                         var h2 = ele.drawBounds.width / 2 * Math.tan(radian);
-                        var x = ele.drawBounds.x;
-                        var y = ele.drawBounds.center.y - h2;
+                        var y = ele.drawBounds.y + ele.drawBounds.height / 2 - h2;
                         return { x: x, y: y };
                     }
-                    else if (angle > 45) {
+                    else if (angle > cangle) {
                         var w2 = ele.drawBounds.height / 2 / Math.tan(radian);
-
-                        var x = ele.drawBounds.center.x - w2;
+                        var x = ele.drawBounds.x + ele.drawBounds.width / 2 - w2;
                         var y = ele.drawBounds.y;
                         return { x: x, y: y };
                     }
@@ -8092,18 +8089,21 @@ Element.prototype.onserialize = function (key, value) {
                     var radian = Math.atan(h / w);
                     var angle = namespace.Util.toAngle(radian);
 
-                    if (angle <= 45) {
-                        var h2 = ele.drawBounds.width / 2 * Math.tan(radian);
-
+                   
+                    if (angle <= cangle) {
                         var x = ele.drawBounds.x + ele.drawBounds.width;
+                        var h2 = ele.drawBounds.width / 2 * Math.tan(radian);
                         var y = ele.drawBounds.y + ele.drawBounds.height / 2 - h2;
                         return { x: x, y: y };
                     }
-                    else if (angle > 45) {
-                        var w2 = ele.drawBounds.height / 2 / Math.tan(radian);
+                    else if (angle > cangle) {
+                 
 
+                        var w2 = ele.drawBounds.height / 2 / Math.tan(radian);
                         var x = ele.drawBounds.x + ele.drawBounds.width / 2 + w2;
-                        var y = ele.drawBounds.y;
+                       
+                       
+                        var y = ele.drawBounds.y
                         return { x: x, y: y };
                     }
                     else {
@@ -8134,16 +8134,16 @@ Element.prototype.onserialize = function (key, value) {
 
 
                 var y = ele.drawBounds.center.y + (w > 0 ? Math.sin(radian) * ele.radius : 0 - Math.sin(radian) * ele.radius);
-                var x = ele.drawBounds.center.x + (w > 0 ? Math.cos(radian) * ele.radius : 0- Math.cos(radian) * ele.radius);
+                var x = ele.drawBounds.center.x + (w > 0 ? Math.cos(radian) * ele.radius : 0 - Math.cos(radian) * ele.radius);
                 return { x: x, y: y };
 
 
             }
         }
         LinkElement.prototype.preRender = function (g) {
-           
-            
-     
+
+
+
             this.points.splice(0);
             if (this.startNode && this.endNode) {
                 if (this.startNode.controlMode == namespace.EndPointMode.Center) {
@@ -8176,13 +8176,13 @@ Element.prototype.onserialize = function (key, value) {
                     this.points.push({
                         x: this.endNode.drawBounds.center.x, y: this.endNode.drawBounds.center.y
                     });
-                   
+
                 }
                 this._arrows = [];
                 this.preArrow(g, this.points[0], this.points[1]);
             }
-     
-           
+
+
         }
 
 
@@ -8195,7 +8195,7 @@ Element.prototype.onserialize = function (key, value) {
             this.endNode.lines.push(this);
         });
         /**
-        * @name setStartAndEnd(start, end, sm, em)
+        * @name setStartAndEnd(start, end, onedge)
         * @type function
         * @description 设置连线的起始点
         * @class LinkElement
@@ -8231,7 +8231,7 @@ Element.prototype.onserialize = function (key, value) {
             this.startNode.lines.push(this);
             this.endNode.lines.push(this);
         });
-       
+
         LinkElement.prototype.setParent = function (parentEle) {
             namespace.NodeElement.prototype.setParent.call(this, parentEle);
         }
@@ -8241,8 +8241,8 @@ Element.prototype.onserialize = function (key, value) {
                 this.animationInvalid = true;
             }
 
-            namespace.BaseTextElement.prototype.invalidLayout.call(this,mode);
-           
+            namespace.BaseTextElement.prototype.invalidLayout.call(this, mode);
+
         }
         LinkElement.prototype.onserialize = function (key, value) {
             if (key == "startNode") return '"startNode":"' + value.controlElement.id + '_' + value.controlMode + '"';
@@ -8251,8 +8251,8 @@ Element.prototype.onserialize = function (key, value) {
         namespace.LinkElement = LinkElement;
     })(lion);
 
-   
-   
+
+
     !(function (namespace) {
         /**
         * @name CurveLinkElement
@@ -8267,14 +8267,14 @@ Element.prototype.onserialize = function (key, value) {
             this.type = "lion.CurveLinkElement";
 
             function getPointOnCurve(t, p0, p1, p2) {
-               
-               
-               
-               
-               
-               
-               
-               
+
+
+
+
+
+
+
+
                 var point = {};
                 var temp = 1 - t;
                 point.x = temp * temp * p0.x + 2 * t * temp * p1.x + t * t * p2.x;
@@ -8379,8 +8379,8 @@ Element.prototype.onserialize = function (key, value) {
         namespace.CurveLinkElement = CurveLinkElement;
     })(lion);
 
-   
-   
+
+
     !(function (namespace) {
         /**
         * @name RAngleLinkElement
@@ -8473,7 +8473,7 @@ Element.prototype.onserialize = function (key, value) {
         }
 
 
-       
+
         function nextIsEnd(curDirection, endDirection, start, end) {
             switch (curDirection) {
                 case namespace.Direction.Top:
@@ -8503,14 +8503,14 @@ Element.prototype.onserialize = function (key, value) {
             }
         }
 
-       
+
         function findPoints(o, start, end, minInflexion) {
             var array = [];
             var blankstep = minInflexion;
             var last = o.startDirection;
             var cur = start;
             array.push(start);
-           
+
             while (cur.x != end.x || cur.y != end.y) {
                 switch (last) {
                     case namespace.Direction.Top: {
@@ -8639,7 +8639,7 @@ Element.prototype.onserialize = function (key, value) {
 
 
         RAngleLinkElement.prototype.innerfindPoints = function () {
-            
+
             if (this.__oldStartPos.x != this.startNode.x ||
                                 this.__oldStartPos.y != this.startNode.y ||
                                 this.__oldEndtPos.x != this.endNode.x ||
@@ -8706,11 +8706,11 @@ Element.prototype.onserialize = function (key, value) {
                         return namespace.Direction.Bottom;
                 }
             }
-            namespace.LinkElement.prototype.setStartAndEnd.call(this, start, end,sm,em);
+            namespace.LinkElement.prototype.setStartAndEnd.call(this, start, end, sm, em);
 
-                this.startDirection = getDirection(this.startElement, this.endElement, this.startNode.controlMode);
-                this.endDirection = getDirection(this.startElement, this.endElement, this.endNode.controlMode);
-            
+            this.startDirection = getDirection(this.startElement, this.endElement, this.startNode.controlMode);
+            this.endDirection = getDirection(this.startElement, this.endElement, this.endNode.controlMode);
+
         });
         /**
         * @name setStartAndEndDirection(start, end, sm, em)
@@ -8723,7 +8723,7 @@ Element.prototype.onserialize = function (key, value) {
         * @param em number false 结束元素的结束方向
         */
         RAngleLinkElement.prototype.setStartAndEndDirection = function (start, end, sm, em) {
-           
+
             namespace.LinkElement.prototype.setStartAndEnd.call(this, start, end);
             if (sm != null || em != null) {
                 this.startDirection = sm;
@@ -8731,7 +8731,7 @@ Element.prototype.onserialize = function (key, value) {
             }
         };
 
- 
+
         RAngleLinkElement.prototype.updateBounds = function (g) {
             namespace.LinkElement.prototype.updateBounds.call(this, g);
             if (this.onEdge)
@@ -8745,7 +8745,7 @@ Element.prototype.onserialize = function (key, value) {
             var ey = this.endElement.drawBounds.center.y;
 
             if (Math.abs(ex - sx) > Math.abs(ey - sy)) {
-               
+
                 if (sx < ex) {
                     this.startNode = this.startElement.getNode(namespace.EndPointMode.MiddleRight);
                     this.endNode = this.endElement.getNode(namespace.EndPointMode.MiddleLeft);
@@ -8759,7 +8759,7 @@ Element.prototype.onserialize = function (key, value) {
                 }
             }
             else {
-               
+
                 if (sy <= ey) {
                     this.startNode = this.startElement.getNode(namespace.EndPointMode.MiddleBottom);
                     this.endNode = this.endElement.getNode(namespace.EndPointMode.MiddleTop);
@@ -8774,7 +8774,7 @@ Element.prototype.onserialize = function (key, value) {
                 }
             }
 
-           
+
         }
         RAngleLinkElement.prototype.testPoint = function (x, y) {
             for (var i = 1; i < this.points.length; i++) {
@@ -8876,9 +8876,9 @@ Element.prototype.onserialize = function (key, value) {
         namespace.RAngleLinkElement = RAngleLinkElement;
     })(lion);
 
-   
 
-   
+
+
     !(function (namespace) {
         /**
         * @name Layout
@@ -8889,7 +8889,7 @@ Element.prototype.onserialize = function (key, value) {
         */
         function Layout() { }
         namespace.Layout = Layout;
-       
+
         Layout.AlignMode = {
             Left: 0,
             Right: 1,
@@ -8898,7 +8898,7 @@ Element.prototype.onserialize = function (key, value) {
             Horizontal: 10,
             Vertical: 11
         }
-       
+
         Layout.ArrangeMode = {
             Horizontal: 0,
             Vertical: 1
@@ -9007,7 +9007,7 @@ Element.prototype.onserialize = function (key, value) {
             var lineElements = [];
             for (var i = 0; i < elements.length; i++) {
 
-                
+
 
                 lineElements.push(elements[i]);
                 elements[i].x = rect.x + lineWidth + margin;
@@ -9043,7 +9043,7 @@ Element.prototype.onserialize = function (key, value) {
         * @param startangle number false 开始的角度，缺省为0度
         */
         Layout.around = function (elements, radius, stand, startangle) {
-   
+
             var step = step = 360 / elements.length;
             var angle = startangle ? startangle : 0;
             var start = 0;
@@ -9098,7 +9098,7 @@ Element.prototype.onserialize = function (key, value) {
         }
     })
     (lion);
-   
+
 
     return lion.Timer.init();
 

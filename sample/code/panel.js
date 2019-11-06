@@ -12,11 +12,12 @@ for (var i = 0; i < 2; i++) {
     var ele = new lion.RectElement();
     ele.backgroundColor = "blue";
     ele.text = "Element" + i;
-
-    ele.x = 100 + i * 120;
+    ele.radius = 10;
+    ele.x = 50 + i * 120;
     ele.y = 100;
     ele.width = 100;
     ele.height = 100;
+    ele.borderSize = 4;
     ele.onHover(function () {
         console.log("hover");
     });

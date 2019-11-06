@@ -77,13 +77,15 @@ stage.currentScene.addElement(link);
 //边缘直角连线
 var ele5 = new lion.RectElement();
 ele5.backgroundColor = "blue";
-ele5.x = 400;
+ele5.x = 450;
 ele5.y = 100;
+ele5.width = 50;
+ele5.height = 200;
 
 stage.currentScene.addElement(ele5);
-var ele6 = stage.new(lion.CircleElement);
+var ele6 = new lion.CircleElement();
 ele6.backgroundColor = "blue";
-ele6.x = 600;
+ele6.x = 650;
 ele6.y = 150;
 
 stage.currentScene.addElement(ele6);

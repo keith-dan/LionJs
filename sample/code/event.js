@@ -13,6 +13,7 @@ ele.align = lion.Align.TopLeft;
 ele.borderSize = 4;
 ele.onClick(function (ele) {
     ele.setTooltip(new Date().toString());
+    stage.currentScene.toCenter(ele)
 });
 ele.onHover(function (ele) {
     stage.debugger.write('ele hover');
